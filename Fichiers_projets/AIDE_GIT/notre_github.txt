@@ -11,3 +11,51 @@ git checkout develop
 
 - pour créer une nouvelle branche :
  git checkout -b nomNouvelleBranche ( différent si tu crées une sous branche de branche
+
+
+INSTRUCTIONS DE BASE
+--------------
+
+
+0 - aller dans www
+
+1 - git init
+
+2 - git clone https://github.com/LevelFiveENI/sortir_com.git
+
+
+3 - Changer de branche 
+
+ git checkout develop
+ 
+4 - Après avoir modifié un fichier
+
+git add Fichiers_projets\AIDE_GIT\notre_github.txt
+
+5 - Préparer le commit
+
+git commit -m "test de changement de notre git hub"
+
+6 - commit sur develop 
+
+git push origin develop
+
+INSTRUCTIONS POUR CREER SA PROPRE BRANCHE ET BOSSER DESSUS PUIS MERGE AVEC DEVELOP
+
+0 - git checkout -b creationduntwigcool
+
+1- Faites votre taf' par exemple créer un fichier twig dans src/templates/twig.html.twig
+
+2 - git add src/templates/twig.html.twig / si c'est un fichier qui existe déjà et que vous modifiez , rajoutez l'option a sur le git commit après
+
+3 - git commit -am "mon joli twig"
+
+4 - git push (origin creationduntwigcool)
+
+5 - git checkout develop
+
+6 - git merge creationduntwigcool
+
+7 - git push (--set-upstream) origin develop 
+
+
