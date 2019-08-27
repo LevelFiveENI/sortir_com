@@ -2,7 +2,7 @@ https://github.com/LevelFiveENI/sortir.git
 
 - Pour télécharger le contenu du git (une première fois)
 
-git clone https://github.com/LevelFiveENI/sortir.git
+git clone https://github.com/LevelFiveENI/sortir_com.git
 
 - pour changer de branche :
 git checkout develop
