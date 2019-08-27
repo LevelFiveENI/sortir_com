@@ -254,9 +254,6 @@
             "./config/routes.yaml"
         ]
     },
-    "symfony/security-core": {
-        "version": "v3.4.31"
-    },
     "symfony/security-csrf": {
         "version": "v3.4.31"
     },
