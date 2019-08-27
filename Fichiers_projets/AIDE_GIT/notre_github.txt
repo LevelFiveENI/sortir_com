@@ -1,0 +1,13 @@
+https://github.com/LevelFiveENI/sortir.git
+
+- Pour télécharger le contenu du git (une première fois)
+
+git clone https://github.com/LevelFiveENI/sortir.git
+
+- pour changer de branche :
+git checkout develop
+(ou develop est le nom de la branche)
+
+
+- pour créer une nouvelle branche :
+ git checkout -b nomNouvelleBranche ( différent si tu crées une sous branche de branche
