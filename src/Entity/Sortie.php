@@ -40,7 +40,7 @@ class Sortie
      * @ORM\Column(type="string", length=150)
      *
      *  @Assert\Regex(
-     *  pattern     = "/^[a-z0-9]+$/i",
+     *  pattern     = "/^[a-z0-9 ]+$/i",
      *  match=true,
      *  message="Le nom de la sortie ne peut pas contenir de caractères spéciaux"
      *    )
@@ -104,7 +104,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      *  @Assert\Regex(
-     *  pattern     = "/^[a-z0-9]+$/i",
+     *  pattern     = "/^[a-z0-9 ]+$/i",
      *  match=true,
      *  message="Les infos concernant la sortie ne peuvent pas contenir de caracteres spéciaux"
      *    )
