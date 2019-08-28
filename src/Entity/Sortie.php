@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -64,8 +66,11 @@ class Sortie
      */
     private $site;
 
-
-
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
 
 
     //----Getter et Setter de Sortie
@@ -182,5 +187,19 @@ class Sortie
 
         return $this;
     }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+
 
 }
