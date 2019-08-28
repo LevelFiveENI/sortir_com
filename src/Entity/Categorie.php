@@ -19,7 +19,7 @@ class Categorie
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(name ="libelle", type="string", length=30)
      */
     private $libelle;
 

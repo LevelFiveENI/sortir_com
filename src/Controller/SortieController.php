@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,16 +32,51 @@ class SortieController extends Controller
     /**
      * @Route("/new", name="sortie_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
+        $etat = new Etat();
+        $etat = $em->getRepository('App:Etat')->find(1);
+        $etat->addSortie($sortie);
+
+        $sortie->setEtat($etat);
+
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($sortie);
-            $entityManager->flush();
+            //Si le formulaire est ok, on va crée des objets Ville et Lieu associés à la sortie
+            $ville = new Ville();
+            $lieu = new Lieu();
+
+            //On récupère les infos nécessaires
+            $tabInfos = $request->get('sortie');
+            $nomLieu = $tabInfos['lieu'];
+            $adresseLieu = $tabInfos['rue'];
+            $nomVille = $tabInfos['ville'];
+            $codeVille = $tabInfos['codePostal'];
+
+            //On set les objets avec les valeurs
+            //Pour la ville
+            $ville->setNom($nomVille);
+            $ville->setCodePostal($codeVille);
+            //Pour le lieu
+            $lieu->setNom($nomLieu);
+            $lieu->setRue($adresseLieu);
+
+            //On rajoute un lieu a la ville
+            $ville->addLieux($lieu);
+
+            //On rajoute le lieux à la sortie
+            $sortie->setLieu($lieu);
+
+            //On envoi en BDD
+            $em->persist($sortie);
+            $em->persist($lieu);
+            $em->persist($ville);
+            $em->flush();
+            //dump("Ok !");
+            //exit();
 
             return $this->redirectToRoute('sortie_index');
         }
@@ -53,6 +92,7 @@ class SortieController extends Controller
      */
     public function show(Sortie $sortie): Response
     {
+
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
