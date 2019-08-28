@@ -14,12 +14,8 @@ class Participant
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $idParticipant;
+
 
     /**
      * @ORM\Column(type="string", length=100)
