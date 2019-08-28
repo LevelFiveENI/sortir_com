@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.5.5.tgz: tunneling socket could not be established, statusCode=403
+  Error: https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-0.28.0.tgz: tunneling socket could not be established, statusCode=403
       at ClientRequest.onConnect (C:\Program Files (x86)\Yarn\lib\cli.js:151939:19)
       at Object.onceWrapper (events.js:286:20)
       at ClientRequest.emit (events.js:198:13)
