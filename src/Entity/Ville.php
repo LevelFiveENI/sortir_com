@@ -6,7 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 // Valentin Et Jeremy
+
+// ajout des Assert pour nom et code postal (Jeremy)
+//nom : seulement lettres autorisées
+//code postale : 5 chiffres en tout
+
 /**
  *
  * @ORM\Entity(repositoryClass="App\Repository\VilleRepository")
@@ -22,11 +29,24 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     match=true,
+     *     message="Le nom de la ville ne peut pas contenir de numéros ou de caractères spéciaux"
+     *     )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     *       @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "un code postale a 5 chiffres",
+     *      maxMessage = "un code postale a 5 chiffres",
+     *      exactMessage = "un code postale a 5 chiffres"
+     * )
      */
     private $codePostal;
 
