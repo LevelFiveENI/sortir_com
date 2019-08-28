@@ -36,7 +36,8 @@
 /phpunit.xml
 
 # Build data
-/build/
+/build/*
+/public/build/
 
 # Composer PHAR
 /composer.phar
@@ -46,3 +47,16 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+# node_js
+/node_modules
+/app/node_modules
+
+# IDE
+/.idea
+
+
+# .env
+
+*.env
+/.env
