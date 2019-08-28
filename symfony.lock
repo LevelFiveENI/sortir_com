@@ -272,6 +272,7 @@
     "symfony/security": {
         "version": "v3.4.31"
     },
+
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -284,6 +285,7 @@
             "./config/packages/security.yaml"
         ]
     },
+
     "symfony/security-csrf": {
         "version": "v3.4.31"
     },
