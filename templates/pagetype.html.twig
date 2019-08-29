@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {# Chargement des feuilles de style #}
+    {{ encore_entry_link_tags('pagetype') }}
+    {{ encore_entry_link_tags('accueil') }}
+    <link href="https://fonts.googleapis.com/css?family=Gayathri|Quicksand&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand"  href="#">
+
+            <img class="img-logo" alt="logo-sortir" src="{{asset('build/images/sortir-logo.png')}}"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="annonce nav-item active">
+                    <a class="nav-link"  href="#">Accueil<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-text nav-item">
+                    <a class="nav-link" href="#">Mon profil</a>
+                </li>
+                <li class="nav-text nav-item">
+                    <a class="nav-link" href="#">Les sorties</a>
+                </li>
+            </ul>
+            <form  action="/vente/recherche" class="form-inline my-2 my-lg-0">
+                <input name="input-recherche" class="form-control mr-sm-2" type="search" placeholder="Rechercher une sortie" aria-label="Search">
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Rechercher</button>
+            </form>
+        </div>
+    </nav>
+</header>
+<main>
+
+        {% block main %}
+
+        {% endblock %}
+
+</main>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-4 footer-box">
+                <a href="#" class="footer-text">Conditions Générales d'utilisation</a>
+            </div>
+            <div class="col-4 footer-box">
+                <a href="#" class="footer-text">A propos de</a>
+            </div>
+            <div class="col-4 footer-box">
+                <a href="#" class="footer-text">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
+{# Chargement des scripts #}
+{{ encore_entry_script_tags('app') }}
+</body>
+</html>
