@@ -58,12 +58,13 @@ class Lieu
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="lieux")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
+     *
      */
     private $nomVille;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="lieu", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="lieu", orphanRemoval=true, cascade={"persist"})
      */
     private $sorties;
 
@@ -71,8 +72,6 @@ class Lieu
     {
         $this->sorties = new ArrayCollection();
     }
-
-
 
 
     //Getter et Setter de Lieu-------------------------------

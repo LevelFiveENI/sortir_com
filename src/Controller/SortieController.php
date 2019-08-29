@@ -6,6 +6,7 @@ use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
+use App\Form\LieuType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,45 +36,59 @@ class SortieController extends Controller
     public function new(EntityManagerInterface $em, Request $request): Response
     {
         $sortie = new Sortie();
+        $lieu = new Lieu();
         $etat = new Etat();
-        $etat = $em->getRepository('App:Etat')->find(1);
-        $etat->addSortie($sortie);
-
-        $sortie->setEtat($etat);
 
         $form = $this->createForm(SortieType::class, $sortie);
+        $formLieu = $this->createForm(LieuType::class, $lieu);
+
+        $formLieu->handleRequest($request);
         $form->handleRequest($request);
+
+        if ($formLieu->isSubmitted() && $formLieu->isValid()){
+            //dump($request->get('lieu'));
+            $tabLieux = $request->get('lieu');
+            $idVille = $tabLieux['nomVille'];
+            $villeLieu = $em->getRepository('App:Ville')->find($idVille);
+            //dump($villeLieu);
+            //exit();
+            $lieu->setNomVille($villeLieu);
+            $em->persist($lieu);
+            $em->flush();
+            dump($lieu);
+            exit();
+            return $this->redirectToRoute('sortie_new', ['lieu', $lieu]);
+
+        }
+        if($request->attributes->get('lieu') != null){
+            $lieuChoisi = $request->attributes->get('lieu');
+            dump($lieuChoisi);
+            exit();
+        }
+
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Si le formulaire est ok, on va crée des objets Ville et Lieu associés à la sortie
-            $ville = new Ville();
-            $lieu = new Lieu();
+            //$ville = new Ville();
+            $etat = $em->getRepository('App:Etat')->find(1);
+            $sortie->setLieu($lieu);
+            $etat->addSortie($sortie);
+            $sortie->setEtat($etat);
 
             //On récupère les infos nécessaires
             $tabInfos = $request->get('sortie');
-            $nomLieu = $tabInfos['lieu'];
-            $adresseLieu = $tabInfos['rue'];
-            $nomVille = $tabInfos['ville'];
-            $codeVille = $tabInfos['codePostal'];
+            //$nomLieu = $tabInfos['lieu'];
+            //$adresseLieu = $tabInfos['rue'];
+            //$nomVille = $tabInfos['ville'];
+            //$codeVille = $tabInfos['codePostal'];
 
-            //On set les objets avec les valeurs
-            //Pour la ville
-            $ville->setNom($nomVille);
-            $ville->setCodePostal($codeVille);
-            //Pour le lieu
-            $lieu->setNom($nomLieu);
-            $lieu->setRue($adresseLieu);
-
-            //On rajoute un lieu a la ville
-            $ville->addLieux($lieu);
-
-            //On rajoute le lieux à la sortie
-            $sortie->setLieu($lieu);
 
             //On envoi en BDD
             $em->persist($sortie);
             $em->persist($lieu);
-            $em->persist($ville);
+            //$em->persist($ville);
             $em->flush();
             //dump("Ok !");
             //exit();
@@ -83,7 +98,9 @@ class SortieController extends Controller
 
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
+            'lieu'=>$lieu,
             'form' => $form->createView(),
+            'formLieu' => $formLieu->createView(),
         ]);
     }
 

@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Categorie;
+use App\Entity\Ville;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Category;
@@ -17,6 +19,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class SortieType extends AbstractType
 {
@@ -69,30 +74,26 @@ class SortieType extends AbstractType
                 'choice_label' => 'nom',
 
             ])
-            ->add('lieu', TextType::class, [
-                'label'=>'Nom du lieu',
-                'required'=>false,
-                'mapped'=>false,
 
+            ->add('ville', EntityType::class,[
+                'class' => Ville::class,
+                'query_builder' => function(EntityRepository $er){
+                    return $er->createQueryBuilder('v')->orderBy('v.nom', 'ASC');
+                },
+                'choice_label' => 'nom',
             ])
-            ->add('rue', TextType::class, [
-                'label'=>'Adresse du lieu',
-                'required'=>false,
-                'mapped'=>false,
 
+            ->add('lieu', EntityType::class,[
+                'class' => Lieu::class,
+                'query_builder' => function(EntityRepository $er){
+                    return $er->createQueryBuilder('l')
+                        ->leftJoin('l.nomVille', 'nomVille')->addSelect('nomVille')
+                        ->where('l.nomVille = :ville ')
+                        ->setParameter('ville', 'Le Mans');
+                },
+                'choice_label' => 'nom',
             ])
-            ->add('ville', TextType::class, [
-                'label'=>'Ville',
-                'required'=>false,
-                'mapped'=>false,
 
-            ])
-            ->add('codePostal', TextType::class, [
-                'label'=>'Code Postal',
-                'required'=>false,
-                'mapped'=>false,
-
-            ])
         ;
     }
 

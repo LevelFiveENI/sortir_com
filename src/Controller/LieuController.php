@@ -31,20 +31,23 @@ class LieuController extends Controller
     public function new(Request $request): Response
     {
         $lieu = new Lieu();
-        $form = $this->createForm(LieuType::class, $lieu);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        //$formLieu = $this->createForm(LieuType::class, $lieu);
+        //$formLieu->handleRequest($request);
+        $lieuChoisi = $request->attributes->get('lieu');
+        dump($lieuChoisi);
+        exit();
+        if ($formLieu->isSubmitted() && $formLieu->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($lieu);
             $entityManager->flush();
-
-            return $this->redirectToRoute('lieu_index');
+            //dump($lieu);
+            //exit();
+            return $this->redirectToRoute('sortie_new', ['newLieu'=>$lieu]);
         }
 
         return $this->render('lieu/new.html.twig', [
             'lieu' => $lieu,
-            'form' => $form->createView(),
+            'form' => $formLieu->createView(),
         ]);
     }
 
