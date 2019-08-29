@@ -6,6 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
+
+// ajout des Assert pour nom et rue (Jeremy)
+// seulement lettres et chiffres autorisées
+// ajout des not null
+
+
 /**
  * Valentin et Jeremy
  * @ORM\Entity(repositoryClass="App\Repository\LieuRepository")
@@ -21,11 +29,28 @@ class Lieu
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Regex(
+     *   pattern     = "/^[a-z0-9 ]+$/i",
+     *   match=true,
+     *   message="Le nom du lieu ne peut pas contenir de caractères spéciaux"
+     *     )
+     * @Assert\NotNull(
+     * message="Un nom de lieu ne peut pas être null"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Assert\Regex(
+     *   pattern     = "/^[a-z0-9 ]+$/i",
+     *   match=true,
+     *   message="La rue ne peut pas contenir de caractères spéciaux"
+     *     )
+     * @Assert\NotNull(
+     * message="Un nom de rue ne peut pas être null"
+     * )
+     *
      */
     private $rue;
 

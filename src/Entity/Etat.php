@@ -60,7 +60,7 @@ class Etat
         return $this->sorties;
     }
 
-    public function addSorty(Sortie $sorty): self
+    public function addSortie(Sortie $sorty): self
     {
         if (!$this->sorties->contains($sorty)) {
             $this->sorties[] = $sorty;

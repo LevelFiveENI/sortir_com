@@ -2,11 +2,22 @@
 <html>
     <head>
         <meta charset="UTF-8">
+
+
+        <!-- ligne pour "importer" le bootstrap dans une page -->
+        {{ encore_entry_link_tags('app') }}
+
+
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
+
+
+        <!-- ligne pour "importer" le js dans une page -->
+        {{ encore_entry_script_tags('app') }}
+
         {% block javascripts %}{% endblock %}
         {{ encore_entry_script_tags('app') }}
     </body>

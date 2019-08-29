@@ -1,0 +1,33 @@
+Categorie : 
+1 - sport 
+2 - musique
+3 - informatique
+4 - culture
+5 - divers
+6 - apero
+
+Script
+INSERT INTO `categorie` (`id`, `libelle`) VALUES (NULL, 'sport'), (NULL, 'musique'), (NULL, 'informatique'), (NULL, 'culture'), (NULL, 'divers'), (NULL, 'informatique'), (NULL, 'culture'), (NULL, 'apero');
+
+Etat :
+1 - cree
+2 - ouverte
+3 - cloture
+4 - actEncours
+5 - passee
+6 - annulee
+
+INSERT INTO `etat` (`id`, `libelle`) VALUES (NULL, 'cree'), (NULL, 'ouverte'), (NULL, 'cloture'), (NULL, 'actEncours'), (NULL, 'passee'), (NULL, 'annulee');
+
+Site :
+1 - Nantes
+2 - La Roche-sur-Yon
+3 - Quimper
+4 - Rennes
+5 - Le Mans
+6 - Laval
+7 - Niort
+
+INSERT INTO `site` (`id`, `nom`) VALUES (NULL, 'Nantes'), (NULL, 'La Roche-sur-Yon'), (NULL, 'Quimper'), (NULL, 'Rennes'), (NULL, 'Le Mans'), (NULL, 'Laval'), (NULL, 'Niort');
+
+
