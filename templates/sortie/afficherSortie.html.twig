@@ -1,0 +1,76 @@
+{%  extends ('base.html.twig') %}
+
+
+
+    {% block body %}
+
+    <h2>Filtrer les sorties</h2>
+
+
+
+
+
+
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown link
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    {% endblock %}
+
+
+{% block tableauSortie %}
+
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Nom de la sortie</th>
+            <th scope="col">Date de la sortie</th>
+            <th scope="col">Clôture</th>
+            <th scope="col">Inscrit / places</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Inscrit</th>
+            <th scope="col">Organisateur</th>
+            <th scope="col">Actions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+{% for s in allSortie  %}
+        <tr>
+            <th scope="row"> {{s.nom}} </th>
+            <td>{{ s.dateHeureDebut |date("d/m/Y à H:i") }}</td>
+            <td>{{s.dateLimiteInscription |date("d/m/Y") }}</td>
+            <td>Inscrit / {{s.nbInscriptionsMax}}</td>
+            <td>{{s.etat.libelle}}</td>
+            <td>inscrit</td>
+            <td>organisateur</td>
+            <td>actions</td>
+        </tr>
+      {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+{% endblock %}
