@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 // ajout des Assert pour nom et rue (Jeremy)
 // seulement lettres et chiffres autorisées
+// ajout des not null
 
 
 /**
@@ -33,6 +34,9 @@ class Lieu
      *   match=true,
      *   message="Le nom du lieu ne peut pas contenir de caractères spéciaux"
      *     )
+     * @Assert\NotNull(
+     * message="Un nom de lieu ne peut pas être null"
+     * )
      */
     private $nom;
 
@@ -43,6 +47,10 @@ class Lieu
      *   match=true,
      *   message="La rue ne peut pas contenir de caractères spéciaux"
      *     )
+     * @Assert\NotNull(
+     * message="Un nom de rue ne peut pas être null"
+     * )
+     *
      */
     private $rue;
 
