@@ -8,6 +8,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -23,14 +24,13 @@ class afficherSortieController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/afficSortie", name="affich_affich", methods={"GET", "POST"})
      */
-    public function afficherSortie(EntityManagerInterface $em){
+    public function afficherSortie(EntityManagerInterface $em, Request $request){
 
         // recuperation des sorties
         $sorti = $em->getRepository('App:Sortie')->findAll();
 
         // recuperation des sites
         $site = $em->getRepository('App:Site')->findAll();
-
 
 
 
