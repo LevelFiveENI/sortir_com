@@ -33,9 +33,6 @@ class Categorie
         $this->sorties = new ArrayCollection();
     }
 
-
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -70,7 +67,6 @@ class Categorie
 
         return $this;
     }
-
 
 
     public function removeSortie(Sortie $sorty): self

@@ -67,7 +67,6 @@ class Sortie
      */
     private $dateHeureDebut;
 
-
     /**
      * @ORM\Column(type="integer")
      *
@@ -80,8 +79,6 @@ class Sortie
      * )
      */
     private $duree;
-
-
 
     /**
      * @ORM\Column(type="date")
@@ -102,8 +99,6 @@ class Sortie
      *
      */
     private $dateLimiteInscription;
-
-
 
     /**
      * @ORM\Column(type="integer")
@@ -148,7 +143,7 @@ class Sortie
     private $lieu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $site;
@@ -158,6 +153,11 @@ class Sortie
      * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="sorties")
+     */
+    private $ville;
 
     //----Getter et Setter de Sortie
 
@@ -282,6 +282,18 @@ class Sortie
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }
