@@ -28,21 +28,13 @@ class Lieu
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\Regex(
-     *   pattern     = "/^[a-z0-9]+$/i",
-     *   match=true,
-     *   message="Le nom du lieu ne peut pas contenir de caractères spéciaux"
-     *     )
+     *
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=150)
-     * @Assert\Regex(
-     *   pattern     = "/^[a-z0-9]+$/i",
-     *   match=true,
-     *   message="La rue ne peut pas contenir de caractères spéciaux"
-     *     )
+     *
      */
     private $rue;
 

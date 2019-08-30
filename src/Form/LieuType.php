@@ -7,7 +7,6 @@ use App\Entity\Ville;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,16 +19,6 @@ class LieuType extends AbstractType
             ->add('rue')
             ->add('latitude')
             ->add('longitude')
-            /*
-            ->add('nomVille', EntityType::class,[
-                'class' => Lieu::class,
-                'query_builder' => function(EntityRepository $er){
-                    return $er->createQueryBuilder('l')->leftJoin('l.nomVille', 'nomVille')->addSelect('nomVille');
-                    //return $er->createQueryBuilder('v')->orderBy('v.nom', 'ASC');
-                },
-                'choice_label' => 'nomVille',
-            ])
-            */
             ->add('nomVille', EntityType::class,[
                 'class' => Ville::class,
                 'query_builder' => function(EntityRepository $er){

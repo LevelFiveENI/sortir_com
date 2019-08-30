@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Lieu;
 use App\Form\LieuType;
 use App\Repository\LieuRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+//Valentin
 /**
  * @Route("/lieu")
  */
@@ -28,27 +30,27 @@ class LieuController extends Controller
     /**
      * @Route("/new", name="lieu_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
+        //Ici on récupère en AJAX le formulaire pour créer un lieu
         $lieu = new Lieu();
-        //$formLieu = $this->createForm(LieuType::class, $lieu);
-        //$formLieu->handleRequest($request);
-        $lieuChoisi = $request->attributes->get('lieu');
-        dump($lieuChoisi);
-        exit();
-        if ($formLieu->isSubmitted() && $formLieu->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($lieu);
-            $entityManager->flush();
-            //dump($lieu);
-            //exit();
-            return $this->redirectToRoute('sortie_new', ['newLieu'=>$lieu]);
-        }
+        $newLieuNom = $request->get('newLieuNom');
+        $newLieuRue = $request->get('newLieuRue');
+        $newLieuVilleId = $request->get('newLieuVille');
+        $villeDuLieu = $em->getRepository('App:Ville')->find($newLieuVilleId);
 
-        return $this->render('lieu/new.html.twig', [
-            'lieu' => $lieu,
-            'form' => $formLieu->createView(),
-        ]);
+        //On set les attributs
+        $lieu->setNom($newLieuNom);
+        $lieu->setRue($newLieuRue);
+        $lieu->setNomVille($villeDuLieu);
+
+        //On ajoute en BDD
+        $em->persist($lieu);
+        $em->flush();
+
+
+        return new response("OK !");
+
     }
 
     /**

@@ -11,9 +11,11 @@ use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+//Valentin
 
 /**
  * @Route("/sortie")
@@ -37,62 +39,30 @@ class SortieController extends Controller
     {
         $sortie = new Sortie();
         $lieu = new Lieu();
-        $etat = new Etat();
 
         $form = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class, $lieu);
 
-        $formLieu->handleRequest($request);
         $form->handleRequest($request);
+        $formLieu->handleRequest($request);
 
-        if ($formLieu->isSubmitted() && $formLieu->isValid()){
-            //dump($request->get('lieu'));
-            $tabLieux = $request->get('lieu');
-            $idVille = $tabLieux['nomVille'];
-            $villeLieu = $em->getRepository('App:Ville')->find($idVille);
-            //dump($villeLieu);
-            //exit();
-            $lieu->setNomVille($villeLieu);
-            $em->persist($lieu);
-            $em->flush();
-            dump($lieu);
-            exit();
-            return $this->redirectToRoute('sortie_new', ['lieu', $lieu]);
-
-        }
-        if($request->attributes->get('lieu') != null){
-            $lieuChoisi = $request->attributes->get('lieu');
-            dump($lieuChoisi);
-            exit();
-        }
-
-
-
-
+        //Création d'une sortie
         if ($form->isSubmitted() && $form->isValid()) {
-            //Si le formulaire est ok, on va crée des objets Ville et Lieu associés à la sortie
-            //$ville = new Ville();
-            $etat = $em->getRepository('App:Etat')->find(1);
-            $sortie->setLieu($lieu);
-            $etat->addSortie($sortie);
-            $sortie->setEtat($etat);
 
-            //On récupère les infos nécessaires
-            $tabInfos = $request->get('sortie');
-            //$nomLieu = $tabInfos['lieu'];
-            //$adresseLieu = $tabInfos['rue'];
-            //$nomVille = $tabInfos['ville'];
-            //$codeVille = $tabInfos['codePostal'];
+            $etatSortie = new Etat();
+            $etatSortie = $em->getRepository('App:Etat')->find(1);
 
+            $idLieu = $request->get('choixLieu');
+            //$nomLieu = $tabLieux['nomLieu'];
+            $lieuChoisi = $em->getRepository('App:Lieu')->find($idLieu);
+            $sortie->setLieu($lieuChoisi);
+
+            $etatSortie->addSortie($sortie);
+            $sortie->setEtat($etatSortie);
 
             //On envoi en BDD
             $em->persist($sortie);
-            $em->persist($lieu);
-            //$em->persist($ville);
             $em->flush();
-            //dump("Ok !");
-            //exit();
-
             return $this->redirectToRoute('sortie_index');
         }
 
@@ -148,4 +118,28 @@ class SortieController extends Controller
 
         return $this->redirectToRoute('sortie_index');
     }
+
+    /**
+     * @Route("/ajaxLieu", name="ajax_lieu", methods={"GET", "POST"})
+     */
+    public function ajaxLieu(Request $request, EntityManagerInterface $em){
+        $idVille = $request->get('villeid');
+        $ville = $em->getRepository('App:Ville')->find($idVille);
+
+        if ($idVille){
+            $villeLieu = $em->getRepository('App:Ville')->find($idVille);
+            $arrayLieux = array();
+            $villeLieu->getLieux();
+            foreach($villeLieu->getLieux() as $lieu){
+                $nomLieu = $lieu->getNom();
+                $idLieu = $lieu->getId();
+                $arrayLieux[$idLieu] = $nomLieu;
+            }
+        }
+        $lieuxJson = json_encode($arrayLieux);
+        return new Response($lieuxJson);
+    }
+
+
+
 }
