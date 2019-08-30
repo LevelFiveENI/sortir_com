@@ -17,10 +17,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 // duree : ne peut etre inf a 0
 // infos : seulement lettres et chiffres autorisées
 // date limite d'inscription : mini demain
+// ajout des not null
+// ajout de la contrainte date limite d'inscription < date heure debut
+// (installation du bundle pour la property path)
+// composer require symfony/property-access
 
 
-// A FAIRE : modifier la contrainte date limite d'inscription pour avoir une date limite max inf a la
-// date heure deb (voir avec assert\Exception ?)
 
 
 
@@ -40,10 +42,13 @@ class Sortie
      * @ORM\Column(type="string", length=150)
      *
      *  @Assert\Regex(
-     *  pattern     = "/^[a-z0-9]+$/i",
+     *  pattern     = "/^[a-z0-9 ]+$/i",
      *  match=true,
      *  message="Le nom de la sortie ne peut pas contenir de caractères spéciaux"
      *    )
+     * @Assert\NotNull(
+     * message="Un nom de sortie ne peut pas être null"
+     * )
      */
     private $nom;
 
@@ -56,6 +61,9 @@ class Sortie
      *     minMessage = "On ne peut pas créer une sortie a moins de deux jours",
      *     maxMessage = "On ne peut pas créer une sortie plus d'un an avant"
      * )
+     * @Assert\NotNull(
+     * message="La date de début ne peut pas être null"
+     * )
      */
     private $dateHeureDebut;
 
@@ -66,6 +74,9 @@ class Sortie
      *  min = "0",
      *  minMessage = "l'évènement ne peut pas etre négatif"
      *  )
+     * @Assert\NotNull(
+     * message="La durée ne peut pas être null"
+     * )
      */
     private $duree;
 
@@ -76,6 +87,14 @@ class Sortie
      *      min = "+1 days",
      *
      *     minMessage = "La date limite ne peut pas etre avant demain",
+     * )
+     * @Assert\NotNull(
+     * message="La date de la limite d'inscription ne peut pas être null"
+     * )
+     *
+     * @Assert\LessThan(
+     *     propertyPath="dateHeureDebut",
+     *   message = "La date limite d'inscription ne peut pas être supérieure à la date de début"
      * )
      *
      */
@@ -90,7 +109,9 @@ class Sortie
      *     minMessage = "il faut au moins 2 participants",
      *     maxMessage = "il ne peut pas y avoir plus de 999 participants"
      * )
-     *
+     * @Assert\NotNull(
+     * message="Le nombre d'inscription max. ne peut pas être null"
+     * )
      *
      */
 
@@ -99,11 +120,13 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      *  @Assert\Regex(
-     *  pattern     = "/^[a-z0-9]+$/i",
+     *  pattern     = "/^[a-z0-9 ]+$/i",
      *  match=true,
      *  message="Les infos concernant la sortie ne peuvent pas contenir de caracteres spéciaux"
      *    )
-     *
+     * @Assert\NotNull(
+     * message="Les infos ne peuvent pas être null"
+     * )
      */
     private $infosSortie;
 

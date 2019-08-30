@@ -163,6 +163,9 @@
     "symfony/event-dispatcher": {
         "version": "v3.4.31"
     },
+    "symfony/expression-language": {
+        "version": "v3.4.31"
+    },
     "symfony/filesystem": {
         "version": "v3.4.31"
     },
@@ -272,7 +275,7 @@
     "symfony/security": {
         "version": "v3.4.31"
     },
-    
+
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {

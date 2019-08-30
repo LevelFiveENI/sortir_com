@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 // ajout des Assert pour nom et code postal (Jeremy)
 //nom : seulement lettres autorisées
 //code postale : 5 chiffres en tout
+// ajout des not null
 
 /**
  *
@@ -30,10 +31,13 @@ class Ville
     /**
      * @ORM\Column(type="string", length=150)
      * @Assert\Regex(
-     *     pattern     = "/^[a-z]+$/i",
+     *     pattern     = "/^[a-z ]+$/i",
      *     match=true,
      *     message="Le nom de la ville ne peut pas contenir de numéros ou de caractères spéciaux"
      *     )
+     * @Assert\NotNull(
+     * message="Un nom de ville ne peut pas être null"
+     * )
      */
     private $nom;
 
@@ -46,6 +50,9 @@ class Ville
      *      minMessage = "un code postale a 5 chiffres",
      *      maxMessage = "un code postale a 5 chiffres",
      *      exactMessage = "un code postale a 5 chiffres"
+     * )
+     * @Assert\NotNull(
+     * message="Un coe postal ne peut pas être null"
      * )
      */
     private $codePostal;

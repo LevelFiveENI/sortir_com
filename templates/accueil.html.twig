@@ -1,0 +1,129 @@
+{% extends ('pagetype.html.twig') %}
+
+{% block main %}
+
+
+<article class="article-jeunesse">
+    <div class="container img-jeunesse">
+        <div class="row">
+            <div class="col-12">
+                <img src="{{asset('build/images/jeunesse3.jpg')}}" alt="jeunesse3" class="img-responsive">
+
+                <div class="carousel-caption">
+                    <h1>La nouvelle plateforme de l'ENI !</h1>
+                    <p>Grâce à <a href="#" class="lien"><b>Sortir.com</b></a> vous allez pouvoir organiser et participer à des activités extra-scolaires.
+                        <br>L'objectif est de vous permettre de créer du lien avec les autres élèves mais aussi de développer votre réseau !</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<article class="article-activites">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                      <h2>6 TYPES D'ACTIVITÉS</h2>
+                </div>
+            </div>
+        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="{{asset('build/images/sport.svg')}}" alt="sport" class="image-picto">
+                <h3>Sport</h3>
+                <p>Basketball, volley, running... Rien de mieux que se dépenser en équipe après une journée assis devant son ordinateur !</p>
+            </div>
+            <div class="col-2">
+                <img src="{{asset('build/images/musique.svg')}}" alt="musique" class="image-picto">
+                <h3>Musique</h3>
+                <p>Concerts, festival, cours de musique...</p>
+            </div>
+            <div class="col-2">
+                <img src="{{asset('build/images/culture.svg')}}" alt="culture" class="image-picto">
+                <h3>Culture</h3>
+                <p>Musée, théâtre, exposition...</p>
+            </div>
+            <div class="col-2">
+                <img src="{{asset('build/images/informatique.svg')}}" alt="informatique" class="image-picto">
+                <h3>Informatique</h3>
+                <p>Hackaton, cours particulier, réparation... Partager son savoir est valorisant pour les érudits commes pour les débutants !</p>
+            </div>
+            <div class="col-2">
+                <img src="{{asset('build/images/aperitif.svg')}}" alt="aperitif" class="image-picto">
+                <h3>Apéritif</h3>
+                <p>Brasserie, bar, restaurant... Le métier d'informaticien n'est pas incompatible avec le fait d'être un bon vivant !</p>
+            </div>
+            <div class="col-2">
+                <img src="{{asset('build/images/divers.svg')}}" alt="divers" class="image-picto">
+                <h3>Divers</h3>
+                <p>Libre à vous d'imaginer tout autre type de sortie et d'en faire profiter les élèves de l'ENI !</p>
+            </div>
+        </div>
+    </div>
+</article>
+
+<article class="article-sorties">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>LES SORTIES RÉCENTES</h2>
+            </div>
+        </div>
+    </div>
+        SECTION SORTIE RÉCENTES
+</article>
+
+    <article class="article-creation">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>CREEZ VOS PROPRES SORTIES</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <img src="{{asset('build/images/lieu.svg')}}" alt="lieu" class="image-creation">
+                    <p>Ajoutez un lieu</p>
+                </div>
+                <div class="col-3">
+                    <img src="{{asset('build/images/site.svg')}}" alt="site" class="image-creation">
+                    <p>Précisez le site</p>
+                </div>
+                <div class="col-3">
+                    <img src="{{asset('build/images/type-activite.svg')}}" alt="type-activite" class="image-creation">
+                    <p>Puis le type d'activité</p>
+                </div>
+                <div class="col-3">
+                    <img src="{{asset('build/images/participants.svg')}}" alt="participants" class="image-creation">
+                    <p>Et n'oubliez pas le nombre maximum de participant</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="article-rejoignez">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>REJOIGNEZ-NOUS !</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container container-inscription">
+            <div class="row">
+                <div class="col-9">
+                    <p>Vous n'êtes pas encore inscrits ? N'hésitez-plus, sautez le pas et profitez de tous les avantages du site ! </p>
+                </div>
+                <div class="col-3">
+                    <button type="button" class="btn btn-primary btn-lg">Je m'inscris</button>
+                </div>
+            </div>
+        </div>
+
+
+
+{% endblock %}

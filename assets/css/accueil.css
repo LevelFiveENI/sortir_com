@@ -1,0 +1,102 @@
+/* GENERAL */
+
+h2 {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 1.5em;
+}
+
+h3{
+    text-align: center;
+    font-size: 1.2em;
+}
+
+article{
+    padding-top: 30px;
+}
+
+/* SECTION JEUNESSE */
+
+.img-jeunesse img{
+    max-width: 100%;
+}
+
+.carousel slide{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.article-jeunesse{
+    background-color: #000033;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+/* SECTION TYPE SORTIE */
+
+.article-activites{
+    background-color: #FFFFFF;
+    height: 450px;
+}
+
+.image-picto{
+    max-width: 100%;
+    padding: 10%;
+}
+
+.article-activites img{
+    text-align: center;
+}
+
+.article-activites p{
+    text-align: center;
+    color: #000033!important;
+    font-size: 0.9em;
+}
+
+/* SECTION SORTIES RECENTES */
+
+.article-sorties{
+    background-color: #d8edfa;
+    height: 280px;
+}
+
+/* SECTION CREATION */
+
+.article-creation{
+    background-color: #000033;
+    height: 350px;
+}
+
+.image-creation{
+    max-width: 100%;
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+.article-creation img{
+    text-align: center;
+}
+
+.article-creation p{
+    text-align: center;
+    color: white!important;
+    font-size: 1em;
+}
+
+.article-creation h2{
+    color: white!important;
+}
+
+/* SECTION REJOIGNEZ-NOUS */
+
+.article-rejoignez{
+    background-color: #FFFFFF;
+    height: 250px;
+}
+
+.container-inscription{
+    margin-top: 2%;
+}
