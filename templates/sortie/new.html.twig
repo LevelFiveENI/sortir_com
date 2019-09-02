@@ -1,11 +1,64 @@
-{% extends 'base.html.twig' %}
+{% extends 'pagetype.html.twig' %}
 
 {% block title %}New Sortie{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Crée un nouvelle Sortie</h1>
 
-    {{ include('sortie/_form.html.twig') }}
+    <!--Formulaire de création d'un sortie -->
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
 
-    <a href="{{ path('sortie_index') }}">back to list</a>
+
+    <label for="sortie_lieu">Choisir un lieu</label>
+        <select id="sortie_lieu" name="choixLieu">
+            <option value="" disabled selected>Choisir un lieu</option>
+        </select>
+    <br>
+    <!-- Modal pour la création du lieu -->
+    <button type="button" id="newLieu" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
+        Ajouter un lieu
+    </button>
+    <br>
+    <button class="btn">{{ button_label|default('Créer la sortie') }}</button>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('sortie_index') }}">Voir la liste des Sorties</a>
+
+    <!--Formulaire de création d'un sortie -->
+    <div id="successLieu"></div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(formLieu, {'attr': {'id': 'ajoutLieu'}}) }}
+                    {{ form_widget(formLieu) }}
+                    <button class="btn">{{ button_label|default('Save') }}</button>
+                    {{ form_end(formLieu) }}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+

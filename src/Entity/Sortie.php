@@ -42,7 +42,7 @@ class Sortie
      * @ORM\Column(type="string", length=150)
      *
      *  @Assert\Regex(
-     *  pattern     = "/^[a-z0-9 ]+$/i",
+     *  pattern     = "/^[a-z0-9 éè']+$/i",
      *  match=true,
      *  message="Le nom de la sortie ne peut pas contenir de caractères spéciaux"
      *    )
@@ -53,7 +53,7 @@ class Sortie
     private $nom;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      *
      * @Assert\Range(
      *      min = "+2 days",
@@ -67,7 +67,6 @@ class Sortie
      */
     private $dateHeureDebut;
 
-
     /**
      * @ORM\Column(type="integer")
      *
@@ -80,8 +79,6 @@ class Sortie
      * )
      */
     private $duree;
-
-
 
     /**
      * @ORM\Column(type="date")
@@ -103,8 +100,6 @@ class Sortie
      */
     private $dateLimiteInscription;
 
-
-
     /**
      * @ORM\Column(type="integer")
      *
@@ -125,7 +120,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      *  @Assert\Regex(
-     *  pattern     = "/^[a-z0-9 ]+$/i",
+     *  pattern     = "/^[a-z0-9 éè']+$/i",
      *  match=true,
      *  message="Les infos concernant la sortie ne peuvent pas contenir de caracteres spéciaux"
      *    )
@@ -148,7 +143,7 @@ class Sortie
     private $lieu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $site;
@@ -158,6 +153,11 @@ class Sortie
      * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="sorties")
+     */
+    private $ville;
 
     //----Getter et Setter de Sortie
 
@@ -282,6 +282,18 @@ class Sortie
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

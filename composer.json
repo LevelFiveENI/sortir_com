@@ -14,7 +14,10 @@
         "symfony/property-access": "3.4.*",
         "symfony/swiftmailer-bundle": "^3.2",
         "symfony/webpack-encore-bundle": "^1.6",
-        "symfony/yaml": "3.4.*"
+        "symfony/yaml": "3.4.*",
+        "twig/extensions": "^1.5"
+      "ext-json": "*"
+
     },
     "require-dev": {
         "sensio/framework-extra-bundle": "^5.4",
