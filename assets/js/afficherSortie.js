@@ -24,7 +24,10 @@ $('#dateMaxi').change(function () {
 
     if($('#dateMaxi').val()<$('#dateMini').val()){
 
+        alert("la date de fin ne peut pas être inférieure à la date de début");
         $('#dateMaxi').val(dateMi);
+
+
     }
 })
 

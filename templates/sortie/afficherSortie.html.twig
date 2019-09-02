@@ -8,7 +8,7 @@
 
     <h2>Filtrer les sorties</h2>
 <br>
-<form method="post" class = "row">
+<form method="post" class = "row" action="/afficher/afficSortieTriSite">
 
 
     <!-- recherche plus classique  -->
@@ -17,7 +17,7 @@
         <!-- menu deroulant -->
         <div class="form-group row" style="padding-left: 15px;" >
             <label for="exampleFormControlSelect1 col-5 " > Site : </label>
-            <select class="form-control col-5 offset-5" id="exampleFormControlSelect1" >
+            <select class="form-control col-5 offset-5" id="exampleFormControlSelect1" name="selectSite">
                 {% for s in allSite  %}
                 <option>{{ s.nom }}</option>
                 {% endfor %}
@@ -27,7 +27,7 @@
         <!-- recherche -->
         <div class="form-group row ">
             <label for="formGroupExampleInput" class="col-5"  >Le nom de la sortie contient :</label>
-            <input type="text" class="form-control col-5 offset-1" id="formGroupExampleInput"  >
+            <input type="text" class="form-control col-5 offset-1" id="formGroupExampleInput"  name="infoSearch">
         </div>
 
 
@@ -36,11 +36,11 @@
         {% set date = "now" | date("Y-m-j")%}
 
         <div class="form-group row ">
-        <label for="dateMini" class="col-2"  >Entre : </label>
-        <input type="date"   min="{{ date | date("Y-m-j") }}"  value="{{ date | date("Y-m-j") }}" name="dateMini" id="dateMini" class="col-3">
+        <label for="dateMini" class="col-2"  >Entre le : </label>
+        <input type="date"   min="{{ date | date("Y-m-j") }}"  value="{{ date | date("Y-m-j") }}" name="dateMini" id="dateMini" class="col-4">
 
-        <label for="dateMaxi" class="col-2 offset-1"  > et :</label>
-        <input type="date"  min=""  value="{{ date | date("Y-m-j") }}"  name="dateMaxi" id="dateMaxi"  class="col-3">
+        <label for="dateMaxi" class="col-2"  > et le :</label>
+        <input type="date"  min=""  value="{{ date | date("Y-m-j") }}"  name="dateMaxi" id="dateMaxi"  class="col-4">
         </div>
 
     </div>
@@ -114,6 +114,7 @@
         </tr>
         </thead>
         <tbody>
+        {% if allSortie %}
 {% for s in allSortie  %}
         <tr>
             <th scope="row"> {{s.nom}} </th>
@@ -126,6 +127,7 @@
             <td>actions</td>
         </tr>
       {% endfor %}
+        {% endif %}
         </tbody>
     </table>
 
