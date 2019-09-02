@@ -141,13 +141,13 @@ class User extends BaseUser
         return $this;
     }
 
-
+/*
     public function getPlainpassword(): ?string
     {
         return $this->plainpassword;
     }
 
-/*    public function setPlainpassword(?string $plainpassword): self
+   public function setPlainpassword(?string $plainpassword): self
     {
         $this->plainpassword = $plainpassword;
 
