@@ -46,6 +46,10 @@
 
         {% endblock %}
 
+    {% block body %}{% endblock %}
+
+    {% block tableauSortie %}{% endblock %}
+
 </main>
 <footer>
     <div class="container">
@@ -65,5 +69,6 @@
 {# Chargement des scripts #}
 {{ encore_entry_script_tags('app') }}
 {{ encore_entry_script_tags('newSortie') }}
+{% block javascripts %}{% endblock %}
 </body>
 </html>

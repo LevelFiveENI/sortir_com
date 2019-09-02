@@ -1,4 +1,4 @@
-{%  extends ('base.html.twig') %}
+{%  extends ('pagetype.html.twig') %}
 
 
 
@@ -37,10 +37,10 @@
 
         <div class="form-group row ">
         <label for="dateMini" class="col-2"  >Entre le : </label>
-        <input type="date"   min="{{ date | date("Y-m-j") }}"  value="{{ date | date("Y-m-j") }}" name="dateMini" id="dateMini" class="col-4">
+        <input type="date"   min="{{ date | date("Y-m-d") }}"  value="{{ date | date("Y-m-d") }}" name="dateMini" id="dateMini" class="col-4">
 
         <label for="dateMaxi" class="col-2"  > et le :</label>
-        <input type="date"  min=""  value="{{ date | date("Y-m-j") }}"  name="dateMaxi" id="dateMaxi"  class="col-4">
+        <input type="date"  min=""  value="{{ date | date("Y-m-d") }}"  name="dateMaxi" id="dateMaxi"  class="col-4">
         </div>
 
     </div>
