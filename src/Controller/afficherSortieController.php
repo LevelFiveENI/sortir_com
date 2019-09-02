@@ -25,6 +25,9 @@ class afficherSortieController extends Controller
      */
     public function afficherSortie(EntityManagerInterface $em, Request $request){
 
+        // a creer si pas de sorti affichage d'un tableau vide
+
+
         // recuperation des sorties
         $sorti = $em->getRepository('App:Sortie')->findAll();
 
@@ -50,12 +53,11 @@ class afficherSortieController extends Controller
 
         // on recupere les infos du site
         $infoSite = $request->get("selectSite");
+
         //on recup les infos de le la recherche
         $infoSearch = $request->get("infoSearch");
 
         // requete avec le site
-
-
         if ($infoSearch != null){
             // recup de la liste de toute les sorties en fonction du site + recherche
             $sorti = $em->getRepository('App:Sortie')->sortieBySearch($infoSite,$infoSearch);

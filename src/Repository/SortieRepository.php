@@ -23,6 +23,7 @@ class SortieRepository extends ServiceEntityRepository
     public function sortieBySite($site){
         $req = $this -> createQueryBuilder('s')
             ->select('s')->addSelect('site')
+            ->join('s.etat', 'etat')
             ->join('s.site','site')
             ->where('site.nom = :sit')
             ->setParameter('sit',$site)
