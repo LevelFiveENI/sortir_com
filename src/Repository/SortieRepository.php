@@ -14,6 +14,63 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class SortieRepository extends ServiceEntityRepository
 {
+
+    // recupère les sorties en fonction du site
+    /**
+     * @param $site
+     * @return array
+     */
+    public function sortieBySite($site){
+        $req = $this -> createQueryBuilder('s')
+            ->select('s')->addSelect('site')
+            ->join('s.site','site')
+            ->where('site.nom = :sit')
+            ->setParameter('sit',$site)
+            ->orderBy('s.dateHeureDebut','DESC');
+
+        return $req->getQuery()->getArrayResult();
+    }
+
+
+
+// on effectue une recherche dans le titre de la sortie
+    /**
+     * @param $search
+     * @return array
+     */
+public function sortieBySearch($site, $search){
+    // on enleve les espaces
+    $searchT = trim($search);
+
+    $req = $this -> createQueryBuilder('s')
+        ->select('s')->addSelect('site')
+        ->join('s.site','site')
+        ->where('site.nom = :sit')
+        ->andwhere('s.nom like :nom')
+        ->setParameter('sit',$site)
+        ->setParameter('nom', "%".$searchT."%")
+        ->orderBy('s.dateHeureDebut','DESC');
+
+    return $req->getQuery()->getArrayResult();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Sortie::class);
