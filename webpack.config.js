@@ -28,6 +28,7 @@ Encore
     .addEntry('pagetype', './assets/css/pagetype.css')
     .addEntry('app', './assets/js/app.js')
     .addEntry('newSortie', './assets/js/newSortie.js')
+    .addEntry('affiche', './assets/js/afficherSortie.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

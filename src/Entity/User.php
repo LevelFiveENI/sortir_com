@@ -159,12 +159,12 @@ class User extends BaseUser
         return $this->plainpassword;
     }
 
-    public function setPlainpassword(?string $plainpassword): self
+/*    public function setPlainpassword(?string $plainpassword): self
     {
         $this->plainpassword = $plainpassword;
 
         return $this;
-    }
+    }*/
 
     public function getNomImage(): ?string
     {

@@ -53,7 +53,7 @@ class Sortie
     private $nom;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      *
      * @Assert\Range(
      *      min = "+2 days",
