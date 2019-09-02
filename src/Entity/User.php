@@ -3,6 +3,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -54,9 +56,27 @@ class User extends BaseUser
      */
     private $nomImage;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Site;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="Organisateur")
+     */
+    private $Organisateur;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sortie", inversedBy="Participant")
+     */
+    private $Participant;
+
     public function __construct()
     {
         parent::__construct();
+        $this->Organisateur = new ArrayCollection();
+        $this->Participant = new ArrayCollection();
         // your own logic
     }
 
@@ -143,6 +163,75 @@ class User extends BaseUser
     public function setNomImage(?string $nomImage): self
     {
         $this->nomImage = $nomImage;
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->Site;
+    }
+
+    public function setSite(?Site $Site): self
+    {
+        $this->Site = $Site;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getOrganisateur(): Collection
+    {
+        return $this->Organisateur;
+    }
+
+    public function addOrganisateur(Sortie $organisateur): self
+    {
+        if (!$this->Organisateur->contains($organisateur)) {
+            $this->Organisateur[] = $organisateur;
+            $organisateur->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganisateur(Sortie $organisateur): self
+    {
+        if ($this->Organisateur->contains($organisateur)) {
+            $this->Organisateur->removeElement($organisateur);
+            // set the owning side to null (unless already changed)
+            if ($organisateur->getOrganisateur() === $this) {
+                $organisateur->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getParticipant(): Collection
+    {
+        return $this->Participant;
+    }
+
+    public function addParticipant(Sortie $participant): self
+    {
+        if (!$this->Participant->contains($participant)) {
+            $this->Participant[] = $participant;
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Sortie $participant): self
+    {
+        if ($this->Participant->contains($participant)) {
+            $this->Participant->removeElement($participant);
+        }
 
         return $this;
     }
