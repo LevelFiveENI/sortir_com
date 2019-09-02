@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'pagetype.html.twig' %}
 
 {% block title %}New Sortie{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Crée un nouvelle Sortie</h1>
 
     <!--Formulaire de création d'un sortie -->
@@ -28,8 +28,6 @@
 
     <!--Formulaire de création d'un sortie -->
     <div id="successLieu"></div>
-
-
 
 
     <!-- Modal -->
@@ -61,63 +59,6 @@
 {% endblock %}
 
 {% block javascripts %}
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>#}
-    <script>
 
-        $("#sortie_ville").change(function() {
-            $.ajax({
-                //Appeler la nouvelle fonction
-                url: "{{ path('ajax_lieu') }}",
-                type: "POST",
-                dataType:"json",
-                data: {
-                    villeid: $("#sortie_ville").val()
-                },
-
-                success: function (json) {
-                    console.log(json);
-                    $('#sortie_lieu').empty();
-                    $.each(json, function(i, optionHtml){
-                        $('#sortie_lieu').append($('<option>').text(optionHtml)
-                    .attr( { name:"nomLieu", value:i } ))
-                    })
-
-                },
-                error: function (err) {
-                    alert("An error ocurred while loading data ...");
-                }
-            });
-        });
-
-        $("#ajoutLieu").submit(function(event) {
-            event.preventDefault();
-
-            $.ajax({
-                //Appeler la nouvelle fonction
-                url: "{{ path('lieu_new') }}",
-                type: "POST",
-                dataType:"json",
-                 data: {
-                     newLieuNom: $("#lieu_nom").val(),
-                     newLieuRue: $("#lieu_rue").val(),
-                     newLieuVille: $("#lieu_nomVille").val()
-                 },
-
-                success: function () {
-                    $("#exampleModal").modal('hide');
-
-                },
-                error: function () {
-                    $("#exampleModal").modal('hide');
-                    $("#successLieu").html($("#lieu_nom").val() + "à été ajouté !");
-                    $("#lieu_nom").empty();
-                    $("#lieu_rue").empty();
-
-                }
-            });
-        });
-
-
-    </script>
 {% endblock %}
 
