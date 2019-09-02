@@ -1,4 +1,9 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
+<label for="sortie_lieu">Choisir un lieu</label>
+<select id="sortie_lieu" name="choixLieu">
+    <option value="" disabled selected>Choisir un lieu</option>
+</select>
+<br>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

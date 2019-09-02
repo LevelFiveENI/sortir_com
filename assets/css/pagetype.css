@@ -1,0 +1,52 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+body {
+    background-color: #FFFFFF;
+    font-family: Quicksand, sans-serif;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #00c9ff;
+    border-color: #00c9ff;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #2bb3ff;
+    border-color: #2bb3ff;
+}
+
+main{
+    min-height: 650px;
+}
+
+footer{
+    margin-top: 10px;
+    height: 100px;
+    background-color: #000033;
+    font-size: 0.9em;
+    text-align: center;
+    /* position: absolute;
+     bottom: 0;
+     width: 100%;*/
+}
+
+.footer-text{
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+
+.footer-text:active{
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+
+.footer-text:hover{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.footer-box{
+    padding-top: 25px;
+}

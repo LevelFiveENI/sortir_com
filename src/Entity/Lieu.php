@@ -29,6 +29,7 @@ class Lieu
 
     /**
      * @ORM\Column(type="string", length=50)
+     *
      * @Assert\Regex(
      *   pattern     = "/^[a-z0-9 ]+$/i",
      *   match=true,
@@ -66,12 +67,13 @@ class Lieu
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="lieux")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
+     *
      */
     private $nomVille;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="lieu", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="lieu", orphanRemoval=true, cascade={"persist"})
      */
     private $sorties;
 
@@ -79,8 +81,6 @@ class Lieu
     {
         $this->sorties = new ArrayCollection();
     }
-
-
 
 
     //Getter et Setter de Lieu-------------------------------
