@@ -5,6 +5,7 @@ namespace App\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -29,35 +30,24 @@ class User extends BaseUser
      */
     private $prenom;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\Length(min = 10, max = 20, minMessage = "min_lenght", maxMessage = "max_lenght")
+    *
      */
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $mail;
-
-    /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $administrateur;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $actif;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $plainpassword;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -94,17 +84,6 @@ class User extends BaseUser
         return $this;
     }
 
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
 
     public function getTelephone(): ?string
     {
@@ -114,18 +93,6 @@ class User extends BaseUser
     public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
-
-        return $this;
-    }
-
-    public function getMail(): ?string
-    {
-        return $this->mail;
-    }
-
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
 
         return $this;
     }
@@ -154,17 +121,6 @@ class User extends BaseUser
         return $this;
     }
 
-    public function getPlainpassword(): ?string
-    {
-        return $this->plainpassword;
-    }
-
-    public function setPlainpassword(?string $plainpassword): self
-    {
-        $this->plainpassword = $plainpassword;
-
-        return $this;
-    }
 
     public function getNomImage(): ?string
     {

@@ -26,6 +26,7 @@ Encore
      */
     .addEntry('accueil', './assets/css/accueil.css')
     .addEntry('pagetype', './assets/css/pagetype.css')
+    .addEntry('fosuser', './assets/css/fosuser.css')
     .addEntry('app', './assets/js/app.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
