@@ -20,38 +20,53 @@ const $ = require('jquery');
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
+let pathUrl = $("#urlPath").val();
 
-//Gestion des listes selon la ville choisie
+//Gestion des input l'or du chargement de la page
+$(document).ready(function () {
+  console.log("Hello")
+    $("#newLieu").hide()
+    $("#sortie_ville").hide()
+    $("#sortie_lieu").hide()
+
+})
+//Gestion de l'affichage l'or du clique sur la modification du lieu
+$("#modifLieu").click(function(){
+    $("#villeSortieDef").hide()
+    $("#lieuSortieDef").hide()
+    $("#sortie_ville").show()
+    $("#sortie_lieu").show()
+    $("#newLieu").show()
+    $("#modifLieu").hide()
+
+})
+
 $("#sortie_ville").change(function() {
-        $.ajax({
-            //Appeler la nouvelle fonction
-            url: '/sortie/ajaxLieu',
+    $.ajax({
+        //Appeler la nouvelle fonction
+        url: '/sortie/ajaxLieu',
+        //url: pathUrl,
+        type: "POST",
+        dataType:"json",
+        data: {
+            villeid: $("#sortie_ville").val()
+        },
 
-            //url: pathUrl,
+        success: function (json) {
+            console.log(json);
+            $('#sortie_lieu').empty();
+            $.each(json, function(i, optionHtml){
+                $('#sortie_lieu').append($('<option>').text(optionHtml)
+                    .attr( { name:"nomLieu", value:i } ))
+            })
 
-            type: "POST",
-            dataType:"json",
-            data: {
-                villeid: $("#sortie_ville").val()
-            },
-            //On attribut la value avec l'id du lieu
-            //Et le texte de l'option avec le nom du lieu
-            success: function (json) {
-                console.log(json);
-                $('#sortie_lieu').empty();
-                $.each(json, function(i, optionHtml){
-                    $('#sortie_lieu').append($('<option>').text(optionHtml)
-                        .attr( { name:"nomLieu", value:i } ))
-                })
-
-            },
-            error: function (err) {
-                //alert("Erreur de JS");
-            }
-        });
+        },
+        error: function (err) {
+            alert("Erreur de JS");
+        }
     });
+});
 
-//Gestion de l'ajout du lieu avec la modal
 $("#ajoutLieu").submit(function(event) {
     event.preventDefault();
 
@@ -76,15 +91,12 @@ $("#ajoutLieu").submit(function(event) {
         error: function () {
             $("#exampleModal").modal('hide');
             $("#successLieu").html($("#lieu_nom").val() + " à été ajouté vous pouvez le selectionner dans la liste!");
-            //$("#lieu_nom").empty();
-            //$("#lieu_rue").empty();
-            $('#sortie_lieu:last-child').prop('selected', true)
+            $("#lieu_nom").empty();
+            $("#lieu_rue").empty();
+
         }
     });
 });
 
-//On cache le bouton supprimer qui est présent dans la page modifier
-$(document).ready(function () {
-    $("#sortie_Supprimer").hide()
-})
+//Ajustement des dates sur le formaulaires
 
