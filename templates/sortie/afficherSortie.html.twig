@@ -4,7 +4,7 @@
 
 
 
-    {% block body %}
+    {% block main %}
 
     <h2>Filtrer les sorties</h2>
 <br>
@@ -91,11 +91,6 @@
 
 <br>
 
-    {% endblock %}
-
-
-
-{% block tableauSortie %}
 
     <!-- Affichage des informations sur les sorties -->
 
@@ -120,11 +115,47 @@
             <th scope="row"> {{s.nom}} </th>
             <td>{{ s.dateHeureDebut |date("d/m/Y à H:i") }}</td>
             <td>{{s.dateLimiteInscription |date("d/m/Y") }}</td>
-            <td>Inscrit / {{s.nbInscriptionsMax}}</td>
+
+            <!-- on compte le nombre de participant pour chaque sorti (nbP) -->
+            <!-- on vérifie que l'utilisteur n'est pas deja inscrit (UInscrit) -->
+            {% set nbP = 0 %}
+            {% set UInscrit = false %}
+            {% set Plein = false %}
+            {% for p in s.Participant %}
+                {% set nbP = nbP + 1 %}
+                {% if  p == app.user%}
+                    {% set UInscrit = true %}
+                {% endif %}
+            {% endfor %}
+            <!-- on vérifie qu'il reste de la place pour pouvoir s'inscrire -->
+            {% if nbP == s.nbInscriptionsMax %}
+                {% set Plein = true %}
+            {% endif %}
+
+
+            <td>{{ nbP }} / {{s.nbInscriptionsMax}}</td>
             <td>{{s.etat.libelle}}</td>
             <td>inscrit</td>
             <td>organisateur</td>
-            <td>actions</td>
+            <td>
+            <a href="{{ path('sortie_show', {'id': s.id}) }}">Afficher</a>
+            <a href="{{ path('sortie_edit', {'id': s.id}) }}">Modifier</a>
+
+
+                <!-- si l'user n'est pas inscrit apparition du boutton inscription -->
+                {% if UInscrit == false  and Plein == false %}
+                    <button value="{{ s.id }}" class="inscription" >s'incrire</button>
+                {% endif %}
+
+                <!-- si l'user est inscrit apparition du boutton pour se desinscrire -->
+                {% if UInscrit == true %}
+                    <button value="{{ s.id }}" class="desincription" >desinscription</button>
+                {% endif %}
+
+
+
+
+            </td>
         </tr>
       {% endfor %}
         {% endif %}
