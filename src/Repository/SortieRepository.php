@@ -31,7 +31,7 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter(':dateSDeb',$dateSdeb)
             ->orderBy('s.dateHeureDebut','DESC');
 
-        return $req->getQuery()->getArrayResult();
+        return $req->getQuery()->getResult();
     }
 
 
@@ -57,7 +57,7 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter(':dateSFin',$dateSfin)
             ->orderBy('s.dateHeureDebut','DESC');
 
-        return $req->getQuery()->getArrayResult();
+        return $req->getQuery()->getResult();
     }
 
 
@@ -87,7 +87,7 @@ public function sortieBySearch($site, $search, $dateSdeb, $dateSfin){
         ->setParameter(':dateSFin',$dateSfin)
         ->orderBy('s.dateHeureDebut','DESC');
 
-    return $req->getQuery()->getArrayResult();
+    return $req->getQuery()->getResult();
 
 }
 

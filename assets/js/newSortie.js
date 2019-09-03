@@ -24,7 +24,7 @@ require('bootstrap');
 $("#sortie_ville").change(function() {
         $.ajax({
             //Appeler la nouvelle fonction
-            url: '../sortie/ajaxLieu',
+            url: '/sortie/ajaxLieu',
             type: "POST",
             dataType:"json",
             data: {

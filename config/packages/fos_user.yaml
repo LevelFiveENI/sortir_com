@@ -10,4 +10,4 @@ fos_user:
     form:
       type: App\Form\RegistrationType
     confirmation:
-      enabled:    true
+      enabled:    false
