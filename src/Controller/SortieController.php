@@ -35,6 +35,9 @@ class SortieController extends Controller
      */
     public function new(EntityManagerInterface $em, Request $request): Response
     {
+        $user = $this->getUser();
+//        dump($user);
+//        exit();
         $sortie = new Sortie();
         $lieu = new Lieu();
         //Ici on set la date pour l'affichage dans le formulaire
@@ -72,8 +75,12 @@ class SortieController extends Controller
 
             $sortie->setEtat($etatSortie);
 
+            //On relie la sortie à l'utilisateur
+            $sortie->setOrganisateur($user);
+
             //On envoi en BDD
             $em->persist($sortie);
+            $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('sortie_index');
