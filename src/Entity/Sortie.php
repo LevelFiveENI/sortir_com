@@ -42,7 +42,7 @@ class Sortie
      * @ORM\Column(type="string", length=150)
      *
      *  @Assert\Regex(
-     *  pattern     = "/^[a-z0-9 ]+$/i",
+     *  pattern     = "/^[a-z0-9 éè']+$/i",
      *  match=true,
      *  message="Le nom de la sortie ne peut pas contenir de caractères spéciaux"
      *    )
@@ -120,7 +120,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      *  @Assert\Regex(
-     *  pattern     = "/^[a-z0-9 ]+$/i",
+     *  pattern     = "/^[a-z0-9 éè']+$/i",
      *  match=true,
      *  message="Les infos concernant la sortie ne peuvent pas contenir de caracteres spéciaux"
      *    )
@@ -158,6 +158,21 @@ class Sortie
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="sorties")
      */
     private $ville;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Organisateur")
+     */
+    private $Organisateur;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="Participant")
+     */
+    private $Participant;
+
+    public function __construct()
+    {
+        $this->Participant = new ArrayCollection();
+    }
 
     //----Getter et Setter de Sortie
 
@@ -294,6 +309,46 @@ class Sortie
     public function setVille(?Ville $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?User
+    {
+        return $this->Organisateur;
+    }
+
+    public function setOrganisateur(?User $Organisateur): self
+    {
+        $this->Organisateur = $Organisateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getParticipant(): Collection
+    {
+        return $this->Participant;
+    }
+
+    public function addParticipant(User $participant): self
+    {
+        if (!$this->Participant->contains($participant)) {
+            $this->Participant[] = $participant;
+            $participant->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(User $participant): self
+    {
+        if ($this->Participant->contains($participant)) {
+            $this->Participant->removeElement($participant);
+            $participant->removeParticipant($this);
+        }
 
         return $this;
     }

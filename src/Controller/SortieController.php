@@ -69,11 +69,13 @@ class SortieController extends Controller
             $sortie->setLieu($lieuChoisi);
 
             $etatSortie->addSortie($sortie);
+
             $sortie->setEtat($etatSortie);
 
             //On envoi en BDD
             $em->persist($sortie);
             $em->flush();
+
             return $this->redirectToRoute('sortie_index');
         }
 

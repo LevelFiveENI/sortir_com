@@ -6,6 +6,7 @@
     {# Chargement des feuilles de style #}
     {{ encore_entry_link_tags('pagetype') }}
     {{ encore_entry_link_tags('accueil') }}
+    {{ encore_entry_link_tags('fosuser') }}
 
     <link href="https://fonts.googleapis.com/css?family=Gayathri|Quicksand&display=swap" rel="stylesheet">
 </head>
@@ -46,6 +47,10 @@
 
         {% endblock %}
 
+    {% block body %}{% endblock %}
+
+    {% block tableauSortie %}{% endblock %}
+
 </main>
 <footer>
     <div class="container">
@@ -65,6 +70,7 @@
 {# Chargement des scripts #}
 {{ encore_entry_script_tags('app') }}
 
-
+{{ encore_entry_script_tags('newSortie') }}
+{% block javascripts %}{% endblock %}
 </body>
 </html>
