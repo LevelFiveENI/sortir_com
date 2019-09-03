@@ -86,19 +86,19 @@
             <div class="row">
                 <div class="col-3">
                     <img src="{{asset('build/images/lieu.svg')}}" alt="lieu" class="image-creation">
-                    <p>Ajoutez un lieu</p>
+                    <p><b>1.</b> Ajoutez un lieu</p>
                 </div>
                 <div class="col-3">
                     <img src="{{asset('build/images/site.svg')}}" alt="site" class="image-creation">
-                    <p>Précisez le site</p>
+                    <p><b>2.</b> Précisez le site</p>
                 </div>
                 <div class="col-3">
                     <img src="{{asset('build/images/type-activite.svg')}}" alt="type-activite" class="image-creation">
-                    <p>Puis le type d'activité</p>
+                    <p><b>3.</b> Puis le type d'activité</p>
                 </div>
                 <div class="col-3">
                     <img src="{{asset('build/images/participants.svg')}}" alt="participants" class="image-creation">
-                    <p>Et n'oubliez pas le nombre maximum de participant</p>
+                    <p><b>4.</b> Et n'oubliez pas le nombre maximum de participant</p>
                 </div>
             </div>
         </div>
@@ -119,7 +119,10 @@
                     <p>Vous n'êtes pas encore inscrits ? N'hésitez-plus, sautez le pas et profitez de tous les avantages du site ! </p>
                 </div>
                 <div class="col-3">
-                    <button type="button" class="btn btn-primary btn-lg">Je m'inscris</button>
+                    <a class="nav-link" href="{{ path('fos_user_registration_register') }}">
+                        <button type="button" class="btn btn-primary btn-lg">Je m'inscris</button>
+                    </a>
+
                 </div>
             </div>
         </div>
