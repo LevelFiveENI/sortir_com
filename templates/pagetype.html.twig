@@ -14,7 +14,7 @@
 <header>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand"  href="#">
+        <a class="navbar-brand"  href="/accueil">
 
             <img class="img-logo" alt="logo-sortir" src="{{asset('build/images/sortir-logo.png')}}"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -25,19 +25,31 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="annonce nav-item active">
-                    <a class="nav-link"  href="#">Accueil<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-text nav-item">
-                    <a class="nav-link" href="#">Mon profil</a>
+                    <a class="nav-link"  href="/accueil">Accueil<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-text nav-item">
                     <a class="nav-link" href="#">Les sorties</a>
                 </li>
+                {% if app.user %}
+                    <li class="nav-text nav-item">
+                        <a class="nav-link" href="{{ path('fos_user_profile_show') }}">Mon profil</a>
+                    </li>
+                {% elseif app.user is none %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                    </li>
+                    <li class="nav-text nav-item">
+                        <a class="nav-link" href="{{ path('fos_user_security_login') }}">Se connecter</a>
+                    </li>
+
+                {% endif %}
+
             </ul>
-            <form  action="/vente/recherche" class="form-inline my-2 my-lg-0">
+
+            {#<form  action="/vente/recherche" class="form-inline my-2 my-lg-0">
                 <input name="input-recherche" class="form-control mr-sm-2" type="search" placeholder="Rechercher une sortie" aria-label="Search">
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">Rechercher</button>
-            </form>
+            </form>#}
         </div>
     </nav>
 </header>
@@ -46,7 +58,6 @@
         {% block main %}
 
         {% endblock %}
-
 
 </main>
 <footer>
@@ -66,6 +77,7 @@
 </footer>
 {# Chargement des scripts #}
 {{ encore_entry_script_tags('app') }}
+
 {{ encore_entry_script_tags('newSortie') }}
 {% block javascripts %}{% endblock %}
 </body>

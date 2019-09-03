@@ -9,5 +9,4 @@ fos_user:
   registration:
     form:
       type: App\Form\RegistrationType
-    confirmation:
-      enabled:    false
+

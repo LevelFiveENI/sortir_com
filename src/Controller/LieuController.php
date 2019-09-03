@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-//Valentin
+// Valentin ********************************
 /**
  * @Route("/lieu")
  */
@@ -47,8 +47,6 @@ class LieuController extends Controller
         //On ajoute en BDD
         $em->persist($lieu);
         $em->flush();
-
-
         return new response("OK !");
 
     }

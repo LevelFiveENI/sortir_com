@@ -5,17 +5,15 @@ namespace App\Controller;
 use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
-use App\Entity\Ville;
 use App\Form\LieuType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-//Valentin
+// Valentin *********************************************
 
 /**
  * @Route("/sortie")
@@ -37,8 +35,16 @@ class SortieController extends Controller
      */
     public function new(EntityManagerInterface $em, Request $request): Response
     {
+        $user = $this->getUser();
+//        dump($user);
+//        exit();
         $sortie = new Sortie();
         $lieu = new Lieu();
+        //Ici on set la date pour l'affichage dans le formulaire
+        $dateJour = new \DateTime('now');
+        $dateDuJourPlus = new \DateTime('now + 2 day');
+        $sortie->setDateHeureDebut($dateJour);
+        $sortie->setDateLimiteInscription($dateDuJourPlus);
 
         $form = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class, $lieu);
@@ -48,12 +54,20 @@ class SortieController extends Controller
 
         //Création d'une sortie
         if ($form->isSubmitted() && $form->isValid()) {
-
             $etatSortie = new Etat();
-            $etatSortie = $em->getRepository('App:Etat')->find(1);
+            //On gère l'état de la sortie selon le bouton choisi
+            if($form->get('Enregistrer')->isClicked()) {
+                $etatSortie = $em->getRepository('App:Etat')->find(2);
+            }
+            if($form->get('Publier')->isClicked()) {
+                $etatSortie = $em->getRepository('App:Etat')->find(1);
+            }
+            if($form->get('Annuler')->isClicked()){
+                return $this->redirectToRoute('sortie_index');
+            }
 
+            //On ajoute le lieu choisi a la sortie
             $idLieu = $request->get('choixLieu');
-            //$nomLieu = $tabLieux['nomLieu'];
             $lieuChoisi = $em->getRepository('App:Lieu')->find($idLieu);
             $sortie->setLieu($lieuChoisi);
 
@@ -61,8 +75,12 @@ class SortieController extends Controller
 
             $sortie->setEtat($etatSortie);
 
+            //On relie la sortie à l'utilisateur
+            $sortie->setOrganisateur($user);
+
             //On envoi en BDD
             $em->persist($sortie);
+            $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('sortie_index');
@@ -90,20 +108,46 @@ class SortieController extends Controller
     /**
      * @Route("/{id}/edit", name="sortie_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Sortie $sortie): Response
+    public function edit(Request $request, Sortie $sortie, EntityManagerInterface $em): Response
     {
+        $lieu = $sortie->getLieu();
         $form = $this->createForm(SortieType::class, $sortie);
+        $formLieu = $this->createForm(LieuType::class, $lieu);
         $form->handleRequest($request);
+        $formLieu->handleRequest($request);
 
+        //Si le formulaire est validé
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $etatSortie = new Etat();
+            //On gère l'état de la sortie selon le bouton choisi
+            if($form->get('Enregistrer')->isClicked()) {
+                $etatSortie = $em->getRepository('App:Etat')->find(1);
+                $sortie->setEtat($etatSortie);
+                $em->persist($sortie);
+                $em->flush();
+            }
+            if($form->get('Publier')->isClicked()) {
+                $etatSortie = $em->getRepository('App:Etat')->find(2);
+                $sortie->setEtat($etatSortie);
+                $em->persist($sortie);
+                $em->flush();
+            }
 
+            if($form->get('Supprimer')->isClicked()) {
+                $etatSortie = $em->getRepository('App:Etat')->find(6);
+                $sortie->setEtat($etatSortie);
+                $sortie->setEtat($etatSortie);
+                $em->persist($sortie);
+                $em->flush();
+            }
             return $this->redirectToRoute('sortie_index');
         }
 
         return $this->render('sortie/edit.html.twig', [
             'sortie' => $sortie,
+            'lieu'=>$lieu,
             'form' => $form->createView(),
+            'formLieu' => $formLieu->createView(),
         ]);
     }
 
@@ -125,9 +169,11 @@ class SortieController extends Controller
      * @Route("/ajaxLieu", name="ajax_lieu", methods={"GET", "POST"})
      */
     public function ajaxLieu(Request $request, EntityManagerInterface $em){
+        //Fonction AJAX pour relier les select du formaulaire
         $idVille = $request->get('villeid');
         $ville = $em->getRepository('App:Ville')->find($idVille);
-
+        //On récupère l'id de la ville et on cherche la liste des lieux de la ville
+        //Puis on envoi les données en JSON
         if ($idVille){
             $villeLieu = $em->getRepository('App:Ville')->find($idVille);
             $arrayLieux = array();
@@ -141,7 +187,5 @@ class SortieController extends Controller
         $lieuxJson = json_encode($arrayLieux);
         return new Response($lieuxJson);
     }
-
-
 
 }
