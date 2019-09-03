@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("accueil", name="accueil",methods={"GET"})
+ * @Route("/accueil", name="accueil",methods={"GET"})
  */
 class AccueilController extends Controller
 {
@@ -19,4 +19,6 @@ class AccueilController extends Controller
     {
         return $this->render('accueil.html.twig');
     }
+
 }
+
