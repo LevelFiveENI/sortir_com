@@ -3,6 +3,24 @@
 
 const $ = require('jquery');
 
+$(document).ready(function() {
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 // fonction ajax inscription à une sortie
 $('.inscription').click(function(){
 $.ajax({
@@ -112,6 +130,3 @@ $('#dateMaxi').change(function () {
 
     }
 })
-
-
-
