@@ -72,7 +72,7 @@
             </div>
             <div class="form-group col-lg-6">
                 <label for="sortie_lieu">Choisir un lieu</label>
-                    <select id="sortie_lieu" name="choixLieu" class="form-control" required>
+                    <select id="sortie_lieu" name="choixLieu" class="form-control">
                         <option value="" disabled selected>Choisir un lieu</option>
                     </select>
                 <br>
@@ -100,18 +100,18 @@
                 {{ form_widget(form.Publier, {'attr': {'class': 'btn btn-primary'} }) }}
 
             </div>
-            <div class="form-group annuler col-lg-4">
-                {{ form_label(form.Annuler) }}
-                {{ form_widget(form.Annuler, {'attr': {'class': 'btn btn-danger'} }) }}
+            {{ form_end(form) }}
 
+        </div>
+        <div class="row">
+            <div class="col-lg-9"></div>
+            <div class="form-group annuler col-lg-3">
+
+               <a href="/accueil"><button class="btn btn-danger">Annuler</button></a>
 
             </div>
         </div>
 
-
-        {{ form_end(form) }}
-
-        <a href="{{ path('sortie_index') }}">Voir la liste des Sorties</a>
 
         <!--Formulaire de création d'un sortie -->
 

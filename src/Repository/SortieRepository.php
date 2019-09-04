@@ -110,7 +110,18 @@ public function sortieBySearch($site, $search, $dateSdeb, $dateSfin){
     return $req->getQuery()->getResult();
 
 }
+    /////////////////////////Valentin !!! ***************
 
+    public function findByDateRecent()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s')
+            ->orderBy('s.dateLimiteInscription', 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 
 
