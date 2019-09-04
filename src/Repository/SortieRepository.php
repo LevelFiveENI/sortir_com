@@ -15,6 +15,79 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 class SortieRepository extends ServiceEntityRepository
 {
 
+    public function topSorti($site, $seek, $checkDate, $dateDeb,$dateFin, $checkOrga, $checkInscri, $checkNonInscri, $checkPasse){
+        $req = $this -> createQueryBuilder('s');
+
+
+        // recherche si un site existe
+            if($site && $site!="Tous"){
+                $req
+                    ->join('s.site','site')
+                    ->addSelect('site')
+                    ->andWhere('site.nom = :site')
+                    ->setParameter('site',$site);
+            }
+        // recherche dans le nom du titre
+            if($seek){
+                $seek = trim($seek);
+                $req
+                    ->andwhere('s.nom like :nom')
+                    ->setParameter('nom', "%".$seek."%");
+            }
+        // si la checkbox date est cochée on recherche au niveau de la date
+            if($checkDate){
+                $req
+                     ->andWhere('s.dateHeureDebut >= :dateSDeb')
+                     ->andWhere('s.dateHeureDebut <= :dateSFin')
+                    ->setParameter(':dateSDeb',$dateDeb)
+                    ->setParameter(':dateSFin',$dateFin);
+            }
+
+        //////////////// requete a remplir par flo
+        // $checkOrga, $checkInscri, $checkNonInscri, $checkPasse
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $req
+
+/*            ->join('s.etat', 'etat')
+            ->addSelect('etat')
+            ->andWhere('etat.libelle = :etaO')
+            ->setParameter('etaO' ,"ouverte")
+            ->andWhere('etat.libelle = :etaCl')
+            ->setParameter('etaCl' ,"cloture")
+            ->andWhere('etat.libelle = :etaAc')
+            ->setParameter('etaAc' ,"actEncours")
+            ->andWhere('etat.libelle = :etaP')
+            ->setParameter('etaP' ,"passee")
+            ->andWhere('etat.libelle = :etaCr')
+            ->setParameter('etaCr' ,"cree")*/
+
+
+            ->orderBy('s.dateHeureDebut','DESC');
+
+        return $req->getQuery()->getResult();
+    }
+
+
+
+
+
+
+
+
+
+
     // recupère les données de tous les sites juste avec une date deb
     /**
      * @param $site
@@ -78,19 +151,7 @@ class SortieRepository extends ServiceEntityRepository
 
 
 
-    // recupère les sorties en fonction de la categorie
-    /**
-     * @param $categorie
-     * @return array
-     */
-    public function sortieByCategorie($categorie){
-            $req = $this -> createQueryBuilder('s')
-                ->select('s')
-                ->where('s.categorie = :categorie')
-                ->setParameter('categorie',$categorie);
 
-            return $req->getQuery()->getResult();
-    }
 
 
 
@@ -124,6 +185,25 @@ public function sortieBySearch($site, $search, $dateSdeb, $dateSfin){
     return $req->getQuery()->getResult();
 
 }
+
+
+    //////////////////// recupère les sorties en fonction de la categorie
+    /**
+     * @param $categorie
+     * @return array
+     */
+    public function sortieByCategorie($categorie){
+        $req = $this -> createQueryBuilder('s')
+            ->select('s')
+            ->where('s.categorie = :categorie')
+            ->setParameter('categorie',$categorie);
+
+        return $req->getQuery()->getResult();
+    }
+
+
+
+
     /////////////////////////Valentin !!! ***************
 
     public function findByDateRecent()

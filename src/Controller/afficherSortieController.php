@@ -35,9 +35,6 @@ class afficherSortieController extends Controller
         $dateJ = date('y-m-d',strtotime('-1 month'));
         $sorti = $em->getRepository('App:Sortie')->sortieByAll($dateJ);
 
-
-
-
         return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $sorti, 'allSite' => $site]);
     }
 
@@ -64,17 +61,24 @@ class afficherSortieController extends Controller
         // on recup les infos recherche date fin
         $infoDateFin = $request->get("dateMaxi");
 
+        //recup checkbox date
+        $infoCheckDate = $request->get("checkDate");
 
-        // requete avec le site
-        if ($infoSearch != null){
-            // recup de la liste de toute les sorties en fonction du site + recherche
-            $sorti = $em->getRepository('App:Sortie')->sortieBySearch($infoSite,$infoSearch, $infoDateDeb,$infoDateFin);
-        }
-        else{
-            // on recup la liste de toute les sorties en fonction du site
-            $sorti = $em->getRepository('App:Sortie')->sortieBySite($infoSite,$infoDateDeb,$infoDateFin);
-        }
+        //recup checkbox je suis l'organisateur
+        $infoCheckOrga = $request->get("checkOrga");
 
+        //recup checkbox je suis inscrit
+        $infoCheckInscri = $request->get("checkInscrit");
+
+        //recup checkbox je ne suis pas inscrit
+        $infoCheckNoInscrit = $request->get("checkNonInscrit");
+
+        //recup checkbox sorti passée
+        $infoCheckPassee= $request->get("checkOldSortie");
+
+        // requete pour récupérer les infos demandés
+      $sorti = $em->getRepository('App:Sortie')->topSorti($infoSite, $infoSearch, $infoCheckDate,
+         $infoDateDeb,$infoDateFin, $infoCheckOrga, $infoCheckInscri, $infoCheckNoInscrit, $infoCheckPassee);
 
 
         return $this->render('sortie/afficherSortie.html.twig', [ 'allSortie' => $sorti ,'allSite' => $site]);

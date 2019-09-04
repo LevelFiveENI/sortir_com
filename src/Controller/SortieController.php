@@ -58,11 +58,11 @@ class SortieController extends Controller
             //On gère l'état de la sortie selon le bouton choisi
             if($form->get('Enregistrer')->isClicked()) {
                 $this->addFlash("successCreateSortie","Votre sortie est enregistrée. Publiez-la quand vous voulez !");
-                $etatSortie = $em->getRepository('App:Etat')->find(2);
+                $etatSortie = $em->getRepository('App:Etat')->find(1);
             }
             if($form->get('Publier')->isClicked()) {
                 $this->addFlash("successCreateSortie","Votre sortie est publiée !");
-                $etatSortie = $em->getRepository('App:Etat')->find(1);
+                $etatSortie = $em->getRepository('App:Etat')->find(2);
             }
 //            if($form->get('Annuler')->isClicked()){
 //                return $this->redirectToRoute('sortie_index');
