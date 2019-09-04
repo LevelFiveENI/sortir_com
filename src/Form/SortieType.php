@@ -7,27 +7,19 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Categorie;
 use App\Entity\Ville;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
+
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Category;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
+
 
 class SortieType extends AbstractType
 {
@@ -45,7 +37,8 @@ class SortieType extends AbstractType
                 'input'=>"datetime",
                 'format' => 'dd-MM-yyyy',
                 "required"=>false,
-                'data' => new \DateTime(),
+                "date_widget"=> "single_text"
+
             ] )
             ->add('duree', IntegerType::class, [
                 "required"=>false,
@@ -54,7 +47,8 @@ class SortieType extends AbstractType
                 'input'=>"datetime",
                 'format' => 'dd-MM-yyyy',
                 "required"=>false,
-                'data' => new \DateTime(),
+                "date_widget"=> "single_text"
+
             ])
             ->add('nbInscriptionsMax', IntegerType::class, [
                 "required"=>false,
@@ -86,9 +80,15 @@ class SortieType extends AbstractType
                     return $er->createQueryBuilder('v')->orderBy('v.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
+                "required"=>false,
             ])
 
+            ->add('Publier', SubmitType::class)
+            ->add('Enregistrer', SubmitType::class)
+            ->add('Supprimer', SubmitType::class)
+//            ->add('Annuler', SubmitType::class)
         ;
+
 
     }
 

@@ -3,59 +3,144 @@
 {% block title %}New Sortie{% endblock %}
 
 {% block main %}
-    <h1>Crée un nouvelle Sortie</h1>
 
-    <!--Formulaire de création d'un sortie -->
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <section class="container">
+        <h1>Crée un nouvelle Sortie</h1>
+
+        <!--Formulaire de création d'un sortie -->
+        {% form_theme form 'bootstrap_4_layout.html.twig' %}
+        {{ form_start(form) }}
+        <div class="row form-inline ">
+            <div class="form-group categorie col-lg-6 ">
+                {{ form_label(form.categorie) }}
+                {{ form_widget(form.categorie , {'attr': {'class': 'form-control'} }) }}
+
+            </div>
+            <div class="form-group site col-lg-6">
+                {{ form_label(form.site) }}
+                {{ form_widget(form.site) }}
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group nom col-lg-6">
+                {{ form_label(form.nom) }}
+                {{ form_widget(form.nom) }}
+
+            </div>
+
+            <div class="form-group nbInscriptionsMax col-lg-6">
+                {{ form_label(form.nbInscriptionsMax) }}
+                {{ form_widget(form.nbInscriptionsMax) }}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group dateHeureDebut form-inline col-lg-6">
+                {{ form_label(form.dateHeureDebut) }}
+                {{ form_widget(form.dateHeureDebut) }}
+
+            </div>
+
+            <div class="form-group dateLimiteInscription col-lg-6">
+                {{ form_label(form.dateLimiteInscription) }}
+                {{ form_widget(form.dateLimiteInscription) }}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group infosSortie col-lg-6">
+                {{ form_label(form.infosSortie) }}
+                {{ form_widget(form.infosSortie) }}
+
+            </div>
+
+            <div class="form-group duree col-lg-6">
+                {{ form_label(form.duree) }}
+                {{ form_widget(form.duree) }}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group ville col-lg-6">
+                {{ form_label(form.ville) }}
+                {{ form_widget(form.ville) }}
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="sortie_lieu">Choisir un lieu</label>
+                    <select id="sortie_lieu" name="choixLieu" class="form-control">
+                        <option value="" disabled selected>Choisir un lieu</option>
+                    </select>
+                <br>
+                <button type="button" id="newLieu" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Ajouter un lieu</button>
+                <input type="hidden" id="urlPath" value="/sortie/ajaxLieu">
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="successLieu"></div>
+            <div id="inputLieu"></div>
+
+        </div>
+        <br>
+        <!-- Modal pour la création du lieu -->
+
+        <br>
+        <div class="row">
+            <div class="form-group enregistrer col-lg-4">
+                {{ form_label(form.Enregistrer) }}
+                {{ form_widget(form.Enregistrer, {'attr': {'class': 'btn btn-primary'} }) }}
+            </div>
+            <div class="form-group publier col-lg-4">
+                {{ form_label(form.Publier) }}
+                {{ form_widget(form.Publier, {'attr': {'class': 'btn btn-primary'} }) }}
+
+            </div>
+            {{ form_end(form) }}
+
+        </div>
+        <div class="row">
+            <div class="col-lg-9"></div>
+            <div class="form-group annuler col-lg-3">
+
+               <a href="/accueil"><button class="btn btn-danger">Annuler</button></a>
+
+            </div>
+        </div>
 
 
-    <label for="sortie_lieu">Choisir un lieu</label>
-        <select id="sortie_lieu" name="choixLieu">
-            <option value="" disabled selected>Choisir un lieu</option>
-        </select>
-    <br>
-    <!-- Modal pour la création du lieu -->
-    <button type="button" id="newLieu" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
-        Ajouter un lieu
-    </button>
-    <br>
-    <button class="btn">{{ button_label|default('Créer la sortie') }}</button>
+        <!--Formulaire de création d'un sortie -->
 
-    {{ form_end(form) }}
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_start(formLieu, {'attr': {'id': 'ajoutLieu'}}) }}
+                        {{ form_widget(formLieu) }}
+                        <button class="btn">{{ button_label|default('Save') }}</button>
+                        {{ form_end(formLieu) }}
 
-    <a href="{{ path('sortie_index') }}">Voir la liste des Sorties</a>
-
-    <!--Formulaire de création d'un sortie -->
-    <div id="successLieu"></div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{ form_start(formLieu, {'attr': {'id': 'ajoutLieu'}}) }}
-                    {{ form_widget(formLieu) }}
-                    <button class="btn">{{ button_label|default('Save') }}</button>
-                    {{ form_end(formLieu) }}
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
+    </section>
+    {{ encore_entry_script_tags('newSortie') }}
 {% endblock %}
 
 {% block javascripts %}

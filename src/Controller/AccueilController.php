@@ -15,9 +15,13 @@ class AccueilController extends Controller
     /**
      * @Route("/", name="accueil", methods={"GET"})
      */
-    public function afficher()
+    public function afficher(Request $request, EntityManagerInterface $em)
     {
-        return $this->render('accueil.html.twig');
+        $listeSorties = $em->getRepository('App:Sortie')->findByDateRecent();
+//        dump($listeSorties);
+//        exit();
+
+        return $this->render('accueil.html.twig', ['listeSorties'=> $listeSorties]);
     }
 
 }

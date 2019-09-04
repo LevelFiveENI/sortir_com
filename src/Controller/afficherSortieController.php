@@ -5,9 +5,14 @@ namespace App\Controller;
 
 
 use App\Entity\Sortie;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 
@@ -26,20 +31,20 @@ class afficherSortieController extends Controller
      */
     public function afficherSortie(EntityManagerInterface $em, Request $request){
 
-        // a creer si pas de sorti affichage d'un tableau vide
-
-
-        // recuperation des sorties
-       // $sorti = $em->getRepository('App:Sortie')->findAll();
-
-
         // recuperation des sites
         $site = $em->getRepository('App:Site')->findAll();
 
         // variable avec la date du jour
         $dateJ = date('y-m-d');
-
         $sorti = $em->getRepository('App:Sortie')->sortieByAll($dateJ);
+
+
+/*        foreach ($sorti as $s){
+            $p = $s -> getParticipant();
+                foreach ($p as $tabParticipant){
+                    dump($p);
+            }
+        }*/
 
 
         return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $sorti, 'allSite' => $site]);
@@ -52,20 +57,40 @@ class afficherSortieController extends Controller
      * @Route("/afficSortieTriSite", name="affich_affich_site", methods={"POST"})
      */
     public function afficherBySite (EntityManagerInterface $em, Request $request){
+
+        $response = new Response();
+
+
         // recuperation des sites
         $site = $em->getRepository('App:Site')->findAll();
 
         // on recupere les infos du site
         $infoSite = $request->get("selectSite");
+     //   $cookieSi = new Cookie('site', $infoSite );
+        $response->headers->setCookie($cookieSi);
 
         //on recup les infos de le la recherche
         $infoSearch = $request->get("infoSearch");
+    //    $cookieSe = new Cookie('seek', $infoSearch );
+        $response->headers->setCookie($cookieSe);
 
         // on recup les infos recherche date deb
         $infoDateDeb = $request->get("dateMini");
+     //   $cookieDd = new Cookie('dateD', $infoDateDeb );
+        $response->headers->setCookie($cookieDd);
 
         // on recup les infos recherche date fin
         $infoDateFin = $request->get("dateMaxi");
+      //  $cookieDf = new Cookie('dateF', $infoDateFin );
+        $response->headers->setCookie($cookieDf);
+
+
+        // on envoie les cookies
+    //    $response->send();
+
+
+        // test de recup des cookies
+      //  $cinfoSite = $request->cookies->get('site');
 
 
         // requete avec le site
@@ -79,10 +104,58 @@ class afficherSortieController extends Controller
         }
 
 
+
         return $this->render('sortie/afficherSortie.html.twig', [ 'allSortie' => $sorti ,'allSite' => $site]);
     }
 
 
+    /**
+     * @Route("/inscription", name="affich_inscription", methods={"GET", "POST"})
+     */
+public function ajaxInscription(Request $request, EntityManagerInterface $em){
+
+    // on recupère l'utilisateur connecté
+    $userCo = $em->getRepository('App:User')->find($this->getUser());
+
+    //on récupère l'id de la sortie correspondant
+    $idSortie = $request->get('sortieId');
+
+    // on recup la sortie en cours
+    $sortiEC = $em->getRepository('App:Sortie')->find($idSortie);
+
+
+    //on set l'user dans la sortie
+    $sortiEC ->addParticipant($userCo);
+    $em->persist($sortiEC);
+    $em->flush();
+
+ return new \Symfony\Component\HttpFoundation\Response($idSortie);
+
+}
+
+    /**
+     * @Route("/desinscription", name="affich_desinscription", methods={"GET", "POST"})
+     */
+    public function ajaxDesinscription(Request $request, EntityManagerInterface $em){
+
+        // on recupère l'utilisateur connecté
+        $userCo = $em->getRepository('App:User')->find($this->getUser());
+
+        //on récupère l'id de la sortie correspondant
+        $idSortie = $request->get('sortieId');
+
+        // on recup la sortie en cours
+        $sortiEC = $em->getRepository('App:Sortie')->find($idSortie);
+
+
+        //on set l'user dans la sortie
+        $sortiEC ->removeParticipant($userCo);
+        $em->persist($sortiEC);
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\Response($idSortie);
+
+    }
 
 
 

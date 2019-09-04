@@ -1,13 +1,163 @@
-{% extends 'base.html.twig' %}
+{% extends 'pagetype.html.twig' %}
 
-{% block title %}Edit Sortie{% endblock %}
+{% block title %}Modifier la sortie{% endblock %}
 
-{% block body %}
-    <h1>Edit Sortie</h1>
+{% block main %}
+    <section class="container">
+        <h1>Modifier une sortie</h1>
 
-    {{ include('sortie/_form.html.twig', {'button_label': 'Update'}) }}
+        <!--Formulaire de création d'un sortie -->
+        {% form_theme form 'bootstrap_4_layout.html.twig' %}
+        {{ form_start(form) }}
+        <div class="row form-inline ">
+            <div class="form-group categorie col-lg-6 ">
+                {{ form_label(form.categorie) }}
+                {{ form_widget(form.categorie , {'attr': {'class': 'form-control'} }) }}
 
-    <a href="{{ path('sortie_index') }}">back to list</a>
+    <a href="/afficher/afficSortie">retour à la liste</a>
 
-    {{ include('sortie/_delete_form.html.twig') }}
+            </div>
+            <div class="form-group site col-lg-6">
+                {{ form_label(form.site) }}
+                {{ form_widget(form.site) }}
+
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group nom col-lg-6">
+                {{ form_label(form.nom) }}
+                {{ form_widget(form.nom) }}
+
+            </div>
+
+            <div class="form-group nbInscriptionsMax col-lg-6">
+                {{ form_label(form.nbInscriptionsMax) }}
+                {{ form_widget(form.nbInscriptionsMax) }}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group dateHeureDebut form-inline col-lg-6">
+                {{ form_label(form.dateHeureDebut) }}
+                {{ form_widget(form.dateHeureDebut)}}
+
+            </div>
+
+            <div class="form-group dateLimiteInscription col-lg-6">
+                {{ form_label(form.dateLimiteInscription) }}
+                {{ form_widget(form.dateLimiteInscription) }}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group infosSortie col-lg-6">
+                {{ form_label(form.infosSortie) }}
+                {{ form_widget(form.infosSortie) }}
+
+            </div>
+
+            <div class="form-group duree col-lg-6">
+                {{ form_label(form.duree) }}
+                {{ form_widget(form.duree) }}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group ville col-lg-6">
+                {{ form_label(form.ville) }}
+                {{ form_widget(form.ville) }}
+                <input type="text" id="villeSortieDef" value="{{ sortie.ville.nom }}" class="form-control" disabled>
+                <br>
+                <button type="button" id="modifLieu" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Changer le lieu</button>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="sortie_lieu">Choisir un lieu</label>
+                <select id="sortie_lieu" name="choixLieu" class="form-control">
+                    <option value="" disabled selected>Choisir un lieu</option>
+                </select>
+                <input type="text" id="lieuSortieDef" value="{{ sortie.lieu.nom}}" class="form-control" disabled>
+                <br>
+                <button type="button" id="newLieu" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Modifier le lieu</button>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="successLieu"></div>
+            <div id="inputLieu"></div>
+
+        </div>
+        <br>
+
+
+        <br>
+        <div class="row">
+            <div class="form-group enregistrer col-lg-3">
+                {{ form_label(form.Enregistrer) }}
+                {{ form_widget(form.Enregistrer, {'attr': {'class': 'btn btn-primary'} }) }}
+
+
+            </div>
+            <div class="form-group publier col-lg-3">
+                {{ form_label(form.Publier) }}
+                {{ form_widget(form.Publier, {'attr': {'class': 'btn btn-primary'} }) }}
+
+            </div>
+
+            <div class="form-group supprimer col-lg-3">
+                {{ form_label(form.Supprimer) }}
+                {{ form_widget(form.Supprimer, {'attr': {'class': 'btn btn-danger'} }) }}
+
+            </div>
+
+            <div class="form-group annuler col-lg-3">
+                {{ form_label(form.Annuler) }}
+                {{ form_widget(form.Annuler, {'attr': {'class': 'btn btn-danger'} }) }}
+
+            </div>
+        </div>
+
+
+        {{ form_end(form) }}
+
+        <a href="{{ path('sortie_index') }}">Voir la liste des Sorties</a>
+
+        <!--Formulaire de création d'un sortie -->
+
+        <!-- Modal pour la création du lieu -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Changer le lieu de la sortie</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_start(formLieu, {'attr': {'id': 'ajoutLieu'}}) }}
+                        {{ form_widget(formLieu) }}
+                        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+                        {{ form_end(formLieu) }}
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler et choisir dans la liste</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    {{ encore_entry_script_tags('upSortie') }}
 {% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+

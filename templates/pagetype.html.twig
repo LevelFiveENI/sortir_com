@@ -6,7 +6,7 @@
     {# Chargement des feuilles de style #}
     {{ encore_entry_link_tags('pagetype') }}
     {{ encore_entry_link_tags('accueil') }}
-    {{ encore_entry_link_tags('fosuser') }}
+
 
     <link href="https://fonts.googleapis.com/css?family=Gayathri|Quicksand&display=swap" rel="stylesheet">
 </head>
@@ -28,9 +28,12 @@
                     <a class="nav-link"  href="/accueil">Accueil<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-text nav-item">
-                    <a class="nav-link" href="#">Les sorties</a>
+                    <a class="nav-link" href="{{ path('Sortie_afficheraffich_affich') }}">Les sorties</a>
                 </li>
                 {% if app.user %}
+                    <li class="nav-text nav-item">
+                        <a class="nav-link" href="{{ path('sortie_new') }}">Créer une sortie</a>
+                    </li>
                     <li class="nav-text nav-item">
                         <a class="nav-link" href="{{ path('fos_user_profile_show') }}">Mon profil</a>
                     </li>
@@ -45,10 +48,19 @@
                 {% endif %}
 
             </ul>
-            {#<form  action="/vente/recherche" class="form-inline my-2 my-lg-0">
-                <input name="input-recherche" class="form-control mr-sm-2" type="search" placeholder="Rechercher une sortie" aria-label="Search">
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">Rechercher</button>
-            </form>#}
+
+        </div>
+        <div class="collapse navbar-collapse" id="connectUser">
+            {% if app.user %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="{{ path('fos_user_profile_show') }}">{{ app.user.nom}}</a>
+                </li>
+                <li class="nav-text nav-item">
+                    <a class="nav-link"  href="{{ path('fos_user_security_logout') }}">Se déconnecter<a/>
+                </li>
+            </ul>
+            {% endif %}
         </div>
     </nav>
 </header>
@@ -57,10 +69,6 @@
         {% block main %}
 
         {% endblock %}
-
-    {% block body %}{% endblock %}
-
-    {% block tableauSortie %}{% endblock %}
 
 </main>
 <footer>
@@ -80,6 +88,7 @@
 </footer>
 {# Chargement des scripts #}
 {{ encore_entry_script_tags('app') }}
+
 {{ encore_entry_script_tags('newSortie') }}
 {% block javascripts %}{% endblock %}
 </body>
