@@ -29,38 +29,52 @@
         </div>
     <div class="container">
         <div class="row">
-            <a href={{ path('sortie_categorie', {'id' : 8}) }}>
                 <div class="col-2">
-                    <img src="{{asset('build/images/sport.svg')}}" alt="sport" class="image-picto">
-                    <h3>Sport</h3>
-                    <p>Basketball, volley, running... Rien de mieux que se dépenser en équipe après une journée assis devant son ordinateur !</p>
+                    <a href={{ path('sortie_categorie', {'id' : 1}) }}>
+                         <img src="{{asset('build/images/sport.svg')}}" alt="sport" class="image-picto">
+                        <h3>Sport</h3>
+                   <p>Basketball, volley, running...{#  Rien de mieux que se dépenser en équipe après une journée assis devant son ordinateur !>#}</p
+                    </a>
                 </div>
-            </a>
 
             <div class="col-2">
+                <a href={{ path('sortie_categorie', {'id' : 2}) }}>
                 <img src="{{asset('build/images/musique.svg')}}" alt="musique" class="image-picto">
                 <h3>Musique</h3>
-{#                <p>Concerts, festival, cours de musique...</p>#}
+              <p>Concerts, festival, cours de musique...</p>
+                </a>
             </div>
+
             <div class="col-2">
+                <a href={{ path('sortie_categorie', {'id' : 4}) }}>
                 <img src="{{asset('build/images/culture.svg')}}" alt="culture" class="image-picto">
                 <h3>Culture</h3>
-{#                <p>Musée, théâtre, exposition...</p>#}
+               <p>Musée, théâtre, exposition...</p>
+                </a>
             </div>
+
             <div class="col-2">
+                <a href={{ path('sortie_categorie', {'id' : 3}) }}>
                 <img src="{{asset('build/images/informatique.svg')}}" alt="informatique" class="image-picto">
                 <h3>Informatique</h3>
-{#                <p>Hackaton, cours particulier, réparation... Partager son savoir est valorisant pour les érudits commes pour les débutants !</p>#}
+            <p>Hackaton, cours particulier, réparation... {#    Partager son savoir est valorisant pour les érudits commes pour les débutants !#}</p>
+            </a>
             </div>
+
             <div class="col-2">
+                <a href={{ path('sortie_categorie', {'id' : 6}) }}>
                 <img src="{{asset('build/images/aperitif.svg')}}" alt="aperitif" class="image-picto">
                 <h3>Apéritif</h3>
-{#                <p>Brasserie, bar, restaurant... Le métier d'informaticien n'est pas incompatible avec le fait d'être un bon vivant !</p>#}
+                <p>Brasserie, bar, restaurant...{# Le métier d'informaticien n'est pas incompatible avec le fait d'être un bon vivant !#}</p>
+                </a>
             </div>
+
             <div class="col-2">
+                <a href={{ path('sortie_categorie', {'id' : 5}) }}>
                 <img src="{{asset('build/images/divers.svg')}}" alt="divers" class="image-picto">
                 <h3>Divers</h3>
-{#                <p>Libre à vous d'imaginer tout autre type de sortie et d'en faire profiter les élèves de l'ENI !</p>#}
+               <p>Libre à vous d'imaginer tout autre type de sortie... {# et d'en faire profiter les élèves de l'ENI !#}</p>
+               </a>
             </div>
         </div>
     </div>
@@ -70,7 +84,7 @@
 
         <div class="row">
             <div class="col-12">
-                <h2>LES SORTIES RÉCENTES</h2>
+                <h2>LES PROCHAINE SORTIES</h2>
             </div>
         </div>
     <div class="row justify-content-md-center">
@@ -81,17 +95,17 @@
 
                     {% set cat = valeur.categorie  %}
                     {% if cat.id == 1 %}
-                        <img src="{{ asset('build/images/football.svg') }}" alt="sortieSoprt" class="logoImg"/>
+                        <img src="{{ asset('build/images/sport.jpg') }}" alt="sortieSoprt" class="image-picto-m"/>
                     {% elseif cat.id == 2  %}
-                        <img src="{{ asset('build/images/musique.svg') }}" alt="sortieMusique" class="logoImg"/>
+                        <img src="{{ asset('build/images/music4.jpg') }}" alt="sortieMusique" class="image-picto-m"/>
                     {% elseif cat.id == 3  %}
-                        <img src="{{ asset('build/images/informatique.svg') }}" alt="sortieInfo" class="logoImg"/>
+                        <img src="{{ asset('build/images/informatique.jpg') }}" alt="sortieInfo" class="image-picto-m"/>
                     {% elseif cat.id == 4  %}
-                        <img src="{{ asset('build/images/culture.svg') }}" alt="sortieCulture" class="logoImg"/>
+                        <img src="{{ asset('build/images/culture.jpg') }}" alt="sortieCulture" class="image-picto-m"/>
                     {% elseif cat.id == 5  %}
-                        <img src="{{ asset('build/images/divers.svg') }}" alt="sortieDivers" class="logoImg"/>
+                        <img src="{{ asset('build/images/divers.jpg') }}" alt="sortieDivers" class="image-picto-m"/>
                     {% elseif cat.id == 6  %}
-                        <img src="{{ asset('build/images/aperitif.svg') }}" alt="sortieApero" class="logoImg"/>
+                        <img src="{{ asset('build/images/aperitif.jpg') }}" alt="sortieApero" class="image-picto-m"/>
                     {% endif %}
 
                     <h4 class="card-title">{{ valeur.nom }}</h4>
@@ -105,7 +119,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-1 col-lg-1"></div>
             {% endfor %}
 
     </div>
@@ -122,22 +135,32 @@
         </div>
         <div class="container">
             <div class="row">
+
                 <div class="col-3">
+                    <a href="{{ path('sortie_new') }}">
                     <img src="{{asset('build/images/lieu.svg')}}" alt="lieu" class="image-creation">
                     <p><b>1.</b> Ajoutez un lieu</p>
+                    </a>
                 </div>
                 <div class="col-3">
+                    <a href="{{ path('sortie_new') }}">
                     <img src="{{asset('build/images/site.svg')}}" alt="site" class="image-creation">
                     <p><b>2.</b> Précisez le site</p>
+                    </a>
                 </div>
                 <div class="col-3">
+                    <a href="{{ path('sortie_new') }}">
                     <img src="{{asset('build/images/type-activite.svg')}}" alt="type-activite" class="image-creation">
                     <p><b>3.</b> Puis le type d'activité</p>
+                    </a>
                 </div>
                 <div class="col-3">
+                    <a href="{{ path('sortie_new') }}">
                     <img src="{{asset('build/images/participants.svg')}}" alt="participants" class="image-creation">
                     <p><b>4.</b> Et n'oubliez pas le nombre maximum de participant</p>
+                    </a>
                 </div>
+
             </div>
         </div>
     </article>

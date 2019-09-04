@@ -34,6 +34,7 @@ class SortieType extends AbstractType
                 "required"=>false,
             ])
             ->add('dateHeureDebut', DateTimeType::class, [
+                "label" => "Date et heure de la sortie",
                 'input'=>"datetime",
                 'format' => 'dd-MM-yyyy',
                 "required"=>false,
@@ -41,9 +42,11 @@ class SortieType extends AbstractType
 
             ] )
             ->add('duree', IntegerType::class, [
+                "label" => "Durée (en h)",
                 "required"=>false,
             ])
             ->add('dateLimiteInscription', DateTimeType::class, [
+                "label" => "Date et heure limite d'incription à la sortie",
                 'input'=>"datetime",
                 'format' => 'dd-MM-yyyy',
                 "required"=>false,
