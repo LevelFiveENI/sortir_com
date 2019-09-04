@@ -37,7 +37,7 @@ class SortieType extends AbstractType
                 'input'=>"datetime",
                 'format' => 'dd-MM-yyyy',
                 "required"=>false,
-                //'data' => new \DateTime("now"),
+                "date_widget"=> "single_text"
 
             ] )
             ->add('duree', IntegerType::class, [
@@ -47,6 +47,7 @@ class SortieType extends AbstractType
                 'input'=>"datetime",
                 'format' => 'dd-MM-yyyy',
                 "required"=>false,
+                "date_widget"=> "single_text"
 
             ])
             ->add('nbInscriptionsMax', IntegerType::class, [
@@ -79,12 +80,13 @@ class SortieType extends AbstractType
                     return $er->createQueryBuilder('v')->orderBy('v.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
+                "required"=>false,
             ])
 
             ->add('Publier', SubmitType::class)
             ->add('Enregistrer', SubmitType::class)
             ->add('Supprimer', SubmitType::class)
-            ->add('Annuler', SubmitType::class)
+//            ->add('Annuler', SubmitType::class)
         ;
 
 

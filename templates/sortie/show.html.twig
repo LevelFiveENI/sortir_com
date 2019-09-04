@@ -16,6 +16,8 @@
                 <tr>
                     <th>DateHeureDebut</th>
                     <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d') : '' }}</td>
+                    <p class="card-text">Commence dans</p> <p id="countDown"></p>
+                    <input id="dateSortie" type="hidden" value="{{ valeur.dateHeureDebut|date("M j, Y H:i:s") }}">
                 </tr>
                 <tr>
                     <th>Duree</th>
@@ -41,5 +43,8 @@
         <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">edit</a>
 
         <!-- A faire, liste des participants -->
+
+
+        {{ encore_entry_script_tags('sortieDetailJS') }}
     </section>
 {% endblock %}

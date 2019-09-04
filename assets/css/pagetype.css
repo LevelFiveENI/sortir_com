@@ -16,6 +16,9 @@ body {
     background-color: #2bb3ff;
     border-color: #2bb3ff;
 }
+#connectUser{
+    margin-left: 550px;
+}
 
 main{
     min-height: 650px;

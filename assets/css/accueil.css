@@ -58,7 +58,18 @@ article{
 
 .article-sorties{
     background-color: #d8edfa;
-    height: 280px;
+
+}
+.card-title{
+    text-align: center;
+}
+#button{
+    text-align:center;
+    margin:auto;
+}
+
+.sortieRec{
+    margin-bottom: 20px;
 }
 
 /* SECTION CREATION */
@@ -99,4 +110,10 @@ article{
 
 .container-inscription{
     margin-top: 2%;
+}
+
+/* Section des dernières sorties */
+
+.cardSortie{
+    margin: 20px;
 }
