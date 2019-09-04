@@ -36,7 +36,7 @@ article{
 
 .article-activites{
     background-color: #FFFFFF;
-    height: 450px;
+    padding-bottom: 3%;
 }
 
 .image-picto{
@@ -69,7 +69,7 @@ article{
 }
 
 .sortieRec{
-    margin-bottom: 20px;
+    margin: 20px;
 }
 
 /* SECTION CREATION */
@@ -116,4 +116,27 @@ article{
 
 .cardSortie{
     margin: 20px;
+}
+
+a{
+    text-decoration: none;
+    outline: none;
+}
+
+
+a:hover{
+    text-decoration: none;
+    outline: none;
+}
+
+.image-picto-m {
+    width: 100%;
+    margin: auto;
+    float: none;
+    padding: 10%;
+}
+
+.container-new-sortie h1 {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }

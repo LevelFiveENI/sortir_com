@@ -117,22 +117,22 @@
 
 
         {# création d'un block#}
-        <div class="col-12 col-lg-3 offset-1 border border-primary rounded m-2">
+        <div class="col-12 col-lg-3 offset-1 sortie shadow p-3 mb-5 bg-white rounded m-2">
 
         <!-- on affiche l'image en fonction de la categorie -->
             <div class="justify-content-md-center">
             {% if s.categorie.libelle == "sport" %}
-            <img src="{{asset('build/images/sport.svg')}}" alt="sport" class="image-picto-m">
+            <img src="{{asset('build/images/sport.jpg')}}" alt="sport" class="image-picto-m">
             {% elseif s.categorie.libelle == "musique" %}
-            <img src="{{asset('build/images/musique.svg')}}" alt="musique" class="image-picto-m">
+            <img src="{{asset('build/images/music4.jpg')}}" alt="musique" class="image-picto-m">
             {% elseif s.categorie.libelle == "culture" %}
-            <img src="{{asset('build/images/culture.svg')}}" alt="culture" class="image-picto-m">
+            <img src="{{asset('build/images/culture.jpg')}}" alt="culture" class="image-picto-m">
             {% elseif s.categorie.libelle == "informatique" %}
-            <img src="{{asset('build/images/informatique.svg')}}" alt="informatique" class="image-picto-m">
+            <img src="{{asset('build/images/informatique.jpg')}}" alt="informatique" class="image-picto-m">
             {% elseif s.categorie.libelle == "apero" %}
-            <img src="{{asset('build/images/aperitif.svg')}}" alt="aperitif" class="image-picto-m">
+            <img src="{{asset('build/images/aperitif.jpg')}}" alt="aperitif" class="image-picto-m">
             {% else %}
-            <img src="{{asset('build/images/divers.svg')}}" alt="divers" class="image-picto-m">
+            <img src="{{asset('build/images/divers.jpg')}}" alt="divers" class="image-picto-m">
             {% endif %}
             </div>
 
@@ -149,12 +149,12 @@
                 {% if app.user %}
             <!-- si l'user n'est pas inscrit apparition du boutton inscription -->
             {% if UInscrit == false  and Plein == false %}
-                <button value="{{ s.id }}" class="inscription offset-1 col-4 btn btn-success" >s'incrire</button>
+                <button value="{{ s.id }}" class="inscription offset-1 col-4 btn btn-success" >M'incrire</button>
             {% endif %}
 
             <!-- si l'user est inscrit apparition du boutton pour se desinscrire -->
             {% if UInscrit == true %}
-                <button value="{{ s.id }}" class="desincription offset-1 col-5 btn btn-danger" >desinscription</button>
+                <button value="{{ s.id }}" class="desincription offset-1 col-5 btn btn-danger" >Me désinscrire</button>
             {% endif %}
 
                 {% endif %}
