@@ -80,7 +80,6 @@ class SortieType extends AbstractType
                     return $er->createQueryBuilder('v')->orderBy('v.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
-                "required"=>false,
             ])
 
             ->add('Publier', SubmitType::class)
