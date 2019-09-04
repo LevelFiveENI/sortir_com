@@ -107,12 +107,4 @@ class afficherSortieController extends Controller
         return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $sorti, 'allSite' => $site]);
     }
 
-
-
-
-
-
-
-
-
 }
