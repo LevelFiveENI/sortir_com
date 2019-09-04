@@ -188,4 +188,20 @@ class SortieController extends Controller
         return new Response($lieuxJson);
     }
 
+
+    /**
+     * @Route("sortieCategorie/{id}", name="sortie_categorie", methods={"GET"})
+     */
+    public function affichageCategorie(Request $request, EntityManagerInterface $em): Response
+    {
+        $site = $em->getRepository('App:Site')->findAll();
+        $id = $request->get('id');
+        // recuperer la liste des sorties
+        $result = $em->getRepository('App:Sortie')->sortieByCategorie($id);
+
+        return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $result, 'allSite' => $site]);
+     
+    }
+
+
 }

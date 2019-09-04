@@ -180,12 +180,4 @@ public function ajaxInscription(Request $request, EntityManagerInterface $em){
         return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $sorti, 'allSite' => $site]);
     }
 
-
-
-
-
-
-
-
-
 }

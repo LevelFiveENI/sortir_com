@@ -29,11 +29,14 @@
         </div>
     <div class="container">
         <div class="row">
-            <div class="col-2">
-                <img src="{{asset('build/images/sport.svg')}}" alt="sport" class="image-picto">
-                <h3>Sport</h3>
-{#                <p>Basketball, volley, running... Rien de mieux que se dépenser en équipe après une journée assis devant son ordinateur !</p>#}
-            </div>
+            <a href={{ path('sortie_categorie', {'id' : 8}) }}>
+                <div class="col-2">
+                    <img src="{{asset('build/images/sport.svg')}}" alt="sport" class="image-picto">
+                    <h3>Sport</h3>
+                    <p>Basketball, volley, running... Rien de mieux que se dépenser en équipe après une journée assis devant son ordinateur !</p>
+                </div>
+            </a>
+
             <div class="col-2">
                 <img src="{{asset('build/images/musique.svg')}}" alt="musique" class="image-picto">
                 <h3>Musique</h3>

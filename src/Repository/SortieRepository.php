@@ -66,16 +66,11 @@ class SortieRepository extends ServiceEntityRepository
      * @param $categorie
      * @return array
      */
-    public function sortieByCategorie($categorie, $dateSdeb){
+    public function sortieByCategorie($categorie){
             $req = $this -> createQueryBuilder('s')
                 ->select('s')
-                ->join('s.categorie','categorie')
-                ->addSelect('categorie')
-                ->where('categorie.libelle = :categorie')
-                ->andWhere('s.dateHeureDebut >= :dateSDeb')
-                ->setParameter(':dateSDeb',$dateSdeb)
-                ->setParameter(':categorie',$categorie)
-                ->orderBy('s.dateHeureDebut','DESC');
+                ->where('s.categorie = :categorie')
+                ->setParameter('categorie',$categorie);
 
             return $req->getQuery()->getResult();
     }
