@@ -5,8 +5,11 @@ namespace App\Controller;
 
 
 use App\Entity\Sortie;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
@@ -26,20 +29,22 @@ class afficherSortieController extends Controller
      */
     public function afficherSortie(EntityManagerInterface $em, Request $request){
 
-        // a creer si pas de sorti affichage d'un tableau vide
-
-
-        // recuperation des sorties
-       // $sorti = $em->getRepository('App:Sortie')->findAll();
-
-
         // recuperation des sites
         $site = $em->getRepository('App:Site')->findAll();
 
         // variable avec la date du jour
         $dateJ = date('y-m-d');
-
         $sorti = $em->getRepository('App:Sortie')->sortieByAll($dateJ);
+
+
+/*        foreach ($sorti as $s){
+            $p = $s -> getParticipant();
+                foreach ($p as $tabParticipant){
+                    dump($p);
+            }
+        }*/
+
+
 
 
         return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $sorti, 'allSite' => $site]);
@@ -52,6 +57,7 @@ class afficherSortieController extends Controller
      * @Route("/afficSortieTriSite", name="affich_affich_site", methods={"POST"})
      */
     public function afficherBySite (EntityManagerInterface $em, Request $request){
+
         // recuperation des sites
         $site = $em->getRepository('App:Site')->findAll();
 
@@ -83,10 +89,76 @@ class afficherSortieController extends Controller
     }
 
 
+    /**
+     * @Route("/inscription", name="affich_inscription", methods={"GET", "POST"})
+     */
+public function ajaxInscription(Request $request, EntityManagerInterface $em){
+
+    // on recupère l'utilisateur connecté
+    $userCo = $em->getRepository('App:User')->find($this->getUser());
+
+    //on récupère l'id de la sortie correspondant
+    $idSortie = $request->get('sortieId');
+
+    // on recup la sortie en cours
+    $sortiEC = $em->getRepository('App:Sortie')->find($idSortie);
+
+
+    //on set l'user dans la sortie
+    $sortiEC ->addParticipant($userCo);
+    $em->persist($sortiEC);
+    $em->flush();
+
+ return new \Symfony\Component\HttpFoundation\Response($idSortie);
+
+}
+
+    /**
+     * @Route("/desinscription", name="affich_desinscription", methods={"GET", "POST"})
+     */
+    public function ajaxDesinscription(Request $request, EntityManagerInterface $em){
+
+        // on recupère l'utilisateur connecté
+        $userCo = $em->getRepository('App:User')->find($this->getUser());
+
+        //on récupère l'id de la sortie correspondant
+        $idSortie = $request->get('sortieId');
+
+        // on recup la sortie en cours
+        $sortiEC = $em->getRepository('App:Sortie')->find($idSortie);
+
+
+        //on set l'user dans la sortie
+        $sortiEC ->removeParticipant($userCo);
+        $em->persist($sortiEC);
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\Response($idSortie);
+
+    }
 
 
 
+    /**
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/afficSortieCategorie", name="affich_categorie", methods={"GET", "POST"})
+     */
+    public function afficherSortieByCategorie(EntityManagerInterface $em, Request $request){
 
+
+        // recuperation des sites
+        $site = $em->getRepository('App:Site')->findAll();
+
+        // variable avec la date du jour
+        $dateJ = date('y-m-d');
+
+       // $sorti = $em->getRepository('App:Sortie')->sortieByAll($dateJ);
+
+
+
+        return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $sorti, 'allSite' => $site]);
+    }
 
 
 

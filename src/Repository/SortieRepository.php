@@ -31,7 +31,7 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter(':dateSDeb',$dateSdeb)
             ->orderBy('s.dateHeureDebut','DESC');
 
-        return $req->getQuery()->getArrayResult();
+        return $req->getQuery()->getResult();
     }
 
 
@@ -57,7 +57,27 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter(':dateSFin',$dateSfin)
             ->orderBy('s.dateHeureDebut','DESC');
 
-        return $req->getQuery()->getArrayResult();
+        return $req->getQuery()->getResult();
+    }
+
+
+    // recupère les sorties en fonction de la categorie
+    /**
+     * @param $categorie
+     * @return array
+     */
+    public function sortieByCategorie($categorie, $dateSdeb){
+            $req = $this -> createQueryBuilder('s')
+                ->select('s')
+                ->join('s.categorie','categorie')
+                ->addSelect('categorie')
+                ->where('categorie.libelle = :categorie')
+                ->andWhere('s.dateHeureDebut >= :dateSDeb')
+                ->setParameter(':dateSDeb',$dateSdeb)
+                ->setParameter(':categorie',$categorie)
+                ->orderBy('s.dateHeureDebut','DESC');
+
+            return $req->getQuery()->getResult();
     }
 
 
@@ -87,7 +107,7 @@ public function sortieBySearch($site, $search, $dateSdeb, $dateSfin){
         ->setParameter(':dateSFin',$dateSfin)
         ->orderBy('s.dateHeureDebut','DESC');
 
-    return $req->getQuery()->getArrayResult();
+    return $req->getQuery()->getResult();
 
 }
     /////////////////////////Valentin !!! ***************

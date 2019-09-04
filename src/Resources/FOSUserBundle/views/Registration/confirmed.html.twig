@@ -3,8 +3,34 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
+
+<div class="container fosuser-div">
+    <div class="row">
+        <div class="col-12">
+    <h1>Bienvenue !</h1>
+        </div>
+    <div class="col-4 center">
+    <img src="{{asset('build/images/handshake.svg')}}" alt="lieu" class="image-confirmed">
+    </div>
+    </div>
     <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
     {% if targetUrl %}
         <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
     {% endif %}
+
+    <div class="row">
+        <div class="col-6">
+            <a class="nav-link" href="/accueil">
+                <button type="button" class="btn btn-fos btn-primary">Retour à l'accueil</button>
+            </a>
+        </div>
+    <div class="col-6">
+        <a class="nav-link" href="{{ path('fos_user_profile_show') }}">
+            <button type="button" class="btn btn-fos btn-primary">Voir mon profil</button>
+        </a>
+    </div>
+    </div>
+
+</div>
+
 {% endblock fos_user_content %}

@@ -26,7 +26,9 @@ $("#sortie_ville").change(function() {
         $.ajax({
             //Appeler la nouvelle fonction
             url: '/sortie/ajaxLieu',
+
             //url: pathUrl,
+
             type: "POST",
             dataType:"json",
             data: {

@@ -3,6 +3,82 @@
     background-color: #000033;
     padding: 30px;
     width: 500px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    color: white;
+}
+
+.container-fos h1{
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+
+.fosuser-div-profile{
+    margin-top: 30px;
+    background-color: #000033;
+    padding: 30px;
+    width: 500px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+}
+
+.fosuser-div-profile h1{
+    text-transform: uppercase;
+}
+
+.container-fos{
+    padding-top: 30px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 30px;
+}
+
+.btn-fos{
+    margin-top: 15px;
+    width: 100%;
+}
+
+.center{
+    margin:auto;
+    float:none;  /* annule le float:left de bootstrap*/
+}
+
+.div-connect {
+    margin-top: 15px;
+}
+
+.div-connect input{
+    border-radius: .25rem;
+    border-color: transparent;
+}
+
+.image-confirmed{
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.message-profil{
+    text-align: center;
+    background-color: #D8EDFA;
+    width: 500px;
+    border-radius: .25rem;
+    height: 30px;
+    vertical-align: center;
+}
+
+.fosuser-div{
+    margin-top: 30px;
+    background-color: #000033;
+    padding: 30px;
+    width: 500px;
     height: 250px;
     margin-left: auto;
     margin-right: auto;

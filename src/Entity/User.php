@@ -78,6 +78,8 @@ class User extends BaseUser
         $this->Organisateur = new ArrayCollection();
         $this->Participant = new ArrayCollection();
         // your own logic
+
+
     }
 
     public function getNom(): ?string

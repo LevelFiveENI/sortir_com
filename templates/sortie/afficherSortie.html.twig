@@ -81,53 +81,91 @@
 
         <!-- et le boutton de recherche -->
         <div class="button-">
-            <button type="submit" class="btn btn-primary" id="seek">Rechercher</button>
+            <button type="submit" class="btn btn-info" id="seek">Rechercher</button>
         </div>
 
     </div>
-
-
 </form>
 
 <br>
 
 
+
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
     <!-- Affichage des informations sur les sorties -->
 
-    <table class="table table-striped table-bordered offset-1 col-10">
-        <thead>
-        <tr>
-            <th scope="col">Nom de la sortie</th>
-            <th scope="col">Date de la sortie</th>
-            <th scope="col">Clôture</th>
-            <th scope="col">Inscrit / places</th>
-            <th scope="col">Etat</th>
-            <th scope="col">Inscrit</th>
-            <th scope="col">Organisateur</th>
-            <th scope="col">Actions</th>
-
-        </tr>
-        </thead>
-        <tbody>
         {% if allSortie %}
-{% for s in allSortie  %}
-        <tr>
-            <th scope="row"> {{s.nom}} </th>
-            <td>{{ s.dateHeureDebut |date("d/m/Y à H:i") }}</td>
-            <td>{{s.dateLimiteInscription |date("d/m/Y") }}</td>
-            <td>Inscrit / {{s.nbInscriptionsMax}}</td>
-            <td>{{s.etat.libelle}}</td>
-            <td>inscrit</td>
-            <td>organisateur</td>
-            <td>actions</td>
-        </tr>
-      {% endfor %}
+
+<div class="row col-11 offset-1">
+        {% for s in allSortie  %}
+
+
+            <!-- on compte le nombre de participant pour chaque sorti (nbP) -->
+            <!-- on vérifie que l'utilisteur n'est pas deja inscrit (UInscrit) -->
+            {% set nbP = 0 %}
+            {% set UInscrit = false %}
+            {% set Plein = false %}
+            {% for p in s.Participant %}
+                {% set nbP = nbP + 1 %}
+                  {% if  p == app.user%}
+                    {% set UInscrit = true %}
+                  {% endif %}
+            {% endfor %}
+            <!-- on vérifie qu'il reste de la place pour pouvoir s'inscrire -->
+            {% if nbP == s.nbInscriptionsMax %}
+                {% set Plein = true %}
+            {% endif %}
+
+
+        {# création d'un block#}
+        <div class="col-12 col-lg-3 offset-1 border border-primary rounded m-2">
+
+        <!-- on affiche l'image en fonction de la categorie -->
+            <div class="justify-content-md-center">
+            {% if s.categorie.libelle == "sport" %}
+            <img src="{{asset('build/images/sport.svg')}}" alt="sport" class="image-picto-m">
+            {% elseif s.categorie.libelle == "musique" %}
+            <img src="{{asset('build/images/musique.svg')}}" alt="musique" class="image-picto-m">
+            {% elseif s.categorie.libelle == "culture" %}
+            <img src="{{asset('build/images/culture.svg')}}" alt="culture" class="image-picto-m">
+            {% elseif s.categorie.libelle == "informatique" %}
+            <img src="{{asset('build/images/informatique.svg')}}" alt="informatique" class="image-picto-m">
+            {% elseif s.categorie.libelle == "apero" %}
+            <img src="{{asset('build/images/aperitif.svg')}}" alt="aperitif" class="image-picto-m">
+            {% else %}
+            <img src="{{asset('build/images/divers.svg')}}" alt="divers" class="image-picto-m">
+            {% endif %}
+            </div>
+
+            <!-- on affiche les autres infos -->
+            <h2>{{s.nom}}</h2>
+            <p>Date de la sortie : le {{ s.dateHeureDebut |date("d/m/Y à H:i") }}</p>
+            <p>Nb d'inscrit : {{ nbP }} / Nb place : {{s.nbInscriptionsMax}}</p>
+            <p>Organisateur : <a href="#">{{ s.Organisateur }}</a></p>
+            <div class="row p-2 text-center">
+             <a href="{{ path('sortie_show', {'id': s.id}) }}" class="offset-1 col-4"><button class="btn btn-primary ">Afficher</button></a>
+
+            <!-- si l'user n'est pas inscrit apparition du boutton inscription -->
+            {% if UInscrit == false  and Plein == false %}
+                <button value="{{ s.id }}" class="inscription offset-1 col-4 btn btn-success" >s'incrire</button>
+            {% endif %}
+
+            <!-- si l'user est inscrit apparition du boutton pour se desinscrire -->
+            {% if UInscrit == true %}
+                <button value="{{ s.id }}" class="desincription offset-1 col-5 btn btn-danger" >desinscription</button>
+            {% endif %}
+            </div>
+    <br>
+
+</div>
+
+        {% endfor %}
+</div>
         {% endif %}
-        </tbody>
-    </table>
 
 {% endblock %}
-
 
 
 

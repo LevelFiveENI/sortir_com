@@ -1,10 +1,20 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="fosuser-div-profile fos_user_user_show">
-    <h1 class="fos-user">{{ user.username }}</h1>
+    <h1>{{ user.username }}</h1>
     <p><b>{{ 'Nom'|trans }}:</b> {{ user.nom }}</p>
     <p><b>{{ 'Prénom'|trans }}:</b> {{ user.prenom }}</p>
     <p><b>{{ 'profile.show.email'|trans }}:</b> {{ user.email }}</p>
     <p><b>{{ 'Téléphone'|trans }}:</b> {{ user.telephone }}</p>
     <p><b>{{ 'Site de rattachement'|trans }}:</b> {{ user.site.nom }}</p>
+
+
+    <div class="row div-connect ">
+        <div class="col-6 center">
+            <a class="nav-link" href="{{ path('fos_user_profile_edit') }}">
+                <button type="button" class="btn btn-fos btn-primary">Modifier le profil</button>
+            </a>
+        </div>
+    </div>
+
 </div>
