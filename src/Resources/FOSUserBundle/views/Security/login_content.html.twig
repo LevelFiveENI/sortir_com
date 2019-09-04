@@ -4,7 +4,7 @@
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 <div class="container fosuser-div">
-
+    <h1>Se connecter</h1>
 <form action="{{ path("fos_user_security_check") }}" method="post">
     <div class="row div-connect ">
     {% if csrf_token %}
@@ -39,7 +39,7 @@
 
     <div class="row div-connect ">
     <div class="col-4 center">
-       <input class="btn-connect btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+       <input class="btn btn-fos btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 </div>
     </div>
 </form>

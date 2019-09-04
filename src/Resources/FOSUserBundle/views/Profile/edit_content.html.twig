@@ -1,8 +1,19 @@
 {% trans_default_domain 'FOSUserBundle' %}
+<div class="container fosuser-div">
+<h1>Modifier mon profil</h1>
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" class="btn-primary" value="{{ 'profile.edit.submit'|trans }}" />
+    {{ form_row(form.username) }}
+{{ form_row(form.email) }}
+{{ form_row(form.site) }}
+{{ form_row(form.nom) }}
+{{ form_row(form.prenom) }}
+{{ form_row(form.telephone) }}
+{{ form_row(form.current_password) }}
+    <div class="row div-connect ">
+        <div class="col-6 center">
+            <input type="submit" class="btn btn-fos btn-primary" value="{{ 'profile.edit.submit'|trans }}" />
+        </div>
     </div>
+</div>
 {{ form_end(form) }}

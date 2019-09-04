@@ -62,9 +62,9 @@ class SortieController extends Controller
             if($form->get('Publier')->isClicked()) {
                 $etatSortie = $em->getRepository('App:Etat')->find(1);
             }
-            if($form->get('Annuler')->isClicked()){
-                return $this->redirectToRoute('sortie_index');
-            }
+//            if($form->get('Annuler')->isClicked()){
+//                return $this->redirectToRoute('sortie_index');
+//            }
 
             //On ajoute le lieu choisi a la sortie
             $idLieu = $request->get('choixLieu');
@@ -80,10 +80,10 @@ class SortieController extends Controller
 
             //On envoi en BDD
             $em->persist($sortie);
-            $em->persist($user);
+            //$em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('sortie_index');
+            return $this->redirectToRoute("Sortie_afficheraffich_affich");
         }
 
         return $this->render('sortie/new.html.twig', [

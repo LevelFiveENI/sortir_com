@@ -159,7 +159,26 @@ public function ajaxInscription(Request $request, EntityManagerInterface $em){
 
 
 
+    /**
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/afficSortieCategorie", name="affich_categorie", methods={"GET", "POST"})
+     */
+    public function afficherSortieByCategorie(EntityManagerInterface $em, Request $request){
 
+
+        // recuperation des sites
+        $site = $em->getRepository('App:Site')->findAll();
+
+        // variable avec la date du jour
+        $dateJ = date('y-m-d');
+
+       // $sorti = $em->getRepository('App:Sortie')->sortieByAll($dateJ);
+
+
+
+        return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $sorti, 'allSite' => $site]);
+    }
 
 
 

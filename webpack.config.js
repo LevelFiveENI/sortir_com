@@ -31,6 +31,7 @@ Encore
     .addEntry('newSortie', './assets/js/newSortie.js')
     .addEntry('affiche', './assets/js/afficherSortie.js')
     .addEntry('upSortie', './assets/js/updateSortie.js')
+    .addEntry('sortieDetailJS', './assets/js/sortieDetailJS.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
