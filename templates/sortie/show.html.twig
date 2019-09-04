@@ -4,7 +4,7 @@
 
 {% block main %}
     <section class="container">
-        <h1>Sortie</h1>
+        <h1>Detail de la Sortie</h1>
 
         <table class="table">
             <tbody>
@@ -14,27 +14,34 @@
                     <td>{{ sortie.nom }}</td>
                 </tr>
                 <tr>
-                    <th>DateHeureDebut</th>
+                    <th>Date de la sortie</th>
                     <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d') : '' }}</td>
-                    <p class="card-text">Commence dans</p> <p id="countDown"></p>
-                    <input id="dateSortie" type="hidden" value="{{ valeur.dateHeureDebut|date("M j, Y H:i:s") }}">
+                    <input id="dateSortie" type="hidden" value="{{ sortie.dateHeureDebut|date("M j, Y H:i:s") }}">
                 </tr>
                 <tr>
                     <th>Duree</th>
                     <td>{{ sortie.duree }}</td>
                 </tr>
                 <tr>
-                    <th>DateLimiteInscription</th>
+                    <th>Date limite d'inscription</th>
                     <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
                 </tr>
                 <tr>
-                    <th>NbInscriptionsMax</th>
+                    <th>Nombre d'inscription maximum</th>
                     <td>{{ sortie.nbInscriptionsMax }}</td>
                 </tr>
                 <tr>
-                    <th>InfosSortie</th>
+                    <th>Informations</th>
                     <td>{{ sortie.infosSortie }}</td>
                 </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Commence dans </th>
+                <td><p id="countDown"></p></td>
+            </tr>
             </tbody>
         </table>
 
@@ -43,6 +50,7 @@
         <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">edit</a>
 
         <!-- A faire, liste des participants -->
+
 
 
         {{ encore_entry_script_tags('sortieDetailJS') }}
