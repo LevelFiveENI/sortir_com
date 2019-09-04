@@ -120,7 +120,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      *  @Assert\Regex(
-     *  pattern     = "/^[a-z0-9 éè']+$/i",
+     *  pattern     = "/^[a-z0-9 éè'.!,?\n]+$/i",
      *  match=true,
      *  message="Les infos concernant la sortie ne peuvent pas contenir de caracteres spéciaux"
      *    )
