@@ -27,7 +27,7 @@
         <!-- recherche -->
         <div class="form-group row ">
             <label for="formGroupExampleInput" class="col-5"  >Le nom de la sortie contient :</label>
-            <input type="text" class="form-control col-5 offset-1" id="formGroupExampleInput"  name="infoSearch">
+            <input type="text" class="form-control col-5 offset-1" id="formGroupExampleInput"  name="infoSearch" value="{# app.request.cookies.get('seek') #}">
         </div>
 
 
@@ -89,9 +89,6 @@
 
 <br>
 
-
-
-
 <!-- -------------------------------------------------------------------------------------------- -->
 
     <!-- Affichage des informations sur les sorties -->
@@ -147,6 +144,9 @@
             <div class="row p-2 text-center">
              <a href="{{ path('sortie_show', {'id': s.id}) }}" class="offset-1 col-4"><button class="btn btn-primary ">Afficher</button></a>
 
+            <!-- si un utilisateur est connecté -->
+
+                {% if app.user %}
             <!-- si l'user n'est pas inscrit apparition du boutton inscription -->
             {% if UInscrit == false  and Plein == false %}
                 <button value="{{ s.id }}" class="inscription offset-1 col-4 btn btn-success" >s'incrire</button>
@@ -156,6 +156,8 @@
             {% if UInscrit == true %}
                 <button value="{{ s.id }}" class="desincription offset-1 col-5 btn btn-danger" >desinscription</button>
             {% endif %}
+
+                {% endif %}
             </div>
     <br>
 
