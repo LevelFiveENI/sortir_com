@@ -31,7 +31,7 @@ class Ville
     /**
      * @ORM\Column(type="string", length=150)
      * @Assert\Regex(
-     *     pattern     = "/^[a-z éè']+$/i",
+     *     pattern     = "/^[a-zA-Z éè']+$/i",
      *     match=true,
      *     message="Le nom de la ville ne peut pas contenir de numéros ou de caractères spéciaux"
      *     )

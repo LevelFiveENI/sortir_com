@@ -18,6 +18,7 @@
         <div class="form-group row" style="padding-left: 15px;" >
             <label for="exampleFormControlSelect1 col-5 " > Site : </label>
             <select class="form-control col-5 offset-5" id="exampleFormControlSelect1" name="selectSite">
+                <option>Tous</option>
                 {% for s in allSite  %}
                 <option>{{ s.nom }}</option>
                 {% endfor %}
@@ -34,10 +35,11 @@
         <!-- recherche date-->
         <!--creation de la variable date du jour -->
         {% set date = "now" | date("Y-m-j")%}
+        {% set dateMini = "now" | date_modify("-1 month") | date("Y-m-j")%}
 
         <div class="form-group row ">
         <label for="dateMini" class="col-2"  >Entre le : </label>
-        <input type="date"   min="{{ date | date("Y-m-d") }}"  value="{{ date | date("Y-m-d") }}" name="dateMini" id="dateMini" class="col-4">
+        <input type="date"   min="{{ dateMini | date("Y-m-d") }}"  value="{{ date | date("Y-m-d") }}" name="dateMini" id="dateMini" class="col-4">
 
         <label for="dateMaxi" class="col-2"  > et le :</label>
         <input type="date"  min=""  value="{{ date | date("Y-m-d") }}"  name="dateMaxi" id="dateMaxi"  class="col-4">
@@ -80,13 +82,16 @@
 
 
         <!-- et le boutton de recherche -->
-        <div class="button-">
-            <button type="submit" class="btn btn-info" id="seek">Rechercher</button>
+        <div class="row">
+            <button type="submit" class="btn btn-info " id="seek">Rechercher</button>
+
         </div>
 
     </div>
 </form>
-
+        <div class="offset-7">
+        <a href="{{path('Sortie_afficheraffich_affich')}}"><button class="btn btn-info ">Toutes les sorties</button></a>
+        </div>
 <br>
 
 <!-- -------------------------------------------------------------------------------------------- -->
@@ -145,10 +150,13 @@
              <a href="{{ path('sortie_show', {'id': s.id}) }}" class="offset-1 col-4"><button class="btn btn-primary ">Afficher</button></a>
 
             <!-- si un utilisateur est connecté -->
+    {{ date| date("Y-m-j") }}
+                {{ s.dateLimiteInscription | date("Y-m-j") }}
+
 
                 {% if app.user %}
-            <!-- si l'user n'est pas inscrit apparition du boutton inscription -->
-            {% if UInscrit == false  and Plein == false %}
+            <!-- si l'user n'est pas inscrit, qu'il reste de la place apparition du boutton inscription -->
+            {% if UInscrit == false  and Plein == false and date<= s.dateLimiteInscription %}
                 <button value="{{ s.id }}" class="inscription offset-1 col-4 btn btn-success" >s'incrire</button>
             {% endif %}
 
