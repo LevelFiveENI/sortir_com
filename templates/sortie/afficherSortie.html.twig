@@ -8,6 +8,15 @@
 
     <h2>Filtrer les sorties</h2>
 <br>
+
+
+        <!--AJOUT DU MESSAGE FLASH VALENTIN -->
+
+        {% for message in app.flashes('successCreateSortie') %}
+            <div class="alert alert-info" role="alert">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
 <form method="post" class = "row" action="/afficher/afficSortieTriSite">
 
 
