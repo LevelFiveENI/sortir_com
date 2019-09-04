@@ -37,12 +37,20 @@ class LieuController extends Controller
         $newLieuNom = $request->get('newLieuNom');
         $newLieuRue = $request->get('newLieuRue');
         $newLieuVilleId = $request->get('newLieuVille');
+        $newLieuLong = $request->get('newLieuLong');
+        $newLieuLat = $request->get('newLieuLat');
+
         $villeDuLieu = $em->getRepository('App:Ville')->find($newLieuVilleId);
 
         //On set les attributs
         $lieu->setNom($newLieuNom);
         $lieu->setRue($newLieuRue);
         $lieu->setNomVille($villeDuLieu);
+        if(isset($newLieuLat) && isset($newLieuLong)){
+            $lieu->setLongitude($newLieuLong);
+            $lieu->setLatitude($newLieuLat);
+        }
+
 
         //On ajoute en BDD
         $em->persist($lieu);

@@ -32,6 +32,8 @@ $.ajax({
     success: function (data) {
         console.log(data);
         alert("inscription réussi")
+
+
     },
 
     error: function () {

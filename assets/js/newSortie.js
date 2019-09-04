@@ -63,7 +63,9 @@ $("#ajoutLieu").submit(function(event) {
         data: {
             newLieuNom: $("#lieu_nom").val(),
             newLieuRue: $("#lieu_rue").val(),
-            newLieuVille: $("#lieu_nomVille").val()
+            newLieuVille: $("#lieu_nomVille").val(),
+            newLieuLong: $("#lieu_longitude").val(),
+            newLieuLat: $("#lieu_latitude").val(),
         },
 
         // success: function () {

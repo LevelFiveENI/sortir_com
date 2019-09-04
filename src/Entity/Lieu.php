@@ -31,7 +31,7 @@ class Lieu
      * @ORM\Column(type="string", length=50)
      *
      * @Assert\Regex(
-     *   pattern     = "/^[a-z0-9 éè']+$/i",
+     *   pattern     = "/^[a-z0-9A-Z éè']+$/i",
      *   match=true,
      *   message="Le nom du lieu ne peut pas contenir de caractères spéciaux"
      *     )

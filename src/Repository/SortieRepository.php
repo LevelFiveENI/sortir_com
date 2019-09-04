@@ -43,22 +43,39 @@ class SortieRepository extends ServiceEntityRepository
      * @return array
      */
     public function sortieBySite($site, $dateSdeb, $dateSfin){
-        $req = $this -> createQueryBuilder('s')
-            ->select('s')
-            ->join('s.etat', 'etat')
-            ->join('s.site','site')
-            ->addSelect('site')
-            ->addSelect('etat')
-            ->where('site.nom = :sit')
-            ->andWhere('s.dateHeureDebut >= :dateSDeb')
-            ->andWhere('s.dateHeureDebut <= :dateSFin')
-            ->setParameter('sit',$site)
-            ->setParameter(':dateSDeb',$dateSdeb)
-            ->setParameter(':dateSFin',$dateSfin)
-            ->orderBy('s.dateHeureDebut','DESC');
+        if($site != "Tous"){
+            $req = $this -> createQueryBuilder('s')
+                ->select('s')
+                ->join('s.etat', 'etat')
+                ->join('s.site','site')
+                ->addSelect('site')
+                ->addSelect('etat')
+                ->where('site.nom = :sit')
+                ->andWhere('s.dateHeureDebut >= :dateSDeb')
+                ->andWhere('s.dateHeureDebut <= :dateSFin')
+                ->setParameter('sit',$site)
+                ->setParameter(':dateSDeb',$dateSdeb)
+                ->setParameter(':dateSFin',$dateSfin)
+                ->orderBy('s.dateHeureDebut','DESC');
+        }
+        else{
+            $req = $this -> createQueryBuilder('s')
+                ->select('s')
+                ->join('s.etat', 'etat')
+                ->join('s.site','site')
+                ->addSelect('site')
+                ->addSelect('etat')
+                ->Where('s.dateHeureDebut >= :dateSDeb')
+                ->andWhere('s.dateHeureDebut <= :dateSFin')
+                ->setParameter(':dateSDeb',$dateSdeb)
+                ->setParameter(':dateSFin',$dateSfin)
+                ->orderBy('s.dateHeureDebut','DESC');
+        }
 
         return $req->getQuery()->getResult();
     }
+
+
 
 
     // recupère les sorties en fonction de la categorie
@@ -74,6 +91,8 @@ class SortieRepository extends ServiceEntityRepository
 
             return $req->getQuery()->getResult();
     }
+
+
 
 
 

@@ -57,9 +57,11 @@ class SortieController extends Controller
             $etatSortie = new Etat();
             //On gère l'état de la sortie selon le bouton choisi
             if($form->get('Enregistrer')->isClicked()) {
+                $this->addFlash("successCreateSortie","Votre sortie est enregistrée. Publiez-la quand vous voulez !");
                 $etatSortie = $em->getRepository('App:Etat')->find(2);
             }
             if($form->get('Publier')->isClicked()) {
+                $this->addFlash("successCreateSortie","Votre sortie est publiée !");
                 $etatSortie = $em->getRepository('App:Etat')->find(1);
             }
 //            if($form->get('Annuler')->isClicked()){
@@ -83,6 +85,8 @@ class SortieController extends Controller
             //$em->persist($user);
             $em->flush();
 
+
+
             return $this->redirectToRoute("Sortie_afficheraffich_affich");
         }
 
@@ -99,9 +103,10 @@ class SortieController extends Controller
      */
     public function show(Sortie $sortie): Response
     {
+        $tabParticipants = $sortie->getParticipant()->toArray();
 
         return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie,
+            'sortie' => $sortie, 'tabParticipants' => $tabParticipants,
         ]);
     }
 
@@ -125,12 +130,14 @@ class SortieController extends Controller
                 $sortie->setEtat($etatSortie);
                 $em->persist($sortie);
                 $em->flush();
+                $this->addFlash("successCreateSortie","Votre sortie est enregistrée. Publiez-la quand vous voulez !");
             }
             if($form->get('Publier')->isClicked()) {
                 $etatSortie = $em->getRepository('App:Etat')->find(2);
                 $sortie->setEtat($etatSortie);
                 $em->persist($sortie);
                 $em->flush();
+                $this->addFlash("successCreateSortie","Votre sortie est publiée !");
             }
 
             if($form->get('Supprimer')->isClicked()) {
@@ -139,8 +146,9 @@ class SortieController extends Controller
                 $sortie->setEtat($etatSortie);
                 $em->persist($sortie);
                 $em->flush();
+                $this->addFlash("successCreateSortie","Votre sortie à été supprimée !");
             }
-            return $this->redirectToRoute('sortie_index');
+            return $this->redirectToRoute("Sortie_afficheraffich_affich");
         }
 
         return $this->render('sortie/edit.html.twig', [
