@@ -8,6 +8,15 @@
 
     <h2>Filtrer les sorties</h2>
 <br>
+
+
+        <!--AJOUT DU MESSAGE FLASH VALENTIN -->
+
+        {% for message in app.flashes('successCreateSortie') %}
+            <div class="alert alert-info" role="alert">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
 <form method="post" class = "row" action="/afficher/afficSortieTriSite">
 
 
@@ -18,6 +27,7 @@
         <div class="form-group row" style="padding-left: 15px;" >
             <label for="exampleFormControlSelect1 col-5 " > Site : </label>
             <select class="form-control col-5 offset-5" id="exampleFormControlSelect1" name="selectSite">
+                <option>Tous</option>
                 {% for s in allSite  %}
                 <option>{{ s.nom }}</option>
                 {% endfor %}
@@ -34,10 +44,11 @@
         <!-- recherche date-->
         <!--creation de la variable date du jour -->
         {% set date = "now" | date("Y-m-j")%}
+        {% set dateMini = "now" | date_modify("-1 month") | date("Y-m-j")%}
 
         <div class="form-group row ">
         <label for="dateMini" class="col-2"  >Entre le : </label>
-        <input type="date"   min="{{ date | date("Y-m-d") }}"  value="{{ date | date("Y-m-d") }}" name="dateMini" id="dateMini" class="col-4">
+        <input type="date"   min="{{ dateMini | date("Y-m-d") }}"  value="{{ date | date("Y-m-d") }}" name="dateMini" id="dateMini" class="col-4">
 
         <label for="dateMaxi" class="col-2"  > et le :</label>
         <input type="date"  min=""  value="{{ date | date("Y-m-d") }}"  name="dateMaxi" id="dateMaxi"  class="col-4">
@@ -80,18 +91,31 @@
 
 
         <!-- et le boutton de recherche -->
-        <div class="button-">
-            <button type="submit" class="btn btn-info" id="seek">Rechercher</button>
+        <div class="row">
+            <button type="submit" class="btn btn-info " id="seek">Rechercher</button>
+
         </div>
 
     </div>
 </form>
-
+        <div class="offset-7">
+        <a href="{{path('Sortie_afficheraffich_affich')}}"><button class="btn btn-info ">Toutes les sorties</button></a>
+        </div>
 <br>
 
 <!-- -------------------------------------------------------------------------------------------- -->
 
     <!-- Affichage des informations sur les sorties -->
+
+        {% if not allSortie %}
+
+        <h2 class="text-center">Aucun Resultat</h2>
+
+        {% endif %}
+
+
+
+
 
         {% if allSortie %}
 
@@ -138,25 +162,43 @@
 
             <!-- on affiche les autres infos -->
             <h2>{{s.nom}}</h2>
-            <p>Date de la sortie : le {{ s.dateHeureDebut |date("d/m/Y à H:i") }}</p>
+            <p>Date de la sortie : </p><p class="offset-4">le {{ s.dateHeureDebut |date("d/m/Y à H:i") }}</p>
+            <p>Site : {{ s.site.nom }}</p>
             <p>Nb d'inscrit : {{ nbP }} / Nb place : {{s.nbInscriptionsMax}}</p>
             <p>Organisateur : <a href="#">{{ s.Organisateur }}</a></p>
+
+
             <div class="row p-2 text-center">
              <a href="{{ path('sortie_show', {'id': s.id}) }}" class="offset-1 col-4"><button class="btn btn-primary ">Afficher</button></a>
 
             <!-- si un utilisateur est connecté -->
 
                 {% if app.user %}
-            <!-- si l'user n'est pas inscrit apparition du boutton inscription -->
-            {% if UInscrit == false  and Plein == false %}
-                <button value="{{ s.id }}" class="inscription offset-1 col-4 btn btn-success" >M'incrire</button>
+            <!-- si l'user n'est pas inscrit, qu'il reste de la place, et que la date de limite d'insccription
+             n'est pas dépassée apparition du boutton inscription -->
+            {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') <= s.dateLimiteInscription|date('Y-m-d') %}
+                <button value="{{ s.id }}" class="inscription offset-1 col-4 btn btn-success" >s'incrire</button>
+
             {% endif %}
+
+             <!-- si la date d'inscription est dépassée -->
+                    {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') > s.dateLimiteInscription|date('Y-m-d') %}
+                        <button class="offset-1 col-5 btn btn-warning ">Inscriptions fermées</button>
+                    {% endif %}
+
 
             <!-- si l'user est inscrit apparition du boutton pour se desinscrire -->
+
             {% if UInscrit == true %}
                 <button value="{{ s.id }}" class="desincription offset-1 col-5 btn btn-danger" >Me désinscrire</button>
+
             {% endif %}
 
+                {% endif %}
+
+
+                {% if not app.user %}
+                  <a href="{{ path('fos_user_security_login') }}"><button class="offset-1 col-8 btn btn-warning ">Connectez vous</button></a>
                 {% endif %}
             </div>
     <br>

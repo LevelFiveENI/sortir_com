@@ -3,58 +3,109 @@
 {% block title %}Sortie{% endblock %}
 
 {% block main %}
-    <section class="container">
-        <h1>Detail de la Sortie</h1>
+    <section class="container showSortie">
+        <div class="row">
 
-        <table class="table">
-            <tbody>
+            {% if sortie.categorie.id == 1  %}
+                <img src="{{ asset('build/images/sport.jpg') }}" alt="annonceVet" class="col-lg-6"/>
+            {% elseif sortie.categorie.id == 2 %}
+                <img src="{{ asset('build/images/music3.jpg') }}" alt="annonceAuto" class="col-lg-6"/>
+            {% elseif sortie.categorie.id == 3 %}
+                <img src="{{ asset('build/images/informatique.jpg') }}" alt="annonceEmploi" class="col-lg-6"/>
+            {% elseif sortie.categorie.id == 4 %}
+                <img src="{{ asset('build/images/culture.jpg') }}" alt="annonceMaison" class="col-lg-6"/>
+            {% elseif sortie.categorie.id ==  5 %}
+                <img src="{{ asset('build/images/divers.jpg') }}" alt="annonceLoisir" class="col-lg-6"/>
+            {% elseif sortie.categorie.id == 6  %}
+                <img src="{{ asset('build/images/aperitif.jpg') }}" alt="annonceDivers" class="col-lg-6"/>
+            {% endif %}
+
+            <div class="col-lg-6">
+                <h1>Detail de la Sortie</h1>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Nom</th>
+                            <td>{{ sortie.nom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de la sortie</th>
+                            <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d') : '' }}</td>
+                            <input id="dateSortie" type="hidden" value="{{ sortie.dateHeureDebut|date("M j, Y H:i:s") }}">
+                        </tr>
+                        <tr>
+                            <th>Duree</th>
+                            <td>{{ sortie.duree }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date limite d'inscription</th>
+                            <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nombre d'inscription maximum</th>
+                            <td>{{ sortie.nbInscriptionsMax }}</td>
+                        </tr>
+                        <tr>
+                            <th>Informations</th>
+                            <td>{{ sortie.infosSortie }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Commence dans </th>
+                        <td><p id="countDown"></p></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <div class="col-lg-12">
+
+                <!-- A faire, liste des participants -->
 
 
-                <tr>
-                    <th>Nom</th>
-                    <td>{{ sortie.nom }}</td>
-                </tr>
-                <tr>
-                    <th>Date de la sortie</th>
-                    <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d') : '' }}</td>
-                    <input id="dateSortie" type="hidden" value="{{ sortie.dateHeureDebut|date("M j, Y H:i:s") }}">
-                </tr>
-                <tr>
-                    <th>Duree</th>
-                    <td>{{ sortie.duree }}</td>
-                </tr>
-                <tr>
-                    <th>Date limite d'inscription</th>
-                    <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Nombre d'inscription maximum</th>
-                    <td>{{ sortie.nbInscriptionsMax }}</td>
-                </tr>
-                <tr>
-                    <th>Informations</th>
-                    <td>{{ sortie.infosSortie }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Commence dans </th>
-                <td><p id="countDown"></p></td>
-            </tr>
-            </tbody>
-        </table>
 
-        <a href="{{ path('sortie_index') }}">back to list</a>
+                <!--Liste des participants -->
 
+                {% if tabParticipants %}
+                    <h1>Liste des participants</h1>
+                    <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Pseudo</th>
+                        </tr>
+                    {% for participant in tabParticipants %}
 
-        <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">edit</a>
+                            <tr>
+                                <td>{{ participant.nom }}</td>
+                                <td>{{ participant.prenom }}</td>
+                                <td>{{ participant.username }}</td>
+                            </tr>
 
-        <!-- A faire, liste des participants -->
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                    {% elseif tabParticipants is empty %}
+                        <h1>Soyez le premier participants</h1>
+                {% endif %}
 
+                <div class="row">
+                    <div class="col-lg-9"></div>
+                    <div class="form-group annuler col-lg-3">
 
+                        {% if sortie.organisateur == app.user.username %}
+                            <a href="{{ path('sortie_edit', {'id': sortie.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+                        {% endif %}
+                        <a href="/accueil"><button class="btn btn-danger">Annuler</button></a>
+                    </div>
+                </div>
+            </div>
 
-        {{ encore_entry_script_tags('sortieDetailJS') }}
+            {{ encore_entry_script_tags('sortieDetailJS') }}
+
     </section>
 {% endblock %}

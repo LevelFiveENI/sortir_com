@@ -14,8 +14,6 @@
                 {{ form_label(form.categorie) }}
                 {{ form_widget(form.categorie , {'attr': {'class': 'form-control'} }) }}
 
-    <a href="/afficher/afficSortie">retour à la liste</a>
-
             </div>
             <div class="form-group site col-lg-6">
                 {{ form_label(form.site) }}
@@ -116,14 +114,22 @@
             </div>
 
             <div class="form-group annuler col-lg-3">
-                {{ form_label(form.Annuler) }}
-                {{ form_widget(form.Annuler, {'attr': {'class': 'btn btn-danger'} }) }}
+                {{ form_label(form.Supprimer) }}
+                {{ form_widget(form.Supprimer, {'attr': {'class': 'btn btn-danger'} }) }}
 
             </div>
         </div>
 
 
         {{ form_end(form) }}
+
+        <div class="row">
+            <div class="col-lg-9"></div>
+            <div class="form-group annuler col-lg-3">
+                <a href="/accueil"><button class="btn btn-danger">Annuler</button></a>
+
+            </div>
+        </div>
 
         <a href="{{ path('sortie_index') }}">Voir la liste des Sorties</a>
 

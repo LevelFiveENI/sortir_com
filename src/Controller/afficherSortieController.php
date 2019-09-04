@@ -32,16 +32,10 @@ class afficherSortieController extends Controller
         $site = $em->getRepository('App:Site')->findAll();
 
         // variable avec la date du jour
-        $dateJ = date('y-m-d');
+        $dateJ = date('y-m-d',strtotime('-1 month'));
         $sorti = $em->getRepository('App:Sortie')->sortieByAll($dateJ);
 
 
-/*        foreach ($sorti as $s){
-            $p = $s -> getParticipant();
-                foreach ($p as $tabParticipant){
-                    dump($p);
-            }
-        }*/
 
 
         return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $sorti, 'allSite' => $site]);
@@ -55,39 +49,20 @@ class afficherSortieController extends Controller
      */
     public function afficherBySite (EntityManagerInterface $em, Request $request){
 
-        $response = new Response();
-
-
         // recuperation des sites
         $site = $em->getRepository('App:Site')->findAll();
 
         // on recupere les infos du site
         $infoSite = $request->get("selectSite");
-     //   $cookieSi = new Cookie('site', $infoSite );
-        //$response->headers->setCookie($cookieSi);
 
         //on recup les infos de le la recherche
         $infoSearch = $request->get("infoSearch");
-    //    $cookieSe = new Cookie('seek', $infoSearch );
-        //$response->headers->setCookie($cookieSe);
 
         // on recup les infos recherche date deb
         $infoDateDeb = $request->get("dateMini");
-     //   $cookieDd = new Cookie('dateD', $infoDateDeb );
-        //$response->headers->setCookie($cookieDd);
 
         // on recup les infos recherche date fin
         $infoDateFin = $request->get("dateMaxi");
-      //  $cookieDf = new Cookie('dateF', $infoDateFin );
-        //$response->headers->setCookie($cookieDf);
-
-
-        // on envoie les cookies
-    //    $response->send();
-
-
-        // test de recup des cookies
-      //  $cinfoSite = $request->cookies->get('site');
 
 
         // requete avec le site
