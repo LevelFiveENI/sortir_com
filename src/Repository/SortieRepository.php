@@ -83,11 +83,11 @@ class SortieRepository extends ServiceEntityRepository
      * @param $categorie
      * @return array
      */
-    public function sortieByCategorie($categorie){
+    public function sortieByCategorie($id){
             $req = $this -> createQueryBuilder('s')
                 ->select('s')
                 ->where('s.categorie = :categorie')
-                ->setParameter('categorie',$categorie);
+                ->setParameter('categorie',$id);
 
             return $req->getQuery()->getResult();
     }
