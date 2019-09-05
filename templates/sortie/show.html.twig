@@ -21,13 +21,9 @@
             {% endif %}
 
             <div class="col-lg-6">
-                <h1>Detail de la Sortie</h1>
+                <h1>{{ sortie.nom }}</h1>
                 <table class="table">
                     <tbody>
-                        <tr>
-                            <th>Nom</th>
-                            <td>{{ sortie.nom }}</td>
-                        </tr>
                         <tr>
                             <th>Date de la sortie</th>
                             <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d') : '' }}</td>
@@ -61,51 +57,57 @@
                 </table>
             </div>
         </div>
+
+        <div class="row">
             <div class="col-lg-12">
 
-                <!-- A faire, liste des participants -->
-
-
-
-                <!--Liste des participants -->
-
-                {% if tabParticipants %}
-                    <h1>Liste des participants</h1>
-                    <table class="table">
-                    <tbody>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Pseudo</th>
-                        </tr>
-                    {% for participant in tabParticipants %}
-
+                    <!--Liste des participants -->
+                    {% if tabParticipants %}
+                        <h1>Liste des participants</h1>
+                        <table class="table">
+                        <tbody>
                             <tr>
-                                <td>{{ participant.nom }}</td>
-                                <td>{{ participant.prenom }}</td>
-                                <td>{{ participant.username }}</td>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Pseudo</th>
                             </tr>
+                        {% for participant in tabParticipants %}
 
-                    {% endfor %}
-                    </tbody>
-                    </table>
-                    {% elseif tabParticipants is empty %}
-                        <h1>Soyez le premier participants</h1>
-                {% endif %}
+                                <tr>
+                                    <td>{{ participant.nom }}</td>
+                                    <td>{{ participant.prenom }}</td>
+                                    <td><a href="{{ path('user_show_profile', {'id': participant.id }) }}">{{ participant.username }}</a></td>
+                                </tr>
 
-                <div class="row">
-                    <div class="col-lg-9"></div>
-                    <div class="form-group annuler col-lg-3">
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                        {% elseif tabParticipants is empty  %}
+                            <h1>Soyez le premier participants</h1>
+                    {% endif %}
 
-                        {% if sortie.organisateur == app.user.username %}
-                            <a href="{{ path('sortie_edit', {'id': sortie.id}) }}"><button class="btn btn-primary">Modifier</button></a>
-                        {% endif %}
-                        <a href="/accueil"><button class="btn btn-danger">Annuler</button></a>
-                    </div>
-                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            {% if app.user in sortie.participant %}
+                <button value="{{ sortie.id }}" class="desincription btn btn-danger" >Me désinscrire</button>
+                {% else %}
+                    <button value="{{ sortie.id }}" class="inscription btn btn-success" >M'inscrire</button>
+            {% endif %}
+
+            <!--        ///////////////   OK    ////////////////              -->
+            {% if sortie.organisateur.id == app.user.id  %}
+                <a href="{{ path('sortie_edit', {'id': sortie.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+            {% endif %}
+
+            <div class="form-group annuler">
+                <a href="{{ url('Sortie_afficheraffich_affich') }}"><button class="btn btn-danger">Retour</button></a>
             </div>
 
-            {{ encore_entry_script_tags('sortieDetailJS') }}
+
+        </div>
+        {{ encore_entry_script_tags('sortieDetailJS') }}
 
     </section>
 {% endblock %}

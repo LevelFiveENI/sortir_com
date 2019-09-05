@@ -169,7 +169,7 @@
             <p>Date de la sortie : </p><p class="offset-4">le {{ s.dateHeureDebut |date("d/m/Y à H:i") }}</p>
             <p>Site : {{ s.site.nom }}</p>
             <p>Nb d'inscrit : {{ nbP }} / Nb place : {{s.nbInscriptionsMax}}</p>
-            <p>Organisateur : <a href="#">{{ s.Organisateur }}</a></p>
+            <p>Organisateur : <a href="{{ path('user_show_profile', {'id': s.Organisateur.id }) }}">{{ s.Organisateur }}</a></p>
 
             <div class="row p-2 text-center">
              <a href="{{ path('sortie_show', {'id': s.id}) }}" class="offset-1 col-4"><button class="btn btn-primary ">Afficher</button></a>
@@ -190,19 +190,30 @@
                         <button class="offset-1  btn btn-warning ">Inscriptions fermées</button>
                     {% endif %}
 
+                     <!-- si la date d'inscription est dépassée -->
+                            {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') > s.dateLimiteInscription|date('Y-m-d') %}
+                                <button class="offset-1 col-5 btn btn-warning ">Inscriptions fermées</button>
+                            {% endif %}
 
-            <!-- si l'user est inscrit apparition du boutton pour se desinscrire -->
+
 
             {% if UInscrit == true %}
                 <button value="{{ s.id }}" class="desincription offset-1  btn btn-danger" >Me désinscrire</button>
 
-            {% endif %}
+                    <!-- si l'user est inscrit apparition du boutton pour se desinscrire -->
+
+
+                    {% if UInscrit == true %}
+                        <button value="{{ s.id }}" class="desincription offset-1 col-5 btn btn-danger" >Me désinscrire</button>
+
+                    {% endif %}
 
                 {% endif %}
 
 
                 {% if not app.user %}
-                  <a href="{{ path('fos_user_security_login') }}"><button class="offset-1 btn btn-warning ">Connexion</button></a>
+
+                  <a href="{{ path('fos_user_security_login') }}"><button class=" btn btn-warning ">Connectez vous</button></a>
                 {% endif %}
             </div>
     <br>

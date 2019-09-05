@@ -37,8 +37,12 @@ class LieuController extends Controller
         $newLieuNom = $request->get('newLieuNom');
         $newLieuRue = $request->get('newLieuRue');
         $newLieuVilleId = $request->get('newLieuVille');
-        $newLieuLong = $request->get('newLieuLong');
-        $newLieuLat = $request->get('newLieuLat');
+
+        if(!empty($request->get('newLieuLong')) && !$request->get('newLieuLat')){
+            $newLieuLong = $request->get('newLieuLong');
+            $newLieuLat = $request->get('newLieuLat');
+        }
+
 
         $villeDuLieu = $em->getRepository('App:Ville')->find($newLieuVilleId);
 
