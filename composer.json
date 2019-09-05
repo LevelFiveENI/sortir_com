@@ -5,6 +5,7 @@
         "php": "7.3.*",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "friendsofsymfony/user-bundle": "~2.0",
         "symfony/console": "3.4.*",
         "symfony/dotenv": "3.4.*",
@@ -13,11 +14,10 @@
         "symfony/framework-bundle": "3.4.*",
         "symfony/property-access": "3.4.*",
         "symfony/swiftmailer-bundle": "^3.2",
+        "symfony/twig-bundle": "3.4.*",
         "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "3.4.*",
-        "twig/extensions": "^1.5",
-      "ext-json": "*"
-
+        "twig/extensions": "^1.5"
     },
     "require-dev": {
         "sensio/framework-extra-bundle": "^5.4",
@@ -27,7 +27,6 @@
         "symfony/profiler-pack": "^1.0",
         "symfony/routing": "3.4.*",
         "symfony/security-csrf": "3.4.*",
-        "symfony/twig-bundle": "3.4.*",
         "symfony/validator": "3.4.*",
         "symfony/web-server-bundle": "3.4.*"
     },

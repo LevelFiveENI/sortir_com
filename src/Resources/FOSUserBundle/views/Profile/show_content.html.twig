@@ -2,6 +2,8 @@
 
 <div class="fosuser-div-profile fos_user_user_show">
     <h1>{{ user.username }}</h1>
+    <img src="{{ asset('build/images/userPic.jpg') }}" class="card-img-top img-profil" alt="...">
+
     <p><b>{{ 'Nom'|trans }}:</b> {{ user.nom }}</p>
     <p><b>{{ 'Prénom'|trans }}:</b> {{ user.prenom }}</p>
     <p><b>{{ 'profile.show.email'|trans }}:</b> {{ user.email }}</p>
@@ -12,7 +14,7 @@
     <div class="row div-connect ">
         <div class="col-6 center">
             <a class="nav-link" href="{{ path('fos_user_profile_edit') }}">
-                <button type="button" class="btn btn-fos btn-primary">Modifier le profil</button>
+                <button type="button" class="btn btn-fos btn-primary">Modifier</button>
             </a>
         </div>
     </div>

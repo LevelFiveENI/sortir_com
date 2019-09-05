@@ -4,9 +4,10 @@
 
 {% block main %}
     <section class="container">
-        <h2>Profil de {{ user.username }}</h2>
             <div class="fosuser-div-profile fos_user_user_show">
-                <img src="{{ asset('build/images/userPic.jpg') }}" class="card-img-top" alt="...">
+                <h1>Profil de {{ user.username }}</h1>
+                <img src="{{ asset('build/images/userPic.jpg') }}" class="card-img-top img-profil" alt="...">
+
                 <p><b>{{ 'Nom'|trans }}:</b> {{ user.nom }}</p>
                 <p><b>{{ 'Prénom'|trans }}:</b> {{ user.prenom }}</p>
                 <p><b>{{ 'Téléphone'|trans }}:</b> {{ user.telephone }}</p>
@@ -21,6 +22,5 @@
                     <a href="{{ url('Sortie_afficheraffich_affich') }}"><button class="btn btn-danger">Retour</button></a>
                 </div>
             </div>
-
     </section>
 {% endblock %}

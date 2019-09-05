@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html class="html-error">
+<head>
+    <meta charset="UTF-8">
+    <title>An Error Occurred: {{ status_text }}</title>
+    {{ encore_entry_link_tags('error') }}
+</head>
+<body class="body-error">
+
+<div class="noise"></div>
+<div class="overlay"></div>
+<div class="terminal">
+    <h1>Error <span class="errorcode">{{ status_code }} {{ status_text }}</span></h1>
+    <p class="output">Veuillez nous excuser pour la gêne occasionnée</p>
+    <p class="output"><a class="a-error" href="/accueil">retour à la page d'accueil</a></p>
+    <p class="output"><a class="a-error" href="{{ path('Sortie_afficheraffich_affich') }}">retour à la page sorties</a></p>
+    <p class="output">Merci</p>
+</div>
+
+</body>
+</html>
