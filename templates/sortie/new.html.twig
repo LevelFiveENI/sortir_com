@@ -5,7 +5,7 @@
 {% block main %}
 
     <section class="container container-new-sortie">
-        <h1>Crée un nouvelle Sortie</h1>
+        <h1>Crée une nouvelle Sortie</h1>
 
         <!--Formulaire de création d'un sortie -->
         {% form_theme form 'bootstrap_4_layout.html.twig' %}
@@ -82,32 +82,24 @@
 
         <!-- Modal pour la création du lieu -->
 
+            <div class="row">
+                <div class="form-group annuler col-lg-9">
+                    <a href="/accueil"><button class="btn btn-danger">Annuler</button></a>
+                </div>
 
-        <div class="row">
-            <div class="form-group annuler col-lg-9">
-                <a href="/accueil"><button class="btn btn-danger">Annuler</button></a>
+                <div class="form-group enregistrer col-lg-2">
+                    {{ form_label(form.Enregistrer) }}
+                    {{ form_widget(form.Enregistrer, {'attr': {'class': 'btn btn-primary'} }) }}
+                </div>
+
+                <div class="form-group publier col-lg-1">
+                    {{ form_label(form.Publier) }}
+                    {{ form_widget(form.Publier, {'attr': {'class': 'btn btn-primary'} }) }}
+                    {{ form_end(form) }}
+                </div>
+
+
             </div>
-
-            <div class="form-group enregistrer col-lg-2">
-                {{ form_label(form.Enregistrer) }}
-                {{ form_widget(form.Enregistrer, {'attr': {'class': 'btn btn-primary'} }) }}
-            </div>
-
-            <div class="form-group publier col-lg-1">
-                {{ form_label(form.Publier) }}
-                {{ form_widget(form.Publier, {'attr': {'class': 'btn btn-primary'} }) }}
-                {{ form_end(form) }}
-            </div>
-
-
-        </div>
-        <div class="row">
-            <div class="col-lg-9"></div>
-            <div class="form-group annuler col-lg-3">
-               <a href="/accueil"><button class="btn btn-danger">Annuler</button></a>
-
-
-        </div>
 
         </div>
 
@@ -140,14 +132,14 @@
 
                         {{ form_label(formLieu.latitude) }}
                         {{ form_widget(formLieu.latitude) }}
-                    <div class="form-check">
+
                         {{ form_label(formLieu.nomVille) }}
                         {{ form_widget(formLieu.nomVille) }}
-                    </div>
+
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary">{{ button_label|default('Enregitrer') }}</button>
+                        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
 
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
 

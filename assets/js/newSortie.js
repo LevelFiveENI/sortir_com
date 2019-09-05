@@ -57,7 +57,7 @@ $("#ajoutLieu").submit(function(event) {
 
     $.ajax({
         //Appeler la nouvelle fonction
-        url: "../lieu/new",
+        url: "/lieu/new",
         type: "POST",
         dataType:"json",
         data: {

@@ -177,7 +177,7 @@
                                     <!-- si l'user n'est pas inscrit, qu'il reste de la place, et que la date de limite d'insccription
                                      n'est pas dépassée apparition du boutton inscription -->
                                             {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') <= s.dateLimiteInscription|date('Y-m-d') %}
-                                                <button value="{{ s.id }}" class="inscription offset-1  btn btn-success" >M'incrire</button>
+                                                <button value="{{ s.id }}" class="inscription offset-1  btn btn-success" >M'inscrire</button>
 
                                             {% endif %}
 

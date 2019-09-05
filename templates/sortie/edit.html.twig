@@ -94,65 +94,80 @@
 
 
         <br>
-        <div class="row">
-            <div class="form-group enregistrer col-lg-3">
+        <!-- Test Bouton caché -->
+        <input id="etatSortie" type="hidden" value="{{ sortie.etat.id }}">
+
+        <div class="row justify-content-center">
+            <div class="form-group enregistrer col-lg-4">
                 {{ form_label(form.Enregistrer) }}
                 {{ form_widget(form.Enregistrer, {'attr': {'class': 'btn btn-primary'} }) }}
 
-
             </div>
-            <div class="form-group publier col-lg-3">
-                {{ form_label(form.Publier) }}
-                {{ form_widget(form.Publier, {'attr': {'class': 'btn btn-primary'} }) }}
+            {% if form.Publier is defined %}
+                <div class="form-group publier col-lg-4">
+                    {{ form_label(form.Publier) }}
+                    {{ form_widget(form.Publier, {'attr': {'class': 'btn btn-primary'} }) }}
+                </div>
+            {% endif %}
 
-            </div>
-
-            <div class="form-group supprimer col-lg-3">
+            <div class="form-group supprimer col-lg-4">
                 {{ form_label(form.Supprimer) }}
                 {{ form_widget(form.Supprimer, {'attr': {'class': 'btn btn-danger'} }) }}
 
             </div>
 
-            <div class="form-group annuler col-lg-3">
-                {{ form_label(form.Supprimer) }}
-                {{ form_widget(form.Supprimer, {'attr': {'class': 'btn btn-danger'} }) }}
-
-            </div>
         </div>
-
 
         {{ form_end(form) }}
 
         <div class="row">
-            <div class="col-lg-9"></div>
-            <div class="form-group annuler col-lg-3">
-                <a href="/accueil"><button class="btn btn-danger">Annuler</button></a>
+
+            <div class="form-group annuler col-lg-4">
+                <a href="{{ path('Sortie_afficheraffich_affich')}}"><button class="btn btn-danger">Retour</button></a>
 
             </div>
         </div>
-        
+
 
         <!--Formulaire de création d'un sortie -->
 
         <!-- Modal pour la création du lieu -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade form-inline" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Changer le lieu de la sortie</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Créer un nouveau lieu</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body form-group form-check-input justify-content-center">
+
                         {{ form_start(formLieu, {'attr': {'id': 'ajoutLieu'}}) }}
-                        {{ form_widget(formLieu) }}
-                        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
-                        {{ form_end(formLieu) }}
+
+
+                        {{ form_label(formLieu.nom) }}
+                        {{ form_widget(formLieu.nom) }}
+
+                        {{ form_label(formLieu.rue) }}
+                        {{ form_widget(formLieu.rue) }}
+
+                        {{ form_label(formLieu.longitude) }}
+                        {{ form_widget(formLieu.longitude) }}
+
+                        {{ form_label(formLieu.latitude) }}
+                        {{ form_widget(formLieu.latitude) }}
+
+                        {{ form_label(formLieu.nomVille) }}
+                        {{ form_widget(formLieu.nomVille) }}
+
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler et choisir dans la liste</button>
+                        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+
                     </div>
                 </div>
             </div>

@@ -23,11 +23,19 @@ require('bootstrap');
 let pathUrl = $("#urlPath").val();
 
 //Gestion des input l'or du chargement de la page
+//Changements des boutons selon l'état
+
+
+
 $(document).ready(function () {
   console.log("Hello")
     $("#newLieu").hide()
     $("#sortie_ville").hide()
     $("#sortie_lieu").hide()
+
+
+
+
 
 })
 //Gestion de l'affichage l'or du clique sur la modification du lieu
@@ -62,7 +70,7 @@ $("#sortie_ville").change(function() {
 
         },
         error: function (err) {
-            alert("Erreur de JS");
+            //alert("Erreur de JS");
         }
     });
 });
@@ -72,13 +80,15 @@ $("#ajoutLieu").submit(function(event) {
 
     $.ajax({
         //Appeler la nouvelle fonction
-        url: "../lieu/new",
+        url: "/lieu/new",
         type: "POST",
         dataType:"json",
         data: {
             newLieuNom: $("#lieu_nom").val(),
             newLieuRue: $("#lieu_rue").val(),
-            newLieuVille: $("#lieu_nomVille").val()
+            newLieuVille: $("#lieu_nomVille").val(),
+            newLieuLong: $("#lieu_longitude").val(),
+            newLieuLat: $("#lieu_latitude").val(),
         },
 
         // success: function () {
@@ -98,5 +108,4 @@ $("#ajoutLieu").submit(function(event) {
     });
 });
 
-//Ajustement des dates sur le formaulaires
 
