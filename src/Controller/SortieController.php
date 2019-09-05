@@ -202,8 +202,13 @@ class SortieController extends Controller
     {
         $site = $em->getRepository('App:Site')->findAll();
         $id = $request->get('id');
+
+        $userCo = null;
+        if($this->getUser()){
+            $userCo = $em->getRepository('App:User')->find($this->getUser());
+        }
         // recuperer la liste des sorties
-        $result = $em->getRepository('App:Sortie')->sortieByCategorie($id);
+        $result = $em->getRepository('App:Sortie')->sortieByCategorie($id,$userCo);
 
         return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $result, 'allSite' => $site]);
      
