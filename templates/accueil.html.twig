@@ -7,7 +7,7 @@
     <div class="container-fluid img-jeunesse">
         <div class="row">
 
-                <img src="{{asset('build/images/jeunesse3.jpg')}}" alt="jeunesse3" class="img-responsive">
+                <img src="{{asset('build/images/accueil.jpg')}}" alt="jeunesse3" class="img-responsive">
 
                 <div class="carousel-caption">
                     <h1>La nouvelle plateforme de l'ENI !</h1>
@@ -73,7 +73,7 @@
                 <a href={{ path('sortie_categorie', {'id' : 5}) }}>
                 <img src="{{asset('build/images/divers.svg')}}" alt="divers" class="image-picto">
                 <h3>Divers</h3>
-               <p>Libre à vous d'imaginer tout autre type de sortie... {# et d'en faire profiter les élèves de l'ENI !#}</p>
+               <p>Libre à vous d'imaginer tout autre type de sortie...</p>
                </a>
             </div>
         </div>
@@ -141,63 +141,92 @@
 
                 <div class="col-3">
 
-                    <img src="{{asset('build/images/lieu.svg')}}" alt="lieu" class="image-creation">
-                    <p><b>1.</b> Ajoutez un lieu</p>
-
-                </div>
-                <div class="col-3">
-
                     <img src="{{asset('build/images/site.svg')}}" alt="site" class="image-creation">
-                    <p><b>2.</b> Précisez le site</p>
+                    <p><b>1.</b> Sélectionnez le site</p>
 
                 </div>
                 <div class="col-3">
 
                     <img src="{{asset('build/images/type-activite.svg')}}" alt="type-activite" class="image-creation">
-                    <p><b>3.</b> Puis le type d'activité</p>
+                    <p><b>2.</b> Précisez le type d'activité</p>
 
                 </div>
                 <div class="col-3">
 
                     <img src="{{asset('build/images/participants.svg')}}" alt="participants" class="image-creation">
-                    <p><b>4.</b> Et n'oubliez pas le nombre maximum de participant</p>
+                    <p><b>3.</b> Puis le nombre de participant</p>
+
+                </div>
+                <div class="col-3">
+
+                    <img src="{{asset('build/images/lieu.svg')}}" alt="lieu" class="image-creation">
+                    <p><b>4.</b> Et n'oubliez pas le lieu</p>
 
                 </div>
 
             </div>
         </div>
     </article>
+    {% if app.user %}
 
-    <article class="article-rejoignez">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2>REJOIGNEZ-NOUS</h2>
+        <article class="article-rejoignez">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>À VOUS DE JOUER</h2>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container container-inscription">
-            <div class="row">
-                <div class="col-9">
-                    <p>Vous n'êtes pas encore inscrits ? N'hésitez-plus, sautez le pas et profitez de tous les avantages du site ! </p>
+            <div class="container container-inscription">
+                <div class="row">
+                    <div class="col-9">
+                        <p>N'hésitez-plus, sautez le pas et créez une sortie afin d'en faire profiter les élèves de l'ENI ! </p>
+                    </div>
+
+                        <div class="col-3">
+                            <a class="nav-link" href="{{ path('sortie_new') }}">
+                                <button type="button" class="btn btn-primary btn-lg">Nouvelle sortie</button>
+                            </a>
+
+                        </div>
                 </div>
-                {% if app.user %}
-                    <div class="col-3">
-                        <a class="nav-link" href="{{ path('sortie_new') }}">
-                            <button type="button" class="btn btn-primary btn-lg">Nouvelle sortie</button>
-                        </a>
+            </div>
+        </article>
+        {% else %}
+                <article class="article-rejoignez">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>REJOIGNEZ-NOUS</h2>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="container container-inscription">
+                    <div class="row">
+                        <div class="col-9">
+                            <p>Vous n'êtes pas encore inscrits ? N'hésitez-plus, sautez le pas et profitez de tous les avantages du site ! </p>
+                        </div>
+
+
+                        <div class="col-3">
+                            <a class="nav-link" href="{{ path('fos_user_registration_register') }}">
+                                <button type="button" class="btn btn-primary btn-lg">Je m'inscris</button>
+                            </a>
+                        </div>
+
+                        </div>
                     </div>
-                {% else %}
-                    <div class="col-3">
-                        <a class="nav-link" href="{{ path('fos_user_registration_register') }}">
-                            <button type="button" class="btn btn-primary btn-lg">Je m'inscris</button>
-                        </a>
-                    </div>
+                </div>
+                </article>
+
+
+
+
                 {% endif %}
-            </div>
-        </div>
+
+
 
 
 
