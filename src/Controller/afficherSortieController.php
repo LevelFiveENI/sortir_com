@@ -77,7 +77,7 @@ class afficherSortieController extends Controller
         $infoCheckPassee= $request->get("checkOldSortie");
 
         // requete pour récupérer les infos demandés
-      $sorti = $em->getRepository('App:Sortie')->topSorti($infoSite, $infoSearch, $infoCheckDate,
+      $sorti = $em->getRepository('App:Sortie')->sortiAllParametre($infoSite, $infoSearch, $infoCheckDate,
          $infoDateDeb,$infoDateFin, $infoCheckOrga, $infoCheckInscri, $infoCheckNoInscrit, $infoCheckPassee);
 
 

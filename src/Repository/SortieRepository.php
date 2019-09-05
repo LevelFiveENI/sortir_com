@@ -15,7 +15,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 class SortieRepository extends ServiceEntityRepository
 {
 
-    public function topSorti($site, $seek, $checkDate, $dateDeb,$dateFin, $checkOrga, $checkInscri, $checkNonInscri, $checkPasse){
+    public function sortiAllParametre($site, $seek, $checkDate, $dateDeb,$dateFin, $checkOrga, $checkInscri, $checkNonInscri, $checkPasse){
         $req = $this -> createQueryBuilder('s');
 
 
@@ -110,81 +110,9 @@ class SortieRepository extends ServiceEntityRepository
 
 
 
-    // recupère les sorties en fonction du site
-    /**
-     * @param $site
-     * @return array
-     */
-    public function sortieBySite($site, $dateSdeb, $dateSfin){
-        if($site != "Tous"){
-            $req = $this -> createQueryBuilder('s')
-                ->select('s')
-                ->join('s.etat', 'etat')
-                ->join('s.site','site')
-                ->addSelect('site')
-                ->addSelect('etat')
-                ->where('site.nom = :sit')
-                ->andWhere('s.dateHeureDebut >= :dateSDeb')
-                ->andWhere('s.dateHeureDebut <= :dateSFin')
-                ->setParameter('sit',$site)
-                ->setParameter(':dateSDeb',$dateSdeb)
-                ->setParameter(':dateSFin',$dateSfin)
-                ->orderBy('s.dateHeureDebut','DESC');
-        }
-        else{
-            $req = $this -> createQueryBuilder('s')
-                ->select('s')
-                ->join('s.etat', 'etat')
-                ->join('s.site','site')
-                ->addSelect('site')
-                ->addSelect('etat')
-                ->Where('s.dateHeureDebut >= :dateSDeb')
-                ->andWhere('s.dateHeureDebut <= :dateSFin')
-                ->setParameter(':dateSDeb',$dateSdeb)
-                ->setParameter(':dateSFin',$dateSfin)
-                ->orderBy('s.dateHeureDebut','DESC');
-        }
-
-        return $req->getQuery()->getResult();
-    }
 
 
 
-
-
-
-
-
-
-
-// on effectue une recherche dans le titre de la sortie
-    /**
-     * @param $search
-     * @return array
-     */
-public function sortieBySearch($site, $search, $dateSdeb, $dateSfin){
-    // on enleve les espaces
-    $searchT = trim($search);
-
-    $req = $this -> createQueryBuilder('s')
-        ->select('s')
-        ->join('s.site','site')
-        ->join('s.etat', 'etat')
-        ->addSelect('etat')
-        ->addSelect('site')
-        ->where('site.nom = :sit')
-        ->andwhere('s.nom like :nom')
-        ->andWhere('s.dateHeureDebut >= :dateSDeb')
-        ->andWhere('s.dateHeureDebut <= :dateSFin')
-        ->setParameter('sit',$site)
-        ->setParameter('nom', "%".$searchT."%")
-        ->setParameter(':dateSDeb',$dateSdeb)
-        ->setParameter(':dateSFin',$dateSfin)
-        ->orderBy('s.dateHeureDebut','DESC');
-
-    return $req->getQuery()->getResult();
-
-}
 
 
     //////////////////// recupère les sorties en fonction de la categorie
