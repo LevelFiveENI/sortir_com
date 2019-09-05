@@ -128,65 +128,6 @@ class SortieRepository extends ServiceEntityRepository
 
 
 
-//    // recupère les données de tous les sites juste avec une date deb
-//    /**
-//     * @param $site
-//     * @param $dateSdeb
-//     */
-//    public function sortieByAll($user){
-//
-//
-//        $req = $this -> createQueryBuilder('s')
-//            ->select('s')
-//            ->join('s.etat', 'etat')
-//            ->join('s.site','site')
-//            ->addSelect('site')
-//            ->addSelect('etat')
-//
-//            // en fonction des etats
-//            ->andWhere('etat.libelle = :etaO')
-//            ->setParameter('etaO' ,"ouverte")
-//            ->orWhere('etat.libelle = :etaCl')
-//            ->setParameter('etaCl' ,"cloture")
-//            ->orWhere('etat.libelle = :etaAc')
-//            ->setParameter('etaAc' ,"actEncours")
-//            ->orWhere('etat.libelle = :etaP')
-//            ->setParameter('etaP' ,"passee");
-//
-//            //en fonction de la date du jour - 1 mois
-//
-//        $dateJ = date('y-m-d',strtotime('-1 month'));
-//        $req
-//            ->andWhere('s.dateHeureDebut >= :dateSDeb')
-//            ->setParameter(':dateSDeb',$dateJ);
-//
-//            // en fonction de l'etat créé plus l'user
-//        if($user){
-//            $req
-//                ->join('s.Organisateur','orga')
-//                ->addSelect('orga')
-//                ->orWhere('etat.libelle = :etaCr and orga = :user')
-//                //->andWhere('orga = :user')
-//                ->setParameter('etaCr' ,"cree")
-//                ->setParameter('user' ,$user);
-//
-//        }
-//
-//            // puis on ordonne les resultats par date
-//        $req
-//            ->orderBy('s.dateHeureDebut','DESC');
-//
-//
-//        return $req->getQuery()->getResult();
-//    }
-
-
-
-
-
-
-
-
 
     //////////////////// recupère les sorties en fonction de la categorie
     /**

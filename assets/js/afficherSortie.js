@@ -56,47 +56,6 @@ $('.desincription').click(function(){
 
 
 
-
-
-
-
-
-/* exemple ajax valou
-    $.ajax({
-        //Appeler la nouvelle fonction
-        url: '/sortie/ajaxLieu',
-        type: "POST",
-        dataType:"json",
-        data: {
-            villeid: $("#sortie_ville").val()
-        },
-
-        success: function (json) {
-            console.log(json);
-            $('#sortie_lieu').empty();
-            $.each(json, function(i, optionHtml){
-                $('#sortie_lieu').append($('<option>').text(optionHtml)
-                    .attr( { name:"nomLieu", value:i } ))
-            })
-
-        },
-        error: function (err) {
-            alert("Erreur de JS");
-        }
-    });
-
- */
-
-
-
-
-
-
-
-
-
-
-
 // fonction pour que la date de fin se mette a jour en fonction de la date de debut
 $('#dateMini').change(function () {
 
@@ -115,7 +74,7 @@ $('#dateMaxi').change(function () {
 
     if($('#dateMaxi').val()<$('#dateMini').val()){
 
-        alert("la date de fin ne peut pas être inférieure à la date de début");
+     //   alert("la date de fin ne peut pas être inférieure à la date de début");
         $('#dateMaxi').val(dateMi);
 
 
