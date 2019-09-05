@@ -16,7 +16,17 @@ class SortieRepository extends ServiceEntityRepository
 {
 
     public function sortiAllParametre($site, $seek, $checkDate, $dateDeb,$dateFin, $checkOrga, $checkInscri, $checkNonInscri, $checkPasse, $user){
-        $req = $this -> createQueryBuilder('s');
+        $req = $this -> createQueryBuilder('s')
+            // on affiche les sorties pour les etats suivant (ouverte, cloture, act en cours)
+            ->join('s.etat', 'etat')
+            ->addSelect('etat')
+            ->andWhere('etat.libelle = :etaO')
+            ->setParameter('etaO' ,"ouverte")
+            ->orWhere('etat.libelle = :etaCl')
+            ->setParameter('etaCl' ,"cloture")
+            ->orWhere('etat.libelle = :etaAc')
+            ->setParameter('etaAc' ,"actEncours");
+
 
 
         // recherche si un site existe
@@ -43,37 +53,62 @@ class SortieRepository extends ServiceEntityRepository
                     ->setParameter(':dateSFin',$dateFin);
             }
 
-        //////////////// requete a remplir par flo
-        // $checkOrga, $checkInscri, $checkNonInscri, $checkPasse
+
+        // si la checkbox orga est cochée on recherche au niveau de l'orga
+        if($checkOrga) {
+            $req
+                ->orWhere('s.Organisateur = :user AND etat.libelle = :etat')
+                ->setParameter('etat', 'cree')
+                ->setParameter('user', $user);
+        }
+
+
+        // si la checkbox inscrit est cochée on recherche au niveau de l'inscription
+        if($checkInscri) {
+            $req
+                ->join('s.Participant', 'participant')
+                ->addSelect('participant')
+                ->andWhere('participant = :user')
+                ->setParameter('user', $user);
+        }
 
 
 
 
 
 
+///////////////////////////////requete non fonctionnel a modifier
+
+
+        // si la checkbox non inscrit est cochée on recherche au niveau de l'inscription
+
+        if($checkNonInscri) {
+            $req
+                ->join('s.Participant', 'participant')
+                ->addSelect('participant')
+                ->andWhere('participant != :user')
+                ->setParameter('user', $user);
+        }
+
+
+        // si la checkbox passee est cochée on recherche les sorties passées
+        if($checkPasse) {
+            $req
+                ->orWhere('etat.libelle = :etat')
+                ->setParameter('etat', 'passee');
+        }
 
 
 
+//////////////////////////////////////////////////////////////////////////////
 
 
-
-
-        $req
-
-            // on affiche les sorties pour les etats suivant (ouverte, cloture, act en cours)
-             ->join('s.etat', 'etat')
-            ->addSelect('etat')
-            ->andWhere('etat.libelle = :etaO')
-            ->setParameter('etaO' ,"ouverte")
-            ->orWhere('etat.libelle = :etaCl')
-            ->setParameter('etaCl' ,"cloture")
-            ->orWhere('etat.libelle = :etaAc')
-            ->setParameter('etaAc' ,"actEncours")
 
 
 
 
             // puis on ordonne les resultats par date
+                 $req
             ->orderBy('s.dateHeureDebut','DESC');
 
         return $req->getQuery()->getResult();
