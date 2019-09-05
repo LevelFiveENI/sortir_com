@@ -98,7 +98,7 @@
         </div>
 
         <div class="row justify-content-center btnDetailSortie">
-            {% if app.user in sortie.participant %}
+            {% if app.user in sortie.participant  %}
                 <button value="{{ sortie.id }}" class="btn-sortie desincription btn btn-danger" >Me désinscrire</button>
                 {% else %}
                     <button value="{{ sortie.id }}" class="btn-sortie inscription btn btn-success" >M'inscrire</button>

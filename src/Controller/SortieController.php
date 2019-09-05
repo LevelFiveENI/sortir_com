@@ -20,15 +20,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SortieController extends Controller
 {
-    /**
-     * @Route("/", name="sortie_index", methods={"GET"})
-     */
-    public function index(SortieRepository $sortieRepository): Response
-    {
-        return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository->findAll(),
-        ]);
-    }
+//    /**
+//     * @Route("/", name="sortie_index", methods={"GET"})
+//     */
+//    public function index(SortieRepository $sortieRepository): Response
+//    {
+//        return $this->render('sortie/index.html.twig', [
+//            'sorties' => $sortieRepository->findAll(),
+//        ]);
+//    }
 
     /**
      * @Route("/new", name="sortie_new", methods={"GET","POST"})
@@ -120,6 +120,8 @@ class SortieController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $etatSortie = new Etat();
             //On gère l'état de la sortie selon le bouton choisi
+
+
             if($form->get('Enregistrer')->isClicked()) {
                 $etatSortie = $em->getRepository('App:Etat')->find(1);
 
@@ -128,6 +130,7 @@ class SortieController extends Controller
                 $em->flush();
                 $this->addFlash("successCreateSortie","Votre sortie est enregistrée. Publiez-la quand vous voulez !");
             }
+
             if($form->get('Publier')->isClicked()) {
                 $etatSortie = $em->getRepository('App:Etat')->find(2);
 
@@ -136,14 +139,19 @@ class SortieController extends Controller
                 $em->flush();
                 $this->addFlash("successCreateSortie","Votre sortie est publiée !");
             }
+
+
+
             if($form->get('Supprimer')->isClicked()) {
                 $etatSortie = $em->getRepository('App:Etat')->find(6);
                 $sortie->setEtat($etatSortie);
                 $sortie->setEtat($etatSortie);
-                $em->persist($sortie);
+                $em->remove($sortie);
                 $em->flush();
                 $this->addFlash("successCreateSortie","Votre sortie à été supprimée !");
             }
+
+
             return $this->redirectToRoute("Sortie_afficheraffich_affich");
         }
         return $this->render('sortie/edit.html.twig', [

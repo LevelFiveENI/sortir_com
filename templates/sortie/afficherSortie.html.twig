@@ -172,12 +172,12 @@
                                     <!-- si un utilisateur est connecté -->
 
                                         {% if app.user %}
-
+                                            {% if s.etat.id != 5 %}
                                             <a href="{{ path('sortie_show', {'id': s.id}) }}" class="offset-1 col-4"><button class="btn btn-primary ">Afficher</button></a>
-
+                                            {% endif %}
                                     <!-- si l'user n'est pas inscrit, qu'il reste de la place, et que la date de limite d'insccription
                                      n'est pas dépassée apparition du boutton inscription -->
-                                            {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') <= s.dateLimiteInscription|date('Y-m-d') %}
+                                            {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') <= s.dateLimiteInscription|date('Y-m-d') and s.etat.id != 5 %}
                                                 <button value="{{ s.id }}" class="inscription  btn btn-success" >M'inscrire</button>
 
                                             {% endif %}
