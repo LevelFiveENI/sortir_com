@@ -17,15 +17,17 @@ class SortieRepository extends ServiceEntityRepository
 
     public function sortiAllParametre($site, $seek, $checkDate, $dateDeb,$dateFin, $checkOrga, $checkInscri, $checkNonInscri, $checkPasse, $user){
         $req = $this -> createQueryBuilder('s')
+
             // on affiche les sorties pour les etats suivant (ouverte, cloture, act en cours)
             ->join('s.etat', 'etat')
-            ->addSelect('etat')
-            ->andWhere('etat.libelle = :etaO')
-            ->setParameter('etaO' ,"ouverte")
-            ->orWhere('etat.libelle = :etaCl')
-            ->setParameter('etaCl' ,"cloture")
-            ->orWhere('etat.libelle = :etaAc')
-            ->setParameter('etaAc' ,"actEncours");
+                ->addSelect('etat')
+                ->andWhere('etat.libelle = :etaO')
+                ->setParameter('etaO' ,"ouverte")
+                ->orWhere('etat.libelle = :etaCl')
+                ->setParameter('etaCl' ,"cloture")
+                ->orWhere('etat.libelle = :etaAc')
+                ->setParameter('etaAc' ,"actEncours");
+
 
 
 
@@ -57,8 +59,7 @@ class SortieRepository extends ServiceEntityRepository
         // si la checkbox orga est cochée on recherche au niveau de l'orga
         if($checkOrga) {
             $req
-                ->orWhere('s.Organisateur = :user AND etat.libelle = :etat')
-                ->setParameter('etat', 'cree')
+                ->andWhere('s.Organisateur = :user')
                 ->setParameter('user', $user);
         }
 
