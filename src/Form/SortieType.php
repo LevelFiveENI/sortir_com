@@ -96,11 +96,9 @@ class SortieType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
             /** @var Sortie $sortie */
             $sortie = $event->getData();
-
             if($sortie->getId() == null){
                     $event->getForm()->add('Publier', SubmitType::class);
             }
-
             if(!$sortie->getId() == null){
                 if($sortie->getEtat()->getId() != 2){
                     $event->getForm()->add('Publier', SubmitType::class);
