@@ -13,7 +13,7 @@
                 <p>{{ message }}</p>
             </div>
         {% endfor %}
-<form method="post" class = "row" action="/afficher/afficSortieTriSite">
+<form method="post" class = "row" action="/afficher/afficSortie">
 
 
     <!-- recherche plus classique  -->
@@ -183,14 +183,9 @@
 
                                      <!-- si la date d'inscription est dépassée -->
                                             {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') > s.dateLimiteInscription|date('Y-m-d') %}
+                                                <br>
                                                 <button class="offset-1  btn btn-warning ">Inscriptions fermées</button>
                                             {% endif %}
-
-                                             <!-- si la date d'inscription est dépassée -->
-                                                    {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') > s.dateLimiteInscription|date('Y-m-d') %}
-                                                        <button class="offset-1 col-5 btn btn-warning ">Inscriptions fermées</button>
-                                                    {% endif %}
-
 
                                         {% endif %}
                                 <!-- si l'user est inscrit apparition du boutton pour se desinscrire -->

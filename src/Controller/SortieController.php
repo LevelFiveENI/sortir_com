@@ -201,6 +201,7 @@ class SortieController extends Controller
     {
         $site = $em->getRepository('App:Site')->findAll();
         $id = $request->get('id');
+
         // recuperer la liste des sorties
         $result = $em->getRepository('App:Sortie')->sortieByCategorie($id);
 
