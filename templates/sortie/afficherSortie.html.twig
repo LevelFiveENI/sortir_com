@@ -165,7 +165,7 @@
             <p>Date de la sortie : </p><p class="offset-4">le {{ s.dateHeureDebut |date("d/m/Y à H:i") }}</p>
             <p>Site : {{ s.site.nom }}</p>
             <p>Nb d'inscrit : {{ nbP }} / Nb place : {{s.nbInscriptionsMax}}</p>
-            <p>Organisateur : <a href="#">{{ s.Organisateur }}</a></p>
+            <p>Organisateur : <a href="{{ path('user_show_profile', {'id': s.Organisateur.id }) }}">{{ s.Organisateur }}</a></p>
 
 
             <div class="row p-2 text-center">
@@ -175,25 +175,25 @@
 
                 {% if app.user %}
 
-            <!-- si l'user n'est pas inscrit, qu'il reste de la place, et que la date de limite d'insccription
-             n'est pas dépassée apparition du boutton inscription -->
-            {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') <= s.dateLimiteInscription|date('Y-m-d') %}
-                <button value="{{ s.id }}" class="inscription offset-1 col-4 btn btn-success" >'incrire</button>
+                    <!-- si l'user n'est pas inscrit, qu'il reste de la place, et que la date de limite d'insccription
+                     n'est pas dépassée apparition du boutton inscription -->
+                    {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') <= s.dateLimiteInscription|date('Y-m-d') %}
+                        <button value="{{ s.id }}" class="inscription offset-1 col-4 btn btn-success" >M'inscrire</button>
 
-            {% endif %}
-
-             <!-- si la date d'inscription est dépassée -->
-                    {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') > s.dateLimiteInscription|date('Y-m-d') %}
-                        <button class="offset-1 col-5 btn btn-warning ">Inscriptions fermées</button>
                     {% endif %}
 
+                     <!-- si la date d'inscription est dépassée -->
+                            {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') > s.dateLimiteInscription|date('Y-m-d') %}
+                                <button class="offset-1 col-5 btn btn-warning ">Inscriptions fermées</button>
+                            {% endif %}
 
-            <!-- si l'user est inscrit apparition du boutton pour se desinscrire -->
 
-            {% if UInscrit == true %}
-                <button value="{{ s.id }}" class="desincription offset-1 col-5 btn btn-danger" >Me désinscrire</button>
+                    <!-- si l'user est inscrit apparition du boutton pour se desinscrire -->
 
-            {% endif %}
+                    {% if UInscrit == true %}
+                        <button value="{{ s.id }}" class="desincription offset-1 col-5 btn btn-danger" >Me désinscrire</button>
+
+                    {% endif %}
 
                 {% endif %}
 
