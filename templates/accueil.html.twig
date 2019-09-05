@@ -179,12 +179,20 @@
                 <div class="col-9">
                     <p>Vous n'êtes pas encore inscrits ? N'hésitez-plus, sautez le pas et profitez de tous les avantages du site ! </p>
                 </div>
-                <div class="col-3">
-                    <a class="nav-link" href="{{ path('fos_user_registration_register') }}">
-                        <button type="button" class="btn btn-primary btn-lg">Je m'inscris</button>
-                    </a>
+                {% if app.user %}
+                    <div class="col-3">
+                        <a class="nav-link" href="{{ path('sortie_new') }}">
+                            <button type="button" class="btn btn-primary btn-lg">Nouvelle sortie</button>
+                        </a>
 
-                </div>
+                    </div>
+                {% else %}
+                    <div class="col-3">
+                        <a class="nav-link" href="{{ path('fos_user_registration_register') }}">
+                            <button type="button" class="btn btn-primary btn-lg">Je m'inscris</button>
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
 

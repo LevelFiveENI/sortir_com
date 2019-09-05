@@ -78,9 +78,9 @@ $("#ajoutLieu").submit(function(event) {
         error: function () {
             $("#exampleModal").modal('hide');
             $("#successLieu").html($("#lieu_nom").val() + " à été ajouté vous pouvez le selectionner dans la liste!");
-            //$("#lieu_nom").empty();
-            //$("#lieu_rue").empty();
-            $('#sortie_lieu:last-child').prop('selected', true)
+            $("#lieu_nom").empty();
+            $("#lieu_rue").empty();
+
         }
     });
 });
