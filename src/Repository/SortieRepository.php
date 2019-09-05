@@ -15,7 +15,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 class SortieRepository extends ServiceEntityRepository
 {
 
-    public function sortiAllParametre($site, $seek, $checkDate, $dateDeb,$dateFin, $checkOrga, $checkInscri, $checkNonInscri, $checkPasse){
+    public function sortiAllParametre($site, $seek, $checkDate, $dateDeb,$dateFin, $checkOrga, $checkInscri, $checkNonInscri, $checkPasse, $user){
         $req = $this -> createQueryBuilder('s');
 
 
@@ -60,30 +60,24 @@ class SortieRepository extends ServiceEntityRepository
 
         $req
 
-/*            ->join('s.etat', 'etat')
+            // on affiche les sorties pour les etats suivant (ouverte, cloture, act en cours)
+             ->join('s.etat', 'etat')
             ->addSelect('etat')
             ->andWhere('etat.libelle = :etaO')
             ->setParameter('etaO' ,"ouverte")
-            ->andWhere('etat.libelle = :etaCl')
+            ->orWhere('etat.libelle = :etaCl')
             ->setParameter('etaCl' ,"cloture")
-            ->andWhere('etat.libelle = :etaAc')
+            ->orWhere('etat.libelle = :etaAc')
             ->setParameter('etaAc' ,"actEncours")
-            ->andWhere('etat.libelle = :etaP')
-            ->setParameter('etaP' ,"passee")
-            ->andWhere('etat.libelle = :etaCr')
-            ->setParameter('etaCr' ,"cree")*/
 
 
+
+
+            // puis on ordonne les resultats par date
             ->orderBy('s.dateHeureDebut','DESC');
 
         return $req->getQuery()->getResult();
     }
-
-
-
-
-
-
 
 
 
@@ -93,7 +87,7 @@ class SortieRepository extends ServiceEntityRepository
      * @param $site
      * @param $dateSdeb
      */
-    public function sortieByAll( $dateSdeb){
+    public function sortieByAll( $dateSdeb, $user){
         $req = $this -> createQueryBuilder('s')
             ->select('s')
             ->join('s.etat', 'etat')
@@ -102,7 +96,34 @@ class SortieRepository extends ServiceEntityRepository
             ->addSelect('etat')
             ->where('s.dateHeureDebut >= :dateSDeb')
             ->setParameter(':dateSDeb',$dateSdeb)
+
+            // en fonction des etats
+            ->andWhere('etat.libelle = :etaO')
+            ->setParameter('etaO' ,"ouverte")
+            ->orWhere('etat.libelle = :etaCl')
+            ->setParameter('etaCl' ,"cloture")
+            ->orWhere('etat.libelle = :etaAc')
+            ->setParameter('etaAc' ,"actEncours")
+            ->orWhere('etat.libelle = :etaP')
+            ->setParameter('etaP' ,"passee");
+
+
+            // en fonction de l'etat créé plus l'user
+        if($user){
+            $req
+                ->join('s.Organisateur','orga')
+                ->addSelect('orga')
+                ->orWhere('etat.libelle = :etaCr and orga = :user')
+                //->andWhere('orga = :user')
+                ->setParameter('etaCr' ,"cree")
+                ->setParameter('user' ,$user);
+
+        }
+
+            // puis on ordonne les resultats par date
+        $req
             ->orderBy('s.dateHeureDebut','DESC');
+
 
         return $req->getQuery()->getResult();
     }
