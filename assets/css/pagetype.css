@@ -126,4 +126,12 @@ footer{
     padding-top: 15px;
 }
 
+.btn-sortie{
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
+.image-equipe {
+    width: 75%;
+    float: none;;
+}

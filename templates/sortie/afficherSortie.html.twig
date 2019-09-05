@@ -49,6 +49,7 @@
                     Entre le :
                 </label>
             </div>
+
         <input type="date"   min="{{ dateMini | date("Y-m-d") }}"  value="{{ date | date("Y-m-d") }}" name="dateMini" id="dateMini" class="col-4">
 
         <label for="dateMaxi" class="col-2"  > et le :</label>
@@ -139,7 +140,7 @@
 
 
                         {# création d'un block#}
-                        <div class="col-12 col-lg-3 offset-1 sortie shadow p-3 mb-5 bg-white rounded m-2">
+                        <div class="col-lg-3 sortie shadow p-3 mb-5 bg-white rounded mx-4">
 
                         <!-- on affiche l'image en fonction de la categorie -->
                             <div class="justify-content-md-center">
@@ -159,8 +160,8 @@
                             </div>
 
                             <!-- on affiche les autres infos -->
-                            <h2>{{s.nom}}</h2>
-                            <p>Date de la sortie : </p><p class="offset-4">le {{ s.dateHeureDebut |date("d/m/Y à H:i") }}</p>
+                            <h2 class="h2-nom">{{s.nom}}</h2>
+                            <p>Date de la sortie : le {{ s.dateHeureDebut |date("d/m/Y à H:i") }}</p>
                             <p>Site : {{ s.site.nom }}</p>
                             <p>Nb d'inscrit : {{ nbP }} / Nb place : {{s.nbInscriptionsMax}}</p>
                             <p>Organisateur : <a href="{{ path('user_show_profile', {'id': s.Organisateur.id }) }}">{{ s.Organisateur }}</a></p>
@@ -177,14 +178,14 @@
                                     <!-- si l'user n'est pas inscrit, qu'il reste de la place, et que la date de limite d'insccription
                                      n'est pas dépassée apparition du boutton inscription -->
                                             {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') <= s.dateLimiteInscription|date('Y-m-d') %}
-                                                <button value="{{ s.id }}" class="inscription offset-1  btn btn-success" >M'inscrire</button>
+                                                <button value="{{ s.id }}" class="inscription  btn btn-success" >M'inscrire</button>
 
                                             {% endif %}
 
                                      <!-- si la date d'inscription est dépassée -->
                                             {% if UInscrit == false  and Plein == false and "now"|date('Y-m-d') > s.dateLimiteInscription|date('Y-m-d') %}
                                                 <br>
-                                                <button class="offset-1  btn btn-warning ">Inscriptions fermées</button>
+                                                <div class="inscriptions-fermees">Inscriptions fermées</div>
                                             {% endif %}
 
                                         {% endif %}
