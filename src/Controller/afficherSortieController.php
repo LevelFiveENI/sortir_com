@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 
@@ -33,8 +34,10 @@ class afficherSortieController extends Controller
 
 
 // on recupere l'user connecte
-        $userCo = $em->getRepository('App:User')->find($this->getUser());
-
+        $userCo =null;
+        if($this->getUser()){
+            $userCo = $em->getRepository('App:User')->find($this->getUser());
+        }
         // variable avec la date du jour
         $dateJ = date('y-m-d',strtotime('-1 month'));
         $sorti = $em->getRepository('App:Sortie')->sortieByAll($dateJ,$userCo);
@@ -51,7 +54,10 @@ class afficherSortieController extends Controller
     public function afficherBySite (EntityManagerInterface $em, Request $request){
 
         // on recupere l'user connecte
-        $userCo = $em->getRepository('App:User')->find($this->getUser());
+        $userCo =null;
+        if($this->getUser()){
+            $userCo = $em->getRepository('App:User')->find($this->getUser());
+        }
 
         // recuperation des sites
         $site = $em->getRepository('App:Site')->findAll();
