@@ -18,4 +18,12 @@ class FooterController extends Controller
         return $this->render('footer/aproposde.html.twig');
     }
 
+    /**
+     * @Route("/lequipe", name="lequipe", methods={"GET"})
+     */
+    public function afficherLequipe()
+    {
+        return $this->render('footer/lequipe.html.twig');
+    }
+
 }

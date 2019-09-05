@@ -9,7 +9,7 @@
             {% if sortie.categorie.id == 1  %}
                 <img src="{{ asset('build/images/sport.jpg') }}" alt="annonceVet" class="col-lg-6"/>
             {% elseif sortie.categorie.id == 2 %}
-                <img src="{{ asset('build/images/music3.jpg') }}" alt="annonceAuto" class="col-lg-6"/>
+                <img src="{{ asset('build/images/music4.jpg') }}" alt="annonceAuto" class="col-lg-6"/>
             {% elseif sortie.categorie.id == 3 %}
                 <img src="{{ asset('build/images/informatique.jpg') }}" alt="annonceEmploi" class="col-lg-6"/>
             {% elseif sortie.categorie.id == 4 %}
@@ -45,6 +45,14 @@
                             <th>Informations</th>
                             <td>{{ sortie.infosSortie }}</td>
                         </tr>
+                        <tr>
+                            <th>Organisateur</th>
+                            <td><a href="{{ path('user_show_profile', {'id': sortie.Organisateur.id }) }}">{{ sortie.Organisateur }}</a></td>
+                        </tr>
+
+
+
+
                     </tbody>
                 </table>
                 <table class="table">
@@ -91,18 +99,18 @@
 
         <div class="row justify-content-center btnDetailSortie">
             {% if app.user in sortie.participant %}
-                <button value="{{ sortie.id }}" class="desincription btn btn-danger" >Me désinscrire</button>
+                <button value="{{ sortie.id }}" class="btn-sortie desincription btn btn-danger" >Me désinscrire</button>
                 {% else %}
-                    <button value="{{ sortie.id }}" class="inscription btn btn-success" >M'inscrire</button>
+                    <button value="{{ sortie.id }}" class="btn-sortie inscription btn btn-success" >M'inscrire</button>
             {% endif %}
 
             <!--        ///////////////   OK    ////////////////              -->
             {% if sortie.organisateur.id == app.user.id  %}
-                <a href="{{ path('sortie_edit', {'id': sortie.id}) }}"><button class="btn btn-primary">Modifier</button></a>
+                <a href="{{ path('sortie_edit', {'id': sortie.id}) }}"><button class="btn-sortie btn btn-primary">Modifier</button></a>
             {% endif %}
 
             <div class="form-group annuler">
-                <a href="{{ url('Sortie_afficheraffich_affich') }}"><button class="btn btn-danger">Retour</button></a>
+                <a href="{{ url('Sortie_afficheraffich_affich') }}"><button class="btn-sortie btn btn-danger">Retour</button></a>
             </div>
 
 

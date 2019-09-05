@@ -11,3 +11,19 @@
     margin-top: 50px;
 }
 
+.inscriptions-fermees{
+    color: red;
+    padding: 0.25em;
+    border-color: red;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.25em;
+}
+
+.label-entre{
+    padding-left: 10px;
+}
+
+h2-nom{
+    padding-bottom: 10px;
+}
