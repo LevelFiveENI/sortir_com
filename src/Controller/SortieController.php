@@ -36,8 +36,6 @@ class SortieController extends Controller
     public function new(EntityManagerInterface $em, Request $request): Response
     {
         $user = $this->getUser();
-//        dump($user);
-//        exit();
         $sortie = new Sortie();
         $lieu = new Lieu();
         //Ici on set la date pour l'affichage dans le formulaire
@@ -64,7 +62,7 @@ class SortieController extends Controller
                 $this->addFlash("successCreateSortie","Votre sortie est publiée !");
                 $etatSortie = $em->getRepository('App:Etat')->find(2);
             }
-//
+
             //On ajoute le lieu choisi a la sortie
             $idLieu = $request->get('choixLieu');
             $lieuChoisi = $em->getRepository('App:Lieu')->find($idLieu);
@@ -79,7 +77,7 @@ class SortieController extends Controller
 
             //On envoi en BDD
             $em->persist($sortie);
-            //$em->persist($user);
+
             $em->flush();
 
 
