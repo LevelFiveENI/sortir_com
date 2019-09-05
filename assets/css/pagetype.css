@@ -95,3 +95,25 @@ footer{
     opacity: 1;
     right: 0;
 }
+
+.container-mentions h2{
+    text-align: inherit;
+}
+
+.container-mentions h1{
+    text-align: center;
+}
+
+.container-mentions {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.img-logo{
+    width: 100px;
+}
+
+.img-logo-mentions{
+    width: 200px;
+    margin: auto;
+}

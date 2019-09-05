@@ -100,6 +100,7 @@ class SortieController extends Controller
      */
     public function show(Sortie $sortie): Response
     {
+
         $tabParticipants = $sortie->getParticipant()->toArray();
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie, 'tabParticipants' => $tabParticipants,

@@ -24,18 +24,20 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(max = 30, maxMessage = "max_lenght")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Length(max = 30, maxMessage = "max_lenght")
      */
     private $prenom;
 
 
     /**
      * @ORM\Column(type="string", length=20)
-     * @Assert\Length(min = 10, max = 20, minMessage = "min_lenght", maxMessage = "max_lenght")
+     * @Assert\Length(min = 10, max = 10, minMessage = "min_lenght", maxMessage = "max_lenght")
     *
      */
     private $telephone;
