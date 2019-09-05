@@ -114,9 +114,12 @@
 
 {#                        <p class="card-text">Commence dans</p> <p class="countDown"></p>#}
 {#                        <input class="dateSortie" type="hidden" value="{{ valeur.dateHeureDebut|date("M j, Y H:i:s") }}">#}
+                        {% if app.user %}
                         <div id="button">
                             <a href="{{ path('sortie_show', {'id': valeur.id }) }}"><button type="button" class="btn btn-primary">Voir la sortie</button></a>
                         </div>
+
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
@@ -137,28 +140,28 @@
             <div class="row">
 
                 <div class="col-3">
-                    <a href="{{ path('sortie_new') }}">
+
                     <img src="{{asset('build/images/lieu.svg')}}" alt="lieu" class="image-creation">
                     <p><b>1.</b> Ajoutez un lieu</p>
-                    </a>
+
                 </div>
                 <div class="col-3">
-                    <a href="{{ path('sortie_new') }}">
+
                     <img src="{{asset('build/images/site.svg')}}" alt="site" class="image-creation">
                     <p><b>2.</b> Précisez le site</p>
-                    </a>
+
                 </div>
                 <div class="col-3">
-                    <a href="{{ path('sortie_new') }}">
+
                     <img src="{{asset('build/images/type-activite.svg')}}" alt="type-activite" class="image-creation">
                     <p><b>3.</b> Puis le type d'activité</p>
-                    </a>
+
                 </div>
                 <div class="col-3">
-                    <a href="{{ path('sortie_new') }}">
+
                     <img src="{{asset('build/images/participants.svg')}}" alt="participants" class="image-creation">
                     <p><b>4.</b> Et n'oubliez pas le nombre maximum de participant</p>
-                    </a>
+
                 </div>
 
             </div>

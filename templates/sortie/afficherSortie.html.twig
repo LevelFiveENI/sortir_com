@@ -166,11 +166,13 @@
                             <p>Organisateur : <a href="{{ path('user_show_profile', {'id': s.Organisateur.id }) }}">{{ s.Organisateur }}</a></p>
 
                             <div class="row p-2 text-center">
-                                 <a href="{{ path('sortie_show', {'id': s.id}) }}" class="offset-1 col-4"><button class="btn btn-primary ">Afficher</button></a>
+
 
                                     <!-- si un utilisateur est connecté -->
 
                                         {% if app.user %}
+
+                                            <a href="{{ path('sortie_show', {'id': s.id}) }}" class="offset-1 col-4"><button class="btn btn-primary ">Afficher</button></a>
 
                                     <!-- si l'user n'est pas inscrit, qu'il reste de la place, et que la date de limite d'insccription
                                      n'est pas dépassée apparition du boutton inscription -->
