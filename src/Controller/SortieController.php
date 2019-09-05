@@ -148,7 +148,6 @@ class SortieController extends Controller
             }
             return $this->redirectToRoute("Sortie_afficheraffich_affich");
         }
-
         return $this->render('sortie/edit.html.twig', [
             'sortie' => $sortie,
             'lieu'=>$lieu,

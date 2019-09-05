@@ -18,6 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
@@ -27,6 +29,7 @@ class SortieType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('nom', TextType::class, [
                 "trim" => true,
@@ -85,11 +88,26 @@ class SortieType extends AbstractType
                 'choice_label' => 'nom',
             ])
 
-            ->add('Publier', SubmitType::class)
+            //->add('Publier', SubmitType::class)
             ->add('Enregistrer', SubmitType::class)
             ->add('Supprimer', SubmitType::class)
-//            ->add('Annuler', SubmitType::class)
         ;
+        //Permet de gérer
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
+            /** @var Sortie $sortie */
+            $sortie = $event->getData();
+
+            if($sortie->getId() == null){
+                    $event->getForm()->add('Publier', SubmitType::class);
+            }
+
+            if(!$sortie->getId() == null){
+                if($sortie->getEtat()->getId() != 2){
+                    $event->getForm()->add('Publier', SubmitType::class);
+                }
+            }
+
+        });
 
 
     }
@@ -98,6 +116,7 @@ class SortieType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Sortie::class,
+
         ]);
     }
 
