@@ -73,57 +73,6 @@ class afficherSortieController extends Controller
         return $this->render('sortie/afficherSortie.html.twig', [ 'allSortie' => $sorti ,'allSite' => $site]);
     }
 
-//
-//    /**
-//     * @param EntityManagerInterface $em
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     * @Route("/afficSortieTriSite", name="affich_affich_site", methods={"POST"})
-//     */
-//    public function afficherBySite (EntityManagerInterface $em, Request $request){
-//
-//        // on recupere l'user connecte
-//        $userCo =null;
-//        if($this->getUser()){
-//            $userCo = $em->getRepository('App:User')->find($this->getUser());
-//        }
-//
-//        // recuperation des sites
-//        $site = $em->getRepository('App:Site')->findAll();
-//
-//        // on recupere les infos du site
-//        $infoSite = $request->get("selectSite");
-//
-//        //on recup les infos de le la recherche
-//        $infoSearch = $request->get("infoSearch");
-//
-//        // on recup les infos recherche date deb
-//        $infoDateDeb = $request->get("dateMini");
-//
-//        // on recup les infos recherche date fin
-//        $infoDateFin = $request->get("dateMaxi");
-//
-//        //recup checkbox date
-//        $infoCheckDate = $request->get("checkDate");
-//
-//        //recup checkbox je suis l'organisateur
-//        $infoCheckOrga = $request->get("checkOrga");
-//
-//        //recup checkbox je suis inscrit
-//        $infoCheckInscri = $request->get("checkInscrit");
-//
-//        //recup checkbox je ne suis pas inscrit
-//        $infoCheckNoInscrit = $request->get("checkNonInscrit");
-//
-//        //recup checkbox sorti passée
-//        $infoCheckPassee= $request->get("checkOldSortie");
-//
-//        // requete pour récupérer les infos demandés
-//      $sorti = $em->getRepository('App:Sortie')->sortiAllParametre($infoSite, $infoSearch, $infoCheckDate,
-//         $infoDateDeb,$infoDateFin, $infoCheckOrga, $infoCheckInscri, $infoCheckNoInscrit, $infoCheckPassee,$userCo);
-//
-//
-//        return $this->render('sortie/afficherSortie.html.twig', [ 'allSortie' => $sorti ,'allSite' => $site]);
-//    }
 
 
     /**
@@ -176,25 +125,6 @@ public function ajaxInscription(Request $request, EntityManagerInterface $em){
 
 
 
-//    /**
-//     * @param EntityManagerInterface $em
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     * @Route("/afficSortieCategorie", name="affich_categorie", methods={"GET", "POST"})
-//     */
-//    public function afficherSortieByCategorie(EntityManagerInterface $em, Request $request){
-//
-//
-//        // recuperation des sites
-//        $site = $em->getRepository('App:Site')->findAll();
-//
-//        // variable avec la date du jour
-//        $dateJ = date('y-m-d');
-//
-//       // $sorti = $em->getRepository('App:Sortie')->sortieByAll($dateJ);
-//
-//
-//
-//        return $this->render('sortie/afficherSortie.html.twig', ['allSortie' => $sorti, 'allSite' => $site]);
-//    }
+
 
 }
