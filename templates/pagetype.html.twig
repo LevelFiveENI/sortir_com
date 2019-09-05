@@ -56,7 +56,9 @@
             {% if app.user %}
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
+
                 <a class="nav-link" href="{{ path('fos_user_profile_show') }}">{{ app.user.username}}</a>
+
                 </li>
                 <li class="nav-text nav-item">
                     <a class="nav-link"  href="{{ path('fos_user_security_logout') }}">Se déconnecter<a/>

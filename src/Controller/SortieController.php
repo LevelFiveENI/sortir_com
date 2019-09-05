@@ -58,16 +58,13 @@ class SortieController extends Controller
             //On gère l'état de la sortie selon le bouton choisi
             if($form->get('Enregistrer')->isClicked()) {
                 $this->addFlash("successCreateSortie","Votre sortie est enregistrée. Publiez-la quand vous voulez !");
-                $etatSortie = $em->getRepository('App:Etat')->find(2);
+                $etatSortie = $em->getRepository('App:Etat')->find(1);
             }
             if($form->get('Publier')->isClicked()) {
                 $this->addFlash("successCreateSortie","Votre sortie est publiée !");
-                $etatSortie = $em->getRepository('App:Etat')->find(1);
+                $etatSortie = $em->getRepository('App:Etat')->find(2);
             }
-//            if($form->get('Annuler')->isClicked()){
-//                return $this->redirectToRoute('sortie_index');
-//            }
-
+//
             //On ajoute le lieu choisi a la sortie
             $idLieu = $request->get('choixLieu');
             $lieuChoisi = $em->getRepository('App:Lieu')->find($idLieu);
@@ -105,7 +102,6 @@ class SortieController extends Controller
     {
 
         $tabParticipants = $sortie->getParticipant()->toArray();
-
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie, 'tabParticipants' => $tabParticipants,
         ]);
@@ -128,6 +124,7 @@ class SortieController extends Controller
             //On gère l'état de la sortie selon le bouton choisi
             if($form->get('Enregistrer')->isClicked()) {
                 $etatSortie = $em->getRepository('App:Etat')->find(1);
+
                 $sortie->setEtat($etatSortie);
                 $em->persist($sortie);
                 $em->flush();
@@ -135,12 +132,12 @@ class SortieController extends Controller
             }
             if($form->get('Publier')->isClicked()) {
                 $etatSortie = $em->getRepository('App:Etat')->find(2);
+
                 $sortie->setEtat($etatSortie);
                 $em->persist($sortie);
                 $em->flush();
                 $this->addFlash("successCreateSortie","Votre sortie est publiée !");
             }
-
             if($form->get('Supprimer')->isClicked()) {
                 $etatSortie = $em->getRepository('App:Etat')->find(6);
                 $sortie->setEtat($etatSortie);

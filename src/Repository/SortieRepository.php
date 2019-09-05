@@ -15,20 +15,100 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 class SortieRepository extends ServiceEntityRepository
 {
 
-    // recupère les données de tous les sites juste avec une date deb
-    /**
-     * @param $site
-     * @param $dateSdeb
-     */
-    public function sortieByAll( $dateSdeb){
+    public function sortiAllParametre($site, $seek, $checkDate, $dateDeb,$dateFin, $checkOrga, $checkInscri, $checkNonInscri, $checkPasse, $user){
         $req = $this -> createQueryBuilder('s')
-            ->select('s')
+            // on affiche les sorties pour les etats suivant (ouverte, cloture, act en cours)
             ->join('s.etat', 'etat')
-            ->join('s.site','site')
-            ->addSelect('site')
             ->addSelect('etat')
-            ->where('s.dateHeureDebut >= :dateSDeb')
-            ->setParameter(':dateSDeb',$dateSdeb)
+            ->andWhere('etat.libelle = :etaO')
+            ->setParameter('etaO' ,"ouverte")
+            ->orWhere('etat.libelle = :etaCl')
+            ->setParameter('etaCl' ,"cloture")
+            ->orWhere('etat.libelle = :etaAc')
+            ->setParameter('etaAc' ,"actEncours");
+
+
+
+        // recherche si un site existe
+            if($site && $site!="Tous"){
+                $req
+                    ->join('s.site','site')
+                    ->addSelect('site')
+                    ->andWhere('site.nom = :site')
+                    ->setParameter('site',$site);
+            }
+        // recherche dans le nom du titre
+            if($seek){
+                $seek = trim($seek);
+                $req
+                    ->andwhere('s.nom like :nom')
+                    ->setParameter('nom', "%".$seek."%");
+            }
+        // si la checkbox date est cochée on recherche au niveau de la date
+            if($checkDate){
+                $req
+                     ->andWhere('s.dateHeureDebut >= :dateSDeb')
+                     ->andWhere('s.dateHeureDebut <= :dateSFin')
+                    ->setParameter(':dateSDeb',$dateDeb)
+                    ->setParameter(':dateSFin',$dateFin);
+            }
+
+
+        // si la checkbox orga est cochée on recherche au niveau de l'orga
+        if($checkOrga) {
+            $req
+                ->orWhere('s.Organisateur = :user AND etat.libelle = :etat')
+                ->setParameter('etat', 'cree')
+                ->setParameter('user', $user);
+        }
+
+
+        // si la checkbox inscrit est cochée on recherche au niveau de l'inscription
+        if($checkInscri) {
+            $req
+                ->join('s.Participant', 'participant')
+                ->addSelect('participant')
+                ->andWhere('participant = :user')
+                ->setParameter('user', $user);
+        }
+
+
+
+
+
+
+///////////////////////////////requete non fonctionnel a modifier
+
+
+        // si la checkbox non inscrit est cochée on recherche au niveau de l'inscription
+
+        if($checkNonInscri) {
+            $req
+                ->join('s.Participant', 'participant')
+                ->addSelect('participant')
+                ->andWhere('participant != :user')
+                ->setParameter('user', $user);
+        }
+
+
+        // si la checkbox passee est cochée on recherche les sorties passées
+        if($checkPasse) {
+            $req
+                ->orWhere('etat.libelle = :etat')
+                ->setParameter('etat', 'passee');
+        }
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+            // puis on ordonne les resultats par date
+                 $req
             ->orderBy('s.dateHeureDebut','DESC');
 
         return $req->getQuery()->getResult();
@@ -37,40 +117,48 @@ class SortieRepository extends ServiceEntityRepository
 
 
 
-    // recupère les sorties en fonction du site
+    // recupère les données de tous les sites juste avec une date deb
     /**
      * @param $site
-     * @return array
+     * @param $dateSdeb
      */
-    public function sortieBySite($site, $dateSdeb, $dateSfin){
-        if($site != "Tous"){
-            $req = $this -> createQueryBuilder('s')
-                ->select('s')
-                ->join('s.etat', 'etat')
-                ->join('s.site','site')
-                ->addSelect('site')
-                ->addSelect('etat')
-                ->where('site.nom = :sit')
-                ->andWhere('s.dateHeureDebut >= :dateSDeb')
-                ->andWhere('s.dateHeureDebut <= :dateSFin')
-                ->setParameter('sit',$site)
-                ->setParameter(':dateSDeb',$dateSdeb)
-                ->setParameter(':dateSFin',$dateSfin)
-                ->orderBy('s.dateHeureDebut','DESC');
+    public function sortieByAll( $dateSdeb, $user){
+        $req = $this -> createQueryBuilder('s')
+            ->select('s')
+            ->join('s.etat', 'etat')
+            ->join('s.site','site')
+            ->addSelect('site')
+            ->addSelect('etat')
+            ->where('s.dateHeureDebut >= :dateSDeb')
+            ->setParameter(':dateSDeb',$dateSdeb)
+
+            // en fonction des etats
+            ->andWhere('etat.libelle = :etaO')
+            ->setParameter('etaO' ,"ouverte")
+            ->orWhere('etat.libelle = :etaCl')
+            ->setParameter('etaCl' ,"cloture")
+            ->orWhere('etat.libelle = :etaAc')
+            ->setParameter('etaAc' ,"actEncours")
+            ->orWhere('etat.libelle = :etaP')
+            ->setParameter('etaP' ,"passee");
+
+
+            // en fonction de l'etat créé plus l'user
+        if($user){
+            $req
+                ->join('s.Organisateur','orga')
+                ->addSelect('orga')
+                ->orWhere('etat.libelle = :etaCr and orga = :user')
+                //->andWhere('orga = :user')
+                ->setParameter('etaCr' ,"cree")
+                ->setParameter('user' ,$user);
+
         }
-        else{
-            $req = $this -> createQueryBuilder('s')
-                ->select('s')
-                ->join('s.etat', 'etat')
-                ->join('s.site','site')
-                ->addSelect('site')
-                ->addSelect('etat')
-                ->Where('s.dateHeureDebut >= :dateSDeb')
-                ->andWhere('s.dateHeureDebut <= :dateSFin')
-                ->setParameter(':dateSDeb',$dateSdeb)
-                ->setParameter(':dateSFin',$dateSfin)
-                ->orderBy('s.dateHeureDebut','DESC');
-        }
+
+            // puis on ordonne les resultats par date
+        $req
+            ->orderBy('s.dateHeureDebut','DESC');
+
 
         return $req->getQuery()->getResult();
     }
@@ -78,52 +166,29 @@ class SortieRepository extends ServiceEntityRepository
 
 
 
-    // recupère les sorties en fonction de la categorie
+
+
+
+
+
+    //////////////////// recupère les sorties en fonction de la categorie
     /**
      * @param $categorie
      * @return array
      */
+
     public function sortieByCategorie($id){
             $req = $this -> createQueryBuilder('s')
                 ->select('s')
                 ->where('s.categorie = :categorie')
                 ->setParameter('categorie',$id);
 
-            return $req->getQuery()->getResult();
+        return $req->getQuery()->getResult();
     }
 
 
 
 
-
-// on effectue une recherche dans le titre de la sortie
-    /**
-     * @param $search
-     * @return array
-     */
-public function sortieBySearch($site, $search, $dateSdeb, $dateSfin){
-    // on enleve les espaces
-    $searchT = trim($search);
-
-    $req = $this -> createQueryBuilder('s')
-        ->select('s')
-        ->join('s.site','site')
-        ->join('s.etat', 'etat')
-        ->addSelect('etat')
-        ->addSelect('site')
-        ->where('site.nom = :sit')
-        ->andwhere('s.nom like :nom')
-        ->andWhere('s.dateHeureDebut >= :dateSDeb')
-        ->andWhere('s.dateHeureDebut <= :dateSFin')
-        ->setParameter('sit',$site)
-        ->setParameter('nom', "%".$searchT."%")
-        ->setParameter(':dateSDeb',$dateSdeb)
-        ->setParameter(':dateSFin',$dateSfin)
-        ->orderBy('s.dateHeureDebut','DESC');
-
-    return $req->getQuery()->getResult();
-
-}
     /////////////////////////Valentin !!! ***************
 
     public function findByDateRecent()

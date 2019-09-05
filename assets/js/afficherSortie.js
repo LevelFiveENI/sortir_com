@@ -3,26 +3,11 @@
 
 const $ = require('jquery');
 
-$(document).ready(function() {
-
-
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
 // fonction ajax inscription à une sortie
 $('.inscription').click(function(){
+//inscription offset-1 col-4 btn btn-success
+    $(this).removeClass('inscription btn-success').addClass('desincription btn btn-danger').text('Me désinscrire');
+
 $.ajax({
     url : '/afficher/inscription',
     type: "POST",
@@ -31,38 +16,42 @@ $.ajax({
     },
     success: function (data) {
         console.log(data);
-        alert("inscription réussi")
-
-
+        //alert("inscription réussi")
+        history.go()
     },
-
     error: function () {
         alert("Erreur de JS");
     }
 
 })
+
 })
 
 // fonction ajax desinscription à une sortie
-    $('.desincription').click(function(){
-        $.ajax({
-            url : '/afficher/desinscription',
-            type: "POST",
-            data: {
-                sortieId:$(this).val()
-            },
-            success: function (data) {
-                console.log(data);
-                alert("desinscription réussi")
-            },
+$('.desincription').click(function(){
+    //desincription offset-1 col-5 btn btn-danger
+    $(this).removeClass('desincription btn btn-danger').addClass('inscription btn btn-success').text('M\'inscrire');
 
-            error: function () {
-                alert("Erreur de JS");
-            }
+    $.ajax({
+        url : '/afficher/desinscription',
+        type: "POST",
+        data: {
+            sortieId:$(this).val()
+        },
+        success: function (data) {
+            console.log(data);
+            //alert("desinscription réussi")
+            history.go()
 
-        })
+        },
+
+        error: function () {
+            alert("Erreur de JS");
+        }
 
     })
+
+})
 
 
 
